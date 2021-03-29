@@ -11,7 +11,7 @@ const AdminCreateDoctorPage = () => {
     phone: "",
     profileURL:
       "https://img.freepik.com/free-photo/beautiful-young-female-doctor-looking-camera-office_1301-7807.jpg?size=338&ext=jpg&ga=GA1.2.2070128673.1608777434",
-    field: "Internal Physician",
+    field: "",
     address: "",
     description: "",
     workingTime: "",
