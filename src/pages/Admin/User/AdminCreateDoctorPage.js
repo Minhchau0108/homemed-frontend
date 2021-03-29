@@ -94,7 +94,7 @@ const AdminCreateDoctorPage = () => {
                 onChange={handleChange}
                 name='field'
               >
-                <option value='Internal Physician'>Internal Physician</option>
+                <option value='Internal'>Internal Physician</option>
                 <option value='Pediatrician'>Pediatrician</option>
                 <option value='Psychiatrist'>Psychiatrist</option>
                 <option value='Dermatologist'>Dermatologist</option>
