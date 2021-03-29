@@ -1,0 +1,27 @@
+import React from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSearch } from "@fortawesome/free-solid-svg-icons";
+const FormSearch = ({ placeholder }) => {
+  return (
+    <>
+      <form className='pt-2'>
+        <div className='p-1 bg-white rounded rounded-pill shadow-sm mb-4'>
+          <div className='input-group'>
+            <input
+              type='search'
+              placeholder={placeholder}
+              className='form-control border-0 '
+            />
+            <div className='input-group-append'>
+              <button type='submit' className='btn btn-link text-primary'>
+                <FontAwesomeIcon icon={faSearch} />
+              </button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </>
+  );
+};
+
+export default FormSearch;
