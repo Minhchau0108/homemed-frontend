@@ -14,6 +14,7 @@ import { faChevronDown, faChevronUp } from "@fortawesome/free-solid-svg-icons";
 const DoctorDetailPage = () => {
   const doctor = useSelector((state) => state.doctor.selectedDoctor);
   const posts = useSelector((state) => state.post.posts);
+  const loadingPost = useSelector((state) => state.post.loading);
   const loadingDoctor = useSelector((state) => state.doctor.loading);
   const { id } = useParams();
   const dispatch = useDispatch();
@@ -36,54 +37,61 @@ const DoctorDetailPage = () => {
       >
         <Container className='index-forward py-5 py-lg-0'>
           <Row>
-            <Col lg={7} className='mb-4 mb-lg-0'>
-              <div className='media align-items-center'>
-                <img
-                  className='rounded-circle'
-                  src={doctor?.profileURL}
-                  alt=''
-                  width='100'
-                  height='100'
-                />
-                <div className='media-body ml-3'>
-                  <h5 className='text-white mt-1 font-weight-bold'>
-                    {doctor?.name}
-                  </h5>
-                  <h6 className='text-gray font-italic'>{doctor?.field}</h6>
+            {!loadingDoctor && (
+              <Col lg={7} className='mb-4 mb-lg-0'>
+                <div className='media align-items-center'>
+                  <img
+                    className='rounded-circle'
+                    src={doctor?.profileURL}
+                    alt=''
+                    width='100'
+                    height='100'
+                  />
+                  <div className='media-body ml-3'>
+                    <h5 className='text-white mt-1 font-weight-bold'>
+                      {doctor?.name}
+                    </h5>
+                    <h6 className='text-gray font-italic'>{doctor?.field}</h6>
+                  </div>
                 </div>
-              </div>
-            </Col>
+              </Col>
+            )}
           </Row>
         </Container>
       </Jumbotron>
       <Container className='mb-5'>
         <Row>
           <Col lg={4}>
-            <div className='card border-0 shadow-sm mb-4 mb-lg-5 p-2 p-lg-0 mt-3'>
-              <div className='card-body '>
-                <div className='title-h5 mb-4'>Doctor Profile</div>
-                <div class='product-description'>
-                  <div>
-                    <span class='font-weight-bold'>Address Private Clinic</span>
-                  </div>
+            {!loadingDoctor && (
+              <div className='card border-0 shadow-sm mb-4 mb-lg-5 p-2 p-lg-0 mt-3'>
+                <div className='card-body '>
+                  <div className='title-h5 mb-4'>Doctor Profile</div>
+                  <div class='product-description'>
+                    <div>
+                      <span class='font-weight-bold'>
+                        Address Private Clinic
+                      </span>
+                    </div>
 
-                  <div class='d-flex flex-row align-items-center mt-3'>
-                    <FontAwesomeIcon icon={farMap} className='mr-2' />
-                    <span class='ml-1'>{doctor?.address}</span>
-                  </div>
-                  <div class='mt-4'>
-                    <span class='font-weight-bold'>Experience</span>
-                    <div class='bullets mt-2'>
-                      {doctor?.description.split(".").map((item, idx) => (
-                        <div className='mt-2' key={idx}>
-                          {item !== "" && `- ${item}`}
-                        </div>
-                      ))}
+                    <div class='d-flex flex-row align-items-center mt-3'>
+                      <FontAwesomeIcon icon={farMap} className='mr-2' />
+                      <span class='ml-1'>{doctor?.address}</span>
+                    </div>
+                    <div class='mt-4'>
+                      <span class='font-weight-bold'>Experience</span>
+                      <div class='bullets mt-2'>
+                        {doctor?.description.split(".").map((item, idx) => (
+                          <div className='mt-2' key={idx}>
+                            {item !== "" && `- ${item}`}
+                          </div>
+                        ))}
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
+            )}
+
             <div className='card border-0 shadow-sm mb-4 mb-lg-5 p-2 p-lg-0 mt-3'>
               <div className='card-body '>
                 <div className='title-h5'>Rating</div>
@@ -99,7 +107,8 @@ const DoctorDetailPage = () => {
                 <div class='mt-2'>
                   <div className='title-h5'>Reviews</div>
                 </div>
-                {doctor &&
+                {!loadingDoctor &&
+                  doctor &&
                   doctor?.reviews &&
                   doctor?.reviews.map((review, idx) => (
                     <div
@@ -136,9 +145,8 @@ const DoctorDetailPage = () => {
             </div>
           </Col>
           <Col lg={8}>
-            {posts.map((post) => (
-              <BlogCard post={post} key={post._id} />
-            ))}
+            {!loadingPost &&
+              posts.map((post) => <BlogCard post={post} key={post._id} />)}
           </Col>
         </Row>
       </Container>

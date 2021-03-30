@@ -95,7 +95,7 @@ const DoctorCard = ({ doctor }) => {
           </div>
         </div>
         <hr />
-        <h6 className='text-center'>48 POSTS</h6>
+        {/* <h6 className='text-center'>48 POSTS</h6> */}
         <div className='mt-4 text-center'>
           <button
             className='btn msg-button px-0'
@@ -125,12 +125,9 @@ const BlogDetailPage = () => {
   useEffect(() => {
     dispatch(postActions.getSinglePost(id));
   }, [dispatch, id]);
-  console.log("id", id);
-
-  console.log("selectedpost", post);
 
   return (
-    <>
+    <Container style={{ minHeight: "90vh" }}>
       {loading ? (
         <h1>Loading</h1>
       ) : (
@@ -153,7 +150,7 @@ const BlogDetailPage = () => {
           )}
         </>
       )}
-    </>
+    </Container>
   );
 };
 

@@ -56,10 +56,6 @@ const AdminCreateProduct = () => {
       <Col lg={10} className='mx-auto my-3'>
         <Row className='justify-content-between p-3'>
           <div className='title-h5'>Upload product's picture</div>
-          <div>
-            {imageURLs.length > 0 &&
-              imageURLs.map((i) => <img src={i} width='100px'></img>)}
-          </div>
           <Button variant='primary' onClick={() => widget.open()}>
             Upload{" "}
           </Button>

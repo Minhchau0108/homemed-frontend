@@ -10,6 +10,7 @@ import banner4 from "../../images/banner-4.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFilePrescription } from "@fortawesome/free-solid-svg-icons";
 import { useHistory } from "react-router-dom";
+import { ClipLoader } from "react-spinners";
 
 const ShopPage = () => {
   const [pageNum, setPageNum] = useState(1);
@@ -18,6 +19,8 @@ const ShopPage = () => {
   const products = useSelector((state) => state.product.products);
   const totalPages = useSelector((state) => state.product.totalPages);
   const mainCategories = useSelector((state) => state.product.categories);
+  const loading = useSelector((state) => state.product.loading);
+  const loadingCategory = useSelector((state) => state.product.loadingCategory);
   const [sortBy, setSortBy] = useState({ key: "", ascending: -1 });
   const [price, setPrice] = useState({ min: 0, max: 500000 });
   const dispatch = useDispatch();
@@ -94,42 +97,46 @@ const ShopPage = () => {
 
         <Row>
           <Col>
-            <FilterBar
-              categories={mainCategories}
-              main={true}
-              selectedSort={sortBy}
-              handleSelectedSort={handleSelectedSort}
-              priceRange={price}
-              handlePriceRange={handlePriceRange}
-            />
+            {!loadingCategory && (
+              <FilterBar
+                categories={mainCategories}
+                main={true}
+                selectedSort={sortBy}
+                handleSelectedSort={handleSelectedSort}
+                priceRange={price}
+                handlePriceRange={handlePriceRange}
+              />
+            )}
           </Col>
           <Col lg={9}>
             <Row>
-              <>
-                {products.length > 0 &&
+              <Row className='px-4'>
+                {!loading &&
+                  !loadingCategory &&
+                  products.length > 0 &&
                   products.map((p) => (
                     <Col lg={4} sm={6} key={p._id}>
                       <ProductCard key={p._id} product={p} />
                     </Col>
                   ))}
-                {products.length === 0 && query !== "" && (
+                {!loading && products.length === 0 && query !== "" && (
                   <h1 className='text-center font-weight-normal'>
                     Your search did not match any products.
                   </h1>
                 )}
-              </>
+              </Row>
             </Row>
-
-            {shouldShowPagination && (
-              <div className='d-flex justify-content-end'>
-                <PaginationBar
-                  totalPages={totalPages}
-                  handlePageChange={handlePageChange}
-                />
-              </div>
-            )}
           </Col>
         </Row>
+
+        {shouldShowPagination && (
+          <div className='d-flex justify-content-end'>
+            <PaginationBar
+              totalPages={totalPages}
+              handlePageChange={handlePageChange}
+            />
+          </div>
+        )}
       </Container>
     </>
   );

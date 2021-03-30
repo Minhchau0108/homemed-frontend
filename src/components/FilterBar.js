@@ -1,9 +1,11 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import InputRange from "react-input-range";
+import { productActions } from "../redux/actions/product.actions";
 import "react-input-range/lib/css/index.css";
 import Select from "react-select";
-import { Badge, ButtonGroup, ToggleButton } from "react-bootstrap";
+import { Badge, ButtonGroup, ToggleButton, Button } from "react-bootstrap";
 const FilterBar = ({
   main,
   categories,
@@ -23,10 +25,17 @@ const FilterBar = ({
     { value: { key: "price", ascending: -1 }, label: "Price: high to low" },
     { value: { key: "price", ascending: 1 }, label: "Price: low to high" },
   ];
+  const history = useHistory();
+  const dispatch = useDispatch();
+  const handleSelectedCategory = (e) => {
+    console.log("id", e.target.value);
+    dispatch(productActions.setSelectedCategory(e.target.value));
+    history.push(`/category/${e.target.value}`);
+  };
   return (
     <>
-      <div className='py-2 px-3 bg-custom text-white '>
-        <strong className='text-uppercase font-weight-bold text-white'>
+      <div className='py-2 px-2 bg-custom text-white '>
+        <strong className='text-capitalize font-weight-bold text-white'>
           {main && `CATEGORIES`}
           {!main && `${categories[0]?.parentCategory?.name}`}
         </strong>
@@ -35,21 +44,22 @@ const FilterBar = ({
         {main &&
           categories.map((c) => (
             <li className='mb-2 ' key={c._id}>
-              <Link
-                to={`category/${c._id}`}
-                className='link-category text-capitalize text-decoration-none nav-link d-flex justify-content-between'
-                style={{ fontSize: "16px", fontWeight: "600px" }}
+              <Button
+                value={c._id}
+                onClick={handleSelectedCategory}
+                className='btn-outline-category text-capitalize d-flex justify-content-between px-1 btn-category'
+                style={{ fontSize: "15px", fontWeight: "600px", width: "100%" }}
               >
                 {c.name}
                 <Badge
                   pill
                   variant='light'
-                  className='ml-5'
+                  className='ml-0'
                   style={{ paddingTop: "5px", color: "#1877f2" }}
                 >
                   {c?.sum}
                 </Badge>
-              </Link>
+              </Button>
             </li>
           ))}
         <ButtonGroup toggle vertical style={{ width: "100%" }}>
@@ -58,14 +68,17 @@ const FilterBar = ({
               <ToggleButton
                 key={c._id}
                 type='radio'
-                className='mb-2 d-flex justify-content-between text-capitalize text-dark'
+                className='mb-2 d-flex justify-content-between text-capitalize text-dark px-1'
                 variant='outline-category'
                 name='tag'
                 value={c._id}
                 checked={selectedCategory === c._id}
                 onChange={handleClickCategory}
+                style={{ fontSize: "15px", fontWeight: "600px", width: "100%" }}
               >
-                <span style={{ fontWeight: "600px" }}>{c.name}</span>
+                <span style={{ fontSize: "15px", fontWeight: "600px" }}>
+                  {c.name}
+                </span>
 
                 <Badge
                   pill

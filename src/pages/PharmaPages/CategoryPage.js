@@ -7,6 +7,7 @@ import { useParams } from "react-router-dom";
 import FilterBar from "../../components/FilterBar";
 import SearchBar2 from "../../components/SearchBar2";
 import PaginationBar from "../../components/PaginationBar";
+import { ClipLoader } from "react-spinners";
 
 const CategoryPage = () => {
   const { mainCategory } = useParams();
@@ -16,6 +17,8 @@ const CategoryPage = () => {
   const products = useSelector((state) => state.product.products);
   const totalPages = useSelector((state) => state.product.totalPages);
   const subCategories = useSelector((state) => state.product.categories);
+  const loading = useSelector((state) => state.product.loading);
+  const loadingCategory = useSelector((state) => state.product.loadingCategory);
   const [sortBy, setSortBy] = useState({ key: "", ascending: -1 });
   const [price, setPrice] = useState({ min: 0, max: 500000 });
   const selectedCategory = useSelector(
@@ -62,8 +65,11 @@ const CategoryPage = () => {
   };
 
   return (
-    <Container style={{ minHeight: "90vh", marginBottom: "80px" }}>
-      <Row>
+    <Container
+      style={{ minHeight: "90vh", marginBottom: "80px" }}
+      className='mt-5 pt-5'
+    >
+      <Row className='mt-5'>
         <Col></Col>
         <Col lg={9}>
           <SearchBar2
@@ -75,26 +81,29 @@ const CategoryPage = () => {
 
       <Row>
         <Col>
-          <FilterBar
-            main={false}
-            categories={subCategories}
-            selectedCategory={selectedCategory}
-            handleClickCategory={handleClickCategory}
-            selectedSort={sortBy}
-            handleSelectedSort={handleSelectedSort}
-            priceRange={price}
-            handlePriceRange={handlePriceRange}
-          />
+          {!loadingCategory && (
+            <FilterBar
+              main={false}
+              categories={subCategories}
+              selectedCategory={selectedCategory}
+              handleClickCategory={handleClickCategory}
+              selectedSort={sortBy}
+              handleSelectedSort={handleSelectedSort}
+              priceRange={price}
+              handlePriceRange={handlePriceRange}
+            />
+          )}
         </Col>
         <Col lg={9}>
-          <Row>
-            {products.length > 0 &&
+          <Row className='px-4'>
+            {!loading &&
+              products.length > 0 &&
               products.map((p) => (
                 <Col lg={4} sm={6} key={p._id}>
                   <ProductCard key={p._id} product={p} />
                 </Col>
               ))}
-            {products.length === 0 && query !== "" && (
+            {!loading && products.length === 0 && query !== "" && (
               <h1 className='text-center font-weight-normal'>
                 Your search did not match any products.
               </h1>
@@ -102,6 +111,7 @@ const CategoryPage = () => {
           </Row>
         </Col>
       </Row>
+
       {shouldShowPagination && (
         <div className='d-flex justify-content-end'>
           <PaginationBar

@@ -11,6 +11,7 @@ const BlogHomePage = () => {
   const [selectedTag, setSelectedTag] = useState(null);
   const [pageNum, setPageNum] = useState(1);
   const posts = useSelector((state) => state.post.posts);
+  const loading = useSelector((state) => state.post.loading);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(postActions.postsRequest(pageNum));
@@ -68,18 +69,21 @@ const BlogHomePage = () => {
         <Row>
           <Col lg={3}>
             <Row className='bg-light'>
-              <Tags
-                posts={posts}
-                selectedTag={selectedTag}
-                handleChangeTag={handleChangeTag}
-              />
+              {!loading && posts && (
+                <Tags
+                  posts={posts}
+                  selectedTag={selectedTag}
+                  handleChangeTag={handleChangeTag}
+                />
+              )}
             </Row>
           </Col>
           <Col lg={9}>
             <Row>
-              {filterPosts.map((post) => (
-                <BlogCard post={post} key={post._id} />
-              ))}
+              {!loading &&
+                filterPosts.map((post) => (
+                  <BlogCard post={post} key={post._id} />
+                ))}
             </Row>
           </Col>
         </Row>

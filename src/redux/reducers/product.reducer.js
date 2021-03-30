@@ -7,6 +7,7 @@ const initialState = {
   loading: false,
   categories: [],
   selectedCategory: null,
+  loadingCategory: false,
 };
 
 const productReducer = (state = initialState, action) => {
@@ -18,16 +19,20 @@ const productReducer = (state = initialState, action) => {
 
     case types.GET_MAIN_CATEGORY_REQUEST:
     case types.GET_SUB_CATEGORY_REQUEST:
-      return { ...state, loading: true };
+      return { ...state, loadingCategory: true };
 
     case types.GET_MAIN_CATEGORY_SUCCESS:
     case types.GET_SUB_CATEGORY_SUCCESS:
     case types.GET_ALL_SUB_CATEGORIES_SUCCESS:
-      return { ...state, categories: payload.categories, loading: false };
+      return {
+        ...state,
+        categories: payload.categories,
+        loadingCategory: false,
+      };
 
     case types.GET_MAIN_CATEGORY_FAILURE:
     case types.GET_SUB_CATEGORY_FAILURE:
-      return { ...state, loading: false };
+      return { ...state, loadingCategory: false };
 
     case types.GET_PRODUCTS_SUCCESS:
       return {

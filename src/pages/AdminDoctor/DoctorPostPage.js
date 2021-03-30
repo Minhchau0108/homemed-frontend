@@ -10,6 +10,7 @@ import BlogCardMini from "../../components/BlogCardMini";
 const DoctorPostPage = () => {
   const posts = useSelector((state) => state.post.posts);
   const currentDoctor = useSelector((state) => state.auth.user);
+  const loading = useSelector((state) => state.post.loading);
   const dispatch = useDispatch();
   useEffect(() => {
     if (currentDoctor?._id) {
@@ -30,7 +31,8 @@ const DoctorPostPage = () => {
       <Row>
         <Col md={12}>
           <Row>
-            {posts &&
+            {!loading &&
+              posts &&
               posts.map((post) => <BlogCardMini post={post} key={post._id} />)}
           </Row>
         </Col>

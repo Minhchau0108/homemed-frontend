@@ -79,8 +79,8 @@ const AdminProductPage = () => {
   return (
     <>
       <div className='d-flex flex-row justify-content-between'>
-        <Col md={2}></Col>
-        <Col md={6}>
+        <Col md={3}></Col>
+        <Col md={5}>
           <FormSearch placeholder={`Search by product name ...`} />
         </Col>
         <Col md={4} className='d-flex justify-content-end'>
@@ -94,7 +94,7 @@ const AdminProductPage = () => {
       </div>
 
       <Row>
-        <Col md={2}>
+        <Col md={3}>
           <Card className='card p-2 rounded'>
             <h6 className='text-left text-uppercase pl-2 mt-3'>
               <FontAwesomeIcon icon={faTag} className='mr-2 text-muted' />
@@ -128,7 +128,7 @@ const AdminProductPage = () => {
             </ButtonGroup>
           </Card>
         </Col>
-        <Col md={10}>
+        <Col md={9}>
           <Row>
             {products &&
               products.map((product, idx) => (
