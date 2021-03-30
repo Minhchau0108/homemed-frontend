@@ -24,6 +24,7 @@ const DoctorsPage = () => {
   const [query, setQuery] = useState("");
   const [field, setField] = useState(null);
   const doctors = useSelector((state) => state.doctor.doctors);
+  const loading = useSelector((state) => state.doctor.loading);
   const totalPages = useSelector((state) => state.doctor.totalPages);
   const dispatch = useDispatch();
   const history = useHistory();
@@ -45,12 +46,12 @@ const DoctorsPage = () => {
         style={{
           background: `url(${banner4}) no-repeat`,
           backgroundSize: `100% 80%`,
-          minHeight: "45vh",
+          minHeight: "30vh",
         }}
       >
         <h3
           className='text-center text-capitalize font-weight-bold'
-          style={{ paddingTop: "80px" }}
+          style={{ paddingTop: "50px" }}
         >
           Our doctors
         </h3>
@@ -72,7 +73,7 @@ const DoctorsPage = () => {
             onChange={(e) => setSearchTerm(e.target.value)}
           />
         </Col>
-        <Row className='mt-4 g-1 px-2 mb-5'>
+        <Row className='mt-4 g-1 px-2 mb-2'>
           <Col md={2}>
             <button
               className={`btn card-inner p-3 d-flex flex-column align-items-center ${
@@ -165,17 +166,19 @@ const DoctorsPage = () => {
       </Container>
       <Container style={{ marginBottom: "100px" }}>
         <Row className='pt-3'>
-          {doctors.map((doctor) => (
-            <Col md={6} sm={6} key={doctor._id}>
-              <DoctorCard doctor={doctor} />
-            </Col>
-          ))}
+          {!loading &&
+            doctors.map((doctor) => (
+              <Col md={6} sm={6} key={doctor._id}>
+                <DoctorCard doctor={doctor} />
+              </Col>
+            ))}
         </Row>
-        {shouldShowPagination && (
+        {!loading && shouldShowPagination && (
           <div className='d-flex justify-content-end'>
             <PaginationBar
               totalPages={totalPages}
               handlePageChange={handlePageChange}
+              selectedPage={pageNum - 1}
             />
           </div>
         )}

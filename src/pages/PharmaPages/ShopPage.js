@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Col, Container, Row } from "react-bootstrap";
+import { Col, Container, Row, Card } from "react-bootstrap";
 import ProductCard from "../../components/ProductCard";
 import { useDispatch, useSelector } from "react-redux";
 import { productActions } from "./../../redux/actions/product.actions";
@@ -11,6 +11,43 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFilePrescription } from "@fortawesome/free-solid-svg-icons";
 import { useHistory } from "react-router-dom";
 import { ClipLoader } from "react-spinners";
+import Skeleton from "react-loading-skeleton";
+
+const CardSkeleton = () => {
+  return (
+    <>
+      {Array(9)
+        .fill()
+        .map((item, index) => (
+          <Col lg={4} sm={6}>
+            <div key={index} className='mb-2'>
+              <Skeleton height={250} width={250} />
+              <Skeleton count={2} height={20} width={250} />
+            </div>
+          </Col>
+        ))}
+    </>
+  );
+};
+
+const FilterBarSkeleton = () => {
+  return (
+    <>
+      <div>
+        <Skeleton height={40} />
+      </div>
+      <div className='my-1'>
+        <Skeleton count={4} height={30} />
+      </div>
+      <div className='mt-3'>
+        <Skeleton height={40} />
+      </div>
+      <div className='my-4'>
+        <Skeleton height={30} />
+      </div>
+    </>
+  );
+};
 
 const ShopPage = () => {
   const [pageNum, setPageNum] = useState(1);
@@ -56,12 +93,12 @@ const ShopPage = () => {
         style={{
           background: `url(${banner4}) no-repeat`,
           backgroundSize: `100% 80%`,
-          minHeight: "45vh",
+          minHeight: "35vh",
         }}
       >
         <h3
           className='text-center text-capitalize font-weight-bold'
-          style={{ paddingTop: "80px" }}
+          style={{ paddingTop: "50px" }}
         >
           Online Pharmacy
         </h3>
@@ -95,8 +132,9 @@ const ShopPage = () => {
           </Col>
         </Row>
 
-        <Row>
+        <Row className='mt-5'>
           <Col>
+            {loadingCategory && <FilterBarSkeleton />}
             {!loadingCategory && (
               <FilterBar
                 categories={mainCategories}
@@ -111,6 +149,7 @@ const ShopPage = () => {
           <Col lg={9}>
             <Row>
               <Row className='px-4'>
+                {(loadingCategory || loading) && <CardSkeleton />}
                 {!loading &&
                   !loadingCategory &&
                   products.length > 0 &&
@@ -126,17 +165,17 @@ const ShopPage = () => {
                 )}
               </Row>
             </Row>
+            {!loading && !loadingCategory && shouldShowPagination && (
+              <div className='d-flex justify-content-end'>
+                <PaginationBar
+                  totalPages={totalPages}
+                  handlePageChange={handlePageChange}
+                  selectedPage={pageNum - 1}
+                />
+              </div>
+            )}
           </Col>
         </Row>
-
-        {shouldShowPagination && (
-          <div className='d-flex justify-content-end'>
-            <PaginationBar
-              totalPages={totalPages}
-              handlePageChange={handlePageChange}
-            />
-          </div>
-        )}
       </Container>
     </>
   );

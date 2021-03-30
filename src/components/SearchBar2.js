@@ -6,7 +6,7 @@ const SearchBar2 = ({ onSubmit, onChange }) => {
   return (
     <>
       <Form
-        className='p-1 shadow-sm bg-light mb-5'
+        className='p-1 shadow-sm bg-light my-0'
         style={{ borderRadius: "0.3rem" }}
         onSubmit={onSubmit}
       >

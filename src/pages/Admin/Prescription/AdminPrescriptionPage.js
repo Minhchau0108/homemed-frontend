@@ -11,6 +11,7 @@ import FormSearch from "../../../components/FormSearch";
 import { useHistory } from "react-router-dom";
 import moment from "moment";
 import PaginationBar from "../../../components/PaginationBar";
+import { ClipLoader } from "react-spinners";
 
 const generateStatus = (status) => {
   if (status === "new")
@@ -33,6 +34,7 @@ const AdminPrescriptionPage = () => {
     (state) => state.prescription.prescriptions
   );
   const totalPages = useSelector((state) => state.prescription.totalPages);
+  const loading = useSelector((state) => state.prescription.loading);
   const dispatch = useDispatch();
   const history = useHistory();
   useEffect(() => {
@@ -56,10 +58,12 @@ const AdminPrescriptionPage = () => {
           <FormSearch placeholder={`Search by customer name ...`} />
         </Col>
         <Col md={4} className='d-flex justify-content-end'>
-          <PaginationBar
-            totalPages={totalPages}
-            handlePageChange={handlePageChange}
-          />
+          {!loading && totalPages > 1 && (
+            <PaginationBar
+              totalPages={totalPages}
+              handlePageChange={handlePageChange}
+            />
+          )}
         </Col>
       </div>
       <Row>
@@ -77,46 +81,54 @@ const AdminPrescriptionPage = () => {
           </Card>
         </Col>
         <Col>
-          <div className='table-responsive shadow rounded'>
-            <Table className='shadow rounded table table-center bg-white mb-0 table-borderless'>
-              <thead>
-                <tr className='border-bottom'>
-                  <th>#</th>
-                  <th>Date Submitted</th>
-                  <th>Customer</th>
-                  <th>Phone Contact</th>
-                  <th>Address</th>
-                  <th>Status</th>
-                  <th></th>
-                </tr>
-              </thead>
-              <tbody>
-                {prescriptions &&
-                  prescriptions.map((p, idx) => (
-                    <tr key={p._id} className='border-bottom'>
-                      <th>{idx + 1}</th>
-                      <td>{moment(p?.createdAt).format("LL")}</td>
-                      <td>{p.owner.name}</td>
-                      <td>{p.phone}</td>
-                      <td>{p.address}</td>
-                      <td>{generateStatus(p.status)}</td>
-                      <td>
-                        <button
-                          className='btn btn-icon btn-pills btn-soft-primary btn-sm'
-                          onClick={() => history.push(`prescriptions/${p._id}`)}
-                        >
-                          {p?.status === "new" ? (
-                            <FontAwesomeIcon icon={faPen} />
-                          ) : (
-                            <FontAwesomeIcon icon={faEye} />
-                          )}
-                        </button>
-                      </td>
-                    </tr>
-                  ))}
-              </tbody>
-            </Table>
-          </div>
+          {loading ? (
+            <div className='text-center'>
+              <ClipLoader color='#f86c6b' size={150} loading={loading} />
+            </div>
+          ) : (
+            <div className='table-responsive shadow rounded'>
+              <Table className='shadow rounded table table-center bg-white mb-0 table-borderless'>
+                <thead>
+                  <tr className='border-bottom'>
+                    <th>#</th>
+                    <th>Date Submitted</th>
+                    <th>Customer</th>
+                    <th>Phone Contact</th>
+                    <th>Address</th>
+                    <th>Status</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {prescriptions &&
+                    prescriptions.map((p, idx) => (
+                      <tr key={p._id} className='border-bottom'>
+                        <th>{idx + 1}</th>
+                        <td>{moment(p?.createdAt).format("LL")}</td>
+                        <td>{p.owner.name}</td>
+                        <td>(+84){p.phone}</td>
+                        <td>{p.address}</td>
+                        <td>{generateStatus(p.status)}</td>
+                        <td>
+                          <button
+                            className='btn btn-icon btn-pills btn-soft-primary btn-sm'
+                            onClick={() =>
+                              history.push(`prescriptions/${p._id}`)
+                            }
+                          >
+                            {p?.status === "new" ? (
+                              <FontAwesomeIcon icon={faPen} />
+                            ) : (
+                              <FontAwesomeIcon icon={faEye} />
+                            )}
+                          </button>
+                        </td>
+                      </tr>
+                    ))}
+                </tbody>
+              </Table>
+            </div>
+          )}
         </Col>
       </Row>
     </>

@@ -171,10 +171,12 @@ const DetailProductPage = () => {
   console.log("posts", posts);
 
   return (
-    <Container fluid className='bg-light mt-5'>
+    <Container fluid className='bg-light mt-5' style={{ minHeight: "90vh" }}>
       <Container className='pt-4'>
         {loading ? (
-          <ClipLoader color='#f86c6b' size={150} loading={loading} />
+          <div className='text-center mt-5'>
+            <ClipLoader color='#f86c6b' size={150} loading={loading} />
+          </div>
         ) : (
           <>
             {product && (
@@ -207,7 +209,7 @@ const DetailProductPage = () => {
           </>
         )}
       </Container>
-      {posts && posts.length > 0 && (
+      {!loading && posts && posts.length > 0 && (
         <Container>
           <header className='text-center my-5'>
             <h3 className='mb-1'>Our Resource Blog</h3>

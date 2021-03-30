@@ -59,7 +59,7 @@ const ProductCard = ({ product }) => {
 
           <div className='d-flex justify-content-between mt-1'>
             <h6 className='text-muted font-italic mb-0'>
-              {new Intl.NumberFormat().format(product.price)}
+              {new Intl.NumberFormat().format(product.price)} VND
             </h6>
             {product?.avgRating && (
               <StarRatings

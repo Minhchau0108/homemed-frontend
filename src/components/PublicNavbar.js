@@ -96,10 +96,10 @@ const PublicNavbar = () => {
                 Pharmacy
               </Nav.Link>
               <Nav.Link as={NavLink} to='/doctors' className='text-uppercase'>
-                Doctor
+                Doctors
               </Nav.Link>
               <Nav.Link as={NavLink} to='/blogs' className='text-uppercase'>
-                Blogs
+                News
               </Nav.Link>
             </Nav>
             <Nav className='ml-auto'>

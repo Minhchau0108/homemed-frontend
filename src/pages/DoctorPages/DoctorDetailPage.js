@@ -9,7 +9,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import StarRatings from "react-star-ratings";
 import { faMap as farMap } from "@fortawesome/free-regular-svg-icons";
 import moment from "moment";
-import { faChevronDown, faChevronUp } from "@fortawesome/free-solid-svg-icons";
+import blog from "../../images/blog.jpeg";
 
 const DoctorDetailPage = () => {
   const doctor = useSelector((state) => state.doctor.selectedDoctor);
@@ -28,7 +28,7 @@ const DoctorDetailPage = () => {
       <Jumbotron
         className='hero d-flex align-items-end py-5 bg-cover bg-center'
         style={{
-          backgroundImage: `url("http://shreethemes.in/doctris/html/images/blog/05.jpg")`,
+          backgroundImage: `url(${blog})`,
           backgroundSize: "cover",
           backgroundRepeat: "no-repeat",
           backgroundPosition: "center",

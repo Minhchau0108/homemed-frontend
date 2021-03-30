@@ -14,6 +14,7 @@ import profileBg from "../../images/profile-bg.jpeg";
 
 const DoctorSideBar = () => {
   const currentUser = useSelector((state) => state.auth.user);
+  const loading = useSelector((state) => state.auth.loading);
   const dispatch = useDispatch();
   const history = useHistory();
   const handleLogout = () => {
@@ -26,21 +27,23 @@ const DoctorSideBar = () => {
         <Card className='border-0'>
           <img src={profileBg} className='img-fluid' />
         </Card>
-        <div className='text-center avatar-profile margin-negative mt-n5 position-relative pb-4 border-bottom'>
-          <img
-            className='rounded-circle mt-4'
-            src={
-              currentUser && currentUser?.profileURL
-                ? currentUser.profileURL
-                : `https://ui-avatars.com/api/?name=${currentUser.name}&background=random&length=1&bold=true`
-            }
-            width='100'
-          />
-          <div className='mt-3 title-h5 mb-0'>Dr. {currentUser?.name} </div>
-          <div className='title-h6 text-muted mt-2 font-italic'>
-            {currentUser?.field}
+        {!loading && (
+          <div className='text-center avatar-profile margin-negative mt-n5 position-relative pb-4 border-bottom'>
+            <img
+              className='rounded-circle mt-4'
+              src={
+                currentUser && currentUser?.profileURL
+                  ? currentUser.profileURL
+                  : `https://ui-avatars.com/api/?name=${currentUser.name}&background=random&length=1&bold=true`
+              }
+              width='100'
+            />
+            <div className='mt-3 title-h5 mb-0'>Dr. {currentUser?.name} </div>
+            <div className='title-h6 text-muted mt-2 font-italic'>
+              {currentUser?.field}
+            </div>
           </div>
-        </div>
+        )}
 
         <ul className='nav nav-pills flex-column user-sidebar'>
           <Nav.Link

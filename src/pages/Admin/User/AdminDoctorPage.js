@@ -3,15 +3,15 @@ import { Row, Table, Col, Card } from "react-bootstrap";
 import SearchBar from "../../../components/SearchBar";
 import { useSelector, useDispatch } from "react-redux";
 import { doctorActions } from "../../../redux/actions/doctor.actions";
-import { useHistory, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import StarRatings from "react-star-ratings";
-import { faBell, faPlus } from "@fortawesome/free-solid-svg-icons";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUserMd } from "@fortawesome/free-solid-svg-icons";
 import {
   faMap as farMap,
   faClock as farClock,
 } from "@fortawesome/free-regular-svg-icons";
+import { ClipLoader } from "react-spinners";
 
 const DoctorCard = ({ doctor }) => {
   return (
@@ -53,6 +53,7 @@ const DoctorCard = ({ doctor }) => {
 
 const AdminDoctorPage = () => {
   const doctors = useSelector((state) => state.doctor.doctors);
+  const loading = useSelector((state) => state.doctor.loading);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(doctorActions.getAllDoctors());
@@ -71,11 +72,22 @@ const AdminDoctorPage = () => {
           </Link>
         </div>
         <Row>
-          {doctors.map((doctor) => (
-            <Col lg={3} md={3}>
-              <DoctorCard doctor={doctor} key={doctor._id} />
-            </Col>
-          ))}
+          {loading && (
+            <div
+              className='d-flex justify-content-center'
+              style={{ width: "100%" }}
+            >
+              <div>
+                <ClipLoader color='#f86c6b' size={150} loading={loading} />
+              </div>
+            </div>
+          )}
+          {!loading &&
+            doctors.map((doctor) => (
+              <Col lg={3} md={3}>
+                <DoctorCard doctor={doctor} key={doctor._id} />
+              </Col>
+            ))}
         </Row>
       </Col>
     </Row>

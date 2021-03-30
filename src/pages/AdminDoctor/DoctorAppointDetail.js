@@ -24,6 +24,7 @@ const DoctorAppointDetail = () => {
   const appointment = useSelector(
     (state) => state.appointment.selectedAppointment
   );
+  const loading = useSelector((state) => state.appointment.loading);
   const [showPrescribing, setShowPrescribing] = useState(false);
   const { id } = useParams();
   const dispatch = useDispatch();
@@ -38,7 +39,7 @@ const DoctorAppointDetail = () => {
         <div className='d-flex justify-content-between'>
           <div className='title-h5 px-3'>Appointment Detail</div>
           <div>
-            {appointment && appointment.status === "new" && (
+            {!loading && appointment && appointment.status === "new" && (
               <button
                 className='btn btn-primary btn-pills mr-3'
                 onClick={() => setShowPrescribing(true)}
@@ -48,10 +49,10 @@ const DoctorAppointDetail = () => {
             )}
           </div>
         </div>
-        {appointment && (
-          <div class='row px-3'>
-            <div class='col-sm-12'>
-              <h6>
+        {!loading && appointment && (
+          <div className='row px-3'>
+            <div className='col-sm-12'>
+              <h6 className='mt-1'>
                 <span>AppointmentID:</span> {Date.parse(appointment.createdAt)}
               </h6>
               <h6 className='pt-0'>
@@ -85,7 +86,7 @@ const DoctorAppointDetail = () => {
       {appointment && showPrescribing && (
         <DoctorPrescribing appointment={appointment} />
       )}
-      {appointment && appointment.status === "done" && (
+      {!loading && appointment && appointment.status === "done" && (
         <AppointmentResult appointment={appointment} />
       )}
     </>

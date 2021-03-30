@@ -11,11 +11,13 @@ import { useHistory } from "react-router-dom";
 import PaginationBar from "../../../components/PaginationBar";
 import moment from "moment";
 import Select from "react-select";
+import { ClipLoader } from "react-spinners";
 
 const AdminCustormerPage = () => {
   const [pageNum, setPageNum] = useState(1);
   const customers = useSelector((state) => state.auth.customers);
   const totalPages = useSelector((state) => state.auth.totalPages);
+  const loading = useSelector((state) => state.auth.loading);
   const [status, setStatus] = useState("new");
   const history = useHistory();
 
@@ -62,31 +64,38 @@ const AdminCustormerPage = () => {
           </Card>
         </Col>
         <Col md={10}>
-          <div className='table-responsive shadow rounded '>
-            <Table className='shadow table table-center bg-white mb-0 table-borderless'>
-              <thead>
-                <tr className='border-bottom'>
-                  <th>#</th>
-                  <th>Name</th>
-                  <th>Email</th>
-                  <th>Address</th>
-                  <th>Phone Contact</th>
-                  <th></th>
-                </tr>
-              </thead>
-              <tbody>
-                {customers.map((customer, idx) => (
-                  <tr key={customer._id} className='border-bottom'>
-                    <th>{idx + 1}</th>
-                    <td>{customer.name}</td>
-                    <td>{customer.email}</td>
-                    <td>{customer.address}</td>
-                    <td>{customer.phone}</td>
+          {loading && (
+            <div className='text-center'>
+              <ClipLoader color='#f86c6b' size={150} loading={loading} />
+            </div>
+          )}
+          {!loading && (
+            <div className='table-responsive shadow rounded '>
+              <Table className='shadow table table-center bg-white mb-0 table-borderless'>
+                <thead>
+                  <tr className='border-bottom'>
+                    <th>#</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Address</th>
+                    <th>Phone Contact</th>
+                    <th></th>
                   </tr>
-                ))}
-              </tbody>
-            </Table>
-          </div>
+                </thead>
+                <tbody>
+                  {customers.map((customer, idx) => (
+                    <tr key={customer._id} className='border-bottom'>
+                      <th>{idx + 1}</th>
+                      <td>{customer.name}</td>
+                      <td>{customer.email}</td>
+                      <td>{customer.address}</td>
+                      <td>(+84){customer.phone}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </Table>
+            </div>
+          )}
         </Col>
       </Row>
     </>

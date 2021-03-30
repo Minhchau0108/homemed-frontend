@@ -19,6 +19,7 @@ const authReducer = (state = initialState, action) => {
     case types.LOGIN_GOOGLE_REQUEST:
     case types.REGISTER_REQUEST:
     case types.GET_CURRENT_USER_REQUEST:
+    case types.GET_ALL_CUSTOMER_REQUEST:
       return { ...state, loading: true };
 
     case types.REGISTER_SUCCESS:
@@ -52,9 +53,11 @@ const authReducer = (state = initialState, action) => {
         ...state,
         customers: payload.customers,
         totalPages: payload.totalPages,
+        loading: false,
       };
 
     case types.REGISTER_FAILURE:
+    case types.GET_ALL_CUSTOMER_FAILURE:
       return { ...state, loading: false };
 
     case types.LOGIN_FAILURE:

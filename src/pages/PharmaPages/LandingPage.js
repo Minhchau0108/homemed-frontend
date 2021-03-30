@@ -23,6 +23,7 @@ import { Container, Row, Col } from "react-bootstrap";
 import { postActions } from "./../../redux/actions/post.actions";
 import BlogCardMini from "../../components/BlogCardMini";
 import vitamin from "../../images/vitamin.png";
+import pharm01 from "../../images/pharm01.jpeg";
 import { Link } from "react-router-dom";
 
 const LandingPage = () => {
@@ -131,7 +132,7 @@ const LandingPage = () => {
                     size='3x'
                     color='#8190ff'
                   />{" "}
-                  <h4 className='font-weight-bold my-4'>Blogs</h4>
+                  <h4 className='font-weight-bold my-4'>News</h4>
                   <div style={{ lineHeight: "1.8em" }}>
                     Where you can read the most recent updates in healthcare
                     which are written by our doctors
@@ -319,7 +320,7 @@ const LandingPage = () => {
           <div className='container text-center' style={{ marginTop: "120px" }}>
             <Link to={`/blogs`}>
               <h4 className='text-uppercase text-primary font-weight-bold'>
-                Blogs
+                News
               </h4>
             </Link>
 

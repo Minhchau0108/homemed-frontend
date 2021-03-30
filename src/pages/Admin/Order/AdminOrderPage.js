@@ -11,6 +11,7 @@ import { useHistory } from "react-router-dom";
 import PaginationBar from "../../../components/PaginationBar";
 import moment from "moment";
 import Select from "react-select";
+import { ClipLoader } from "react-spinners";
 
 const generateStatus = (status) => {
   if (status === "new")
@@ -19,9 +20,7 @@ const generateStatus = (status) => {
     );
   if (status === "confirmed")
     return (
-      <span className='badge bg-soft-danger text-capitalize'>
-        Custormer confirmed
-      </span>
+      <span className='badge bg-soft-danger text-capitalize'>{status}</span>
     );
   if (status === "cancelled")
     return (
@@ -40,6 +39,7 @@ const AdminOrderPage = () => {
   const [pageNum, setPageNum] = useState(1);
   const orders = useSelector((state) => state.order.orders);
   const totalPages = useSelector((state) => state.order.totalPages);
+  const loading = useSelector((state) => state.order.loading);
   const [status, setStatus] = useState("new");
   const history = useHistory();
 
@@ -64,10 +64,12 @@ const AdminOrderPage = () => {
           <FormSearch placeholder={`Search by customer name ...`} />
         </Col>
         <Col md={4} className='d-flex justify-content-end'>
-          <PaginationBar
-            totalPages={totalPages}
-            handlePageChange={handlePageChange}
-          />
+          {!loading && totalPages > 1 && (
+            <PaginationBar
+              totalPages={totalPages}
+              handlePageChange={handlePageChange}
+            />
+          )}
         </Col>
       </div>
 
@@ -86,43 +88,52 @@ const AdminOrderPage = () => {
           </Card>
         </Col>
         <Col md={10}>
-          <div className='table-responsive shadow rounded pl-0'>
-            <Table className='shadow table table-center bg-white mb-0 table-borderless'>
-              <thead>
-                <tr className='border-bottom'>
-                  <th>ID</th>
-                  <th>Order Date</th>
-                  <th>Customer</th>
-                  <th>Shipping Address</th>
-                  <th>Phone Contact</th>
-                  <th>Total</th>
-                  <th>Status</th>
-                  <th></th>
-                </tr>
-              </thead>
-              <tbody>
-                {orders.map((order, idx) => (
-                  <tr key={order._id} className='border-bottom'>
-                    <th>{idx + 1}</th>
-                    <td>{moment(order?.createdAt).format("LL")}</td>
-                    <td>{order?.customer?.name}</td>
-                    <td>{order.address}</td>
-                    <td>{order.phone}</td>
-                    <td>{new Intl.NumberFormat().format(order?.totalPrice)}</td>
-                    <td>{generateStatus(order?.status)}</td>
-                    <td className='pt-2'>
-                      <button
-                        className='btn btn-icon btn-pills btn-soft-primary btn-sm'
-                        onClick={() => history.push(`orders/${order._id}`)}
-                      >
-                        {generateIcon(order?.status)}
-                      </button>
-                    </td>
+          {loading ? (
+            <div className='text-center'>
+              <ClipLoader color='#f86c6b' size={150} loading={loading} />
+            </div>
+          ) : (
+            <div className='table-responsive shadow rounded pl-0'>
+              <Table className='shadow table table-center bg-white mb-0 table-borderless'>
+                <thead>
+                  <tr className='border-bottom'>
+                    <th>ID</th>
+                    <th>Order Date</th>
+                    <th>Customer</th>
+                    <th>Shipping Address</th>
+                    <th>Phone Contact</th>
+                    <th>Total</th>
+                    <th>Status</th>
+                    <th></th>
                   </tr>
-                ))}
-              </tbody>
-            </Table>
-          </div>
+                </thead>
+                <tbody>
+                  {!loading &&
+                    orders.map((order, idx) => (
+                      <tr key={order._id} className='border-bottom'>
+                        <th>{idx + 1}</th>
+                        <td>{moment(order?.createdAt).format("LL")}</td>
+                        <td>{order?.customer?.name}</td>
+                        <td>{order.address}</td>
+                        <td>(+84){order.phone}</td>
+                        <td>
+                          {new Intl.NumberFormat().format(order?.totalPrice)}
+                        </td>
+                        <td>{generateStatus(order?.status)}</td>
+                        <td className='pt-2'>
+                          <button
+                            className='btn btn-icon btn-pills btn-soft-primary btn-sm'
+                            onClick={() => history.push(`orders/${order._id}`)}
+                          >
+                            {generateIcon(order?.status)}
+                          </button>
+                        </td>
+                      </tr>
+                    ))}
+                </tbody>
+              </Table>
+            </div>
+          )}
         </Col>
       </Row>
     </>

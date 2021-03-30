@@ -1,7 +1,7 @@
 import React from "react";
 import ReactPaginate from "react-paginate";
 
-const PaginationBar = ({ handlePageChange, totalPages }) => {
+const PaginationBar = ({ selectedPage, handlePageChange, totalPages }) => {
   return (
     <div>
       <ReactPaginate
@@ -16,6 +16,7 @@ const PaginationBar = ({ handlePageChange, totalPages }) => {
         containerClassName={"pagination"}
         subContainerClassName={"pages pagination"}
         activeClassName={"active"}
+        forcePage={selectedPage}
       />
     </div>
   );

@@ -184,16 +184,20 @@ const AdminOrderDetailPage = () => {
               </Row>
             </div>
             <div className='mb-5 pl-5'>
-              <Button
-                className='btn-pills'
-                onClick={() =>
-                  dispatch(
-                    orderActions.updateStatusOrder(order?._id, updateStatus)
-                  )
-                }
-              >
-                Save Changes
-              </Button>
+              {order &&
+                order.status &&
+                (order.status === "new" || order.status === "confirmed") && (
+                  <Button
+                    className='btn-pills'
+                    onClick={() =>
+                      dispatch(
+                        orderActions.updateStatusOrder(order?._id, updateStatus)
+                      )
+                    }
+                  >
+                    Save Changes
+                  </Button>
+                )}
             </div>
           </Card>
         </Col>

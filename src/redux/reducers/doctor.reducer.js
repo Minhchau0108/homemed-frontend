@@ -4,6 +4,7 @@ const initialState = {
   doctors: [],
   totalPages: 1,
   selectedDoctor: null,
+  loading: false,
 };
 
 const doctorReducer = (state = initialState, action) => {

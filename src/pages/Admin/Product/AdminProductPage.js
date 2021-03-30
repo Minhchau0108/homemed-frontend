@@ -16,6 +16,7 @@ import PaginationBar from "../../../components/PaginationBar";
 import { productActions } from "../../../redux/actions/product.actions";
 import StarRatings from "react-star-ratings";
 import { useHistory, Link } from "react-router-dom";
+import { ClipLoader } from "react-spinners";
 
 const ProductCard = ({ product }) => {
   return (
@@ -57,8 +58,12 @@ const AdminProductPage = () => {
   const [query, setQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState(null);
   const products = useSelector((state) => state.product.products);
+  const loading = useSelector((state) => state.product.loading);
   const totalPages = useSelector((state) => state.product.totalPages);
   const mainCategories = useSelector((state) => state.product.categories);
+  const loadingMainCategory = useSelector(
+    (state) => state.product.loadingCategory
+  );
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -95,42 +100,45 @@ const AdminProductPage = () => {
 
       <Row>
         <Col md={3}>
-          <Card className='card p-2 rounded'>
-            <h6 className='text-left text-uppercase pl-2 mt-3'>
-              <FontAwesomeIcon icon={faTag} className='mr-2 text-muted' />
-              Category
-            </h6>
-            <ButtonGroup toggle vertical style={{ width: "100%" }}>
-              {mainCategories.length &&
-                mainCategories.map((c, idx) => (
-                  <ToggleButton
-                    key={c._id}
-                    type='radio'
-                    className='mb-2 d-flex justify-content-between text-capitalize text-dark'
-                    variant='outline-category'
-                    name='tag'
-                    value={c._id}
-                    checked={selectedCategory === c._id}
-                    onChange={handleClickCategory}
-                  >
-                    <span style={{ fontWeight: "600px" }}>{c.name}</span>
-
-                    <Badge
-                      pill
-                      variant='light'
-                      className='ml-5'
-                      style={{ paddingTop: "5px", color: "#1877f2" }}
+          {!loadingMainCategory && (
+            <Card className='card p-2 rounded'>
+              <h6 className='text-left text-uppercase pl-2 mt-3'>
+                <FontAwesomeIcon icon={faTag} className='mr-2 text-muted' />
+                Category
+              </h6>
+              <ButtonGroup toggle vertical style={{ width: "100%" }}>
+                {mainCategories.length &&
+                  mainCategories.map((c, idx) => (
+                    <ToggleButton
+                      key={c._id}
+                      type='radio'
+                      className='mb-2 d-flex justify-content-between text-capitalize text-dark'
+                      variant='outline-category'
+                      name='tag'
+                      value={c._id}
+                      checked={selectedCategory === c._id}
+                      onChange={handleClickCategory}
                     >
-                      {c?.count}
-                    </Badge>
-                  </ToggleButton>
-                ))}
-            </ButtonGroup>
-          </Card>
+                      <span style={{ fontWeight: "600px" }}>{c.name}</span>
+
+                      <Badge
+                        pill
+                        variant='light'
+                        style={{ paddingTop: "5px", color: "#1877f2" }}
+                      >
+                        {c?.sum}
+                      </Badge>
+                    </ToggleButton>
+                  ))}
+              </ButtonGroup>
+            </Card>
+          )}
         </Col>
         <Col md={9}>
           <Row>
-            {products &&
+            {!loading &&
+              !loadingMainCategory &&
+              products &&
               products.map((product, idx) => (
                 <Col lg={3} key={idx}>
                   <ProductCard key={product._id} product={product} />
@@ -138,10 +146,13 @@ const AdminProductPage = () => {
               ))}
           </Row>
           <div className='d-flex justify-content-end'>
-            <PaginationBar
-              totalPages={totalPages}
-              handlePageChange={handlePageChange}
-            />
+            {!loading && !loadingMainCategory && (
+              <PaginationBar
+                totalPages={totalPages}
+                handlePageChange={handlePageChange}
+                selectedPage={pageNum - 1}
+              />
+            )}
           </div>
         </Col>
       </Row>
