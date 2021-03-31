@@ -9,9 +9,9 @@ import AdminDoctorLayout from "../layouts/AdminDoctorLayout";
 const Routes = (props) => {
   return (
     <Switch>
-      <Route path='/admin' component={AdminLayout} />
-      <Route path='/admin-doctor' component={AdminDoctorLayout} />
-      <Route path='/user' component={UserLayout} />
+      <PrivateRoute path='/admin' component={AdminLayout} />
+      <PrivateRoute path='/admin-doctor' component={AdminDoctorLayout} />
+      <PrivateRoute path='/user' component={UserLayout} />
       <Route path='/' component={PublicLayout} />
     </Switch>
   );

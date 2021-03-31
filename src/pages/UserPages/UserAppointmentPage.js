@@ -10,17 +10,22 @@ import PaginationBar from "../../components/PaginationBar";
 import ModalReview from "../../components/ModalReview";
 import moment from "moment";
 import { faComment } from "@fortawesome/free-regular-svg-icons";
+
 const generateStatus = (status) => {
   if (status === "new")
     return (
       <span className='badge bg-soft-primary text-capitalize'>{status}</span>
+    );
+  if (status === "accepted")
+    return (
+      <span className='badge bg-soft-success text-capitalize'>{status}</span>
     );
   if (status === "cancelled")
     return (
       <span className='badge bg-soft-danger text-capitalize'>{status}</span>
     );
   return (
-    <span className='badge bg-soft-success text-capitalize'>{status}</span>
+    <span className='badge bg-soft-warning text-capitalize'>{status}</span>
   );
 };
 
@@ -85,6 +90,7 @@ const UserAppointmentPage = () => {
   const [selectedOption, setSelectedOption] = useState(null);
   const options = [
     { value: "new", label: "New" },
+    { value: "accepted", label: "Accepted" },
     { value: "done", label: "Done" },
     { value: "cancelled", label: "Cancelled" },
   ];

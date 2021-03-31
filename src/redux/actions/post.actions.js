@@ -4,6 +4,7 @@ import api from "../../apiService";
 const postsRequest = (
   pageNum = 1,
   limit = 10,
+  title = null,
   category = null,
   query = null,
   sortBy = null
@@ -11,21 +12,13 @@ const postsRequest = (
   dispatch({ type: types.GET_POSTS_REQUEST, payload: null });
   try {
     let queryString = "";
-    if (query) {
-      queryString = `&title[$regex]=${query}&title[$options]=i`;
+    if (title) {
+      //queryString = `&title[$regex]=${query}&title[$options]=i`;
+      queryString = `&title=${title}`;
     }
 
-    let categoryString = "";
-    if (category) {
-      categoryString = `&category=${category}`;
-    }
-
-    let sortByString = "";
-    if (sortBy?.key) {
-      sortByString = `&sortBy[${sortBy.key}]=${sortBy.ascending}`;
-    }
     const res = await api.get(
-      `/posts?page=${pageNum}&limit=${limit}${categoryString}${queryString}${sortByString}`
+      `/posts?page=${pageNum}&limit=${limit}${queryString}`
     );
     dispatch({
       type: types.GET_POSTS_SUCCESS,

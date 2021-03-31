@@ -1,7 +1,7 @@
 import React from "react";
 import { Card } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import {
   faCommentAlt as farCommentAlt,
   faThumbsUp as farThumbsUp,
@@ -11,13 +11,20 @@ import {
 import moment from "moment";
 
 const BlogCardMini = ({ post }) => {
+  const history = useHistory();
   return (
     <div className='col-lg-4 mb-3'>
       <Card
         style={{ border: "none" }}
         className='rounded overflow-hidden shadow'
+        onClick={() => history.push(`/blogs/${post?._id}`)}
       >
-        <img className='img-fluid' src={post?.image} alt='...' />
+        <img
+          className='img-fluid'
+          src={post?.image}
+          alt='...'
+          style={{ cursor: "pointer" }}
+        />
         <Card.Body>
           <ul className='list-unstyled mb-2 d-flex justify-content-between'>
             <li className='list-inline-item text-muted small me-3'>
@@ -62,7 +69,7 @@ const BlogCardMini = ({ post }) => {
             />
             <div className='media-body d-flex ml-2 align-items-center'>
               <span className='small text-muted mr-1'>By</span>
-              <Link>
+              <Link to={`/doctors/${post?.owner?._id}`}>
                 <h6 className='mb-0 title-h6 text-decoration-none text-primary'>
                   {post?.owner?.name}
                 </h6>

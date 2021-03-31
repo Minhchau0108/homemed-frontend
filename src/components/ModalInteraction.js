@@ -13,24 +13,29 @@ const ModalInteraction = ({ showModal, handleClose, interaction }) => {
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <h6>Source: {interaction?.sourceName}</h6>
-          <div>
-            {interaction &&
-              interaction?.fullInteractionType &&
-              interaction?.fullInteractionType.map((i) => (
-                <>
-                  <div>
-                    {i?.interactionPair &&
-                      i.interactionPair.map((p) => (
-                        <div>
-                          {p.description}
-                          {p.severity}
-                        </div>
-                      ))}
-                  </div>
-                </>
-              ))}
-          </div>
+          {!interaction && <h6>0 interaction found</h6>}
+          {interaction && (
+            <>
+              <h6>
+                {interaction?.sourceName &&
+                  `Source: ${interaction.sourceName} `}
+              </h6>
+              <div>
+                {interaction &&
+                  interaction?.fullInteractionType &&
+                  interaction?.fullInteractionType.map((i) => (
+                    <>
+                      <div className='mt-2'>
+                        {i?.interactionPair &&
+                          i.interactionPair.map((p) => (
+                            <div>{p.description}</div>
+                          ))}
+                      </div>
+                    </>
+                  ))}
+              </div>
+            </>
+          )}
         </Modal.Body>
       </Modal>
     </>

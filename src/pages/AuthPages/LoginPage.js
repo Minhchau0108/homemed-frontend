@@ -39,7 +39,7 @@ const LoginPage = () => {
     if (isAuthenticated && currentUser && currentUser.role === "user")
       history.push("/");
     if (isAuthenticated && currentUser && currentUser.role === "admin")
-      history.push("/admin/orders");
+      history.push("/admin/dashboard");
     if (isAuthenticated && currentUser && currentUser.role === "doctor")
       history.push("/admin-doctor/appointments");
   }, [isAuthenticated, currentUser]);

@@ -11,10 +11,12 @@ import { productActions } from "../../../redux/actions/product.actions";
 import SearchBar from "../../../components/SearchBar";
 import AdminCartPage from "./AdminCartPage";
 import SearchBar2 from "../../../components/SearchBar2";
+import PaginationBar from "../../../components/PaginationBar";
 
 const AdminCreateOrder = ({ prescription }) => {
   const [pageNum, setPageNum] = useState(1);
   const products = useSelector((state) => state.product.products);
+  const totalPages = useSelector((state) => state.product.totalPages);
   const dispatch = useDispatch();
   const limit = 9;
   useEffect(() => {
@@ -82,6 +84,9 @@ const AdminCreateOrder = ({ prescription }) => {
     );
     setCart({ products: newProducts, totalPrice: newTotalPrice });
   };
+  const handlePageChange = (page) => {
+    setPageNum(page.selected + 1);
+  };
 
   return (
     <>
@@ -115,7 +120,7 @@ const AdminCreateOrder = ({ prescription }) => {
 
           <Table className='table-borderless mt-3 '>
             <tbody>
-              {products.length &&
+              {products.length > 0 &&
                 products.map((p) => (
                   <tr key={p._id}>
                     <td className='py-2'>
@@ -149,6 +154,13 @@ const AdminCreateOrder = ({ prescription }) => {
                 ))}
             </tbody>
           </Table>
+          <div className='d-flex justify-content-between'>
+            <PaginationBar
+              totalPages={totalPages}
+              handlePageChange={handlePageChange}
+              selectedPage={pageNum - 1}
+            />
+          </div>
         </Col>
         <Col>
           <AdminCartPage

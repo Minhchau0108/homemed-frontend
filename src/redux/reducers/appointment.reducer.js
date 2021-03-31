@@ -21,6 +21,7 @@ const appointmentReducer = (state = initialState, action) => {
     case types.GET_MY_APPOINTMENT_REQUEST:
     case types.GET_DOCTOR_APPOINTMENT_REQUEST:
     case types.GET_DETAIL_APPOINTMENT_REQUEST:
+    case types.UPDATE_STATUS_APPOINTMENT_REQUEST:
       return { ...state, loading: true };
 
     case types.GET_DETAIL_APPOINTMENT_SUCCESS:
@@ -35,9 +36,17 @@ const appointmentReducer = (state = initialState, action) => {
     case types.GET_DOCTOR_APPOINTMENT_SUCCESS:
       return { ...state, appointments: payload.appointments, loading: false };
 
+    case types.UPDATE_STATUS_APPOINTMENT_SUCCESS:
+      const newAppointments = state.appointments.map((p) => {
+        if (p._id === payload.appointment._id) return payload.appointment;
+        return p;
+      });
+      return { ...state, appointments: newAppointments, loading: false };
+
     case types.GET_MY_APPOINTMENT_FAILURE:
     case types.GET_DOCTOR_APPOINTMENT_FAILURE:
     case types.GET_DETAIL_APPOINTMENT_FAILURE:
+    case types.UPDATE_STATUS_APPOINTMENT_FAILURE:
       return { ...state, loading: false };
     default:
       return state;

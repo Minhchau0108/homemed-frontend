@@ -7,7 +7,17 @@ import { faLongArrowAltRight } from "@fortawesome/free-solid-svg-icons";
 const diagnosisOption = [
   { value: "hypertension", label: "hypertension", color: "#00B8D9" },
   { value: "diabetes", label: "diabetes", color: "#0052CC" },
-  { value: "fever", label: "fever", color: "#5243AA" },
+  { value: "allergy", label: "allergy", color: "#5243AA" },
+  { value: "gastrointestinal", label: "gastrointestinal", color: "#00B8D9" },
+  { value: "hyperlipidema", label: "hyperlipidema", color: "#0052CC" },
+  {
+    value: "nutritional disorders",
+    label: "nutritional disorders",
+    color: "#5243AA",
+  },
+  { value: "infection", label: "infection", color: "#00B8D9" },
+  { value: "pulmonary", label: "pulmonary", color: "#0052CC" },
+  { value: "flu", label: "flu", color: "#5243AA" },
 ];
 
 const DiagnosisForm = ({

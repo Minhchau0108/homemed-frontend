@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { Row, Table, Col, Card } from "react-bootstrap";
-import SearchBar2 from "../../../components/SearchBar2";
 import { useSelector, useDispatch } from "react-redux";
 import { orderActions } from "../../../redux/actions/order.actions";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -10,7 +9,6 @@ import FormSearch from "../../../components/FormSearch";
 import { useHistory } from "react-router-dom";
 import PaginationBar from "../../../components/PaginationBar";
 import moment from "moment";
-import Select from "react-select";
 import { ClipLoader } from "react-spinners";
 
 const generateStatus = (status) => {

@@ -27,10 +27,21 @@ const getMyAppointments = (userId) => async (dispatch) => {
   }
 };
 
-const getDoctorAppointments = (doctorId) => async (dispatch) => {
+const getDoctorAppointments = (
+  doctorId,
+  pageNum = 1,
+  limit = 10,
+  status = null
+) => async (dispatch) => {
   dispatch({ type: types.GET_DOCTOR_APPOINTMENT_REQUEST, payload: null });
   try {
-    const res = await api.get(`/doctors/${doctorId}/appointments`);
+    let statusString = "";
+    if (status) {
+      statusString = `&status=${status}`;
+    }
+    const res = await api.get(
+      `/doctors/${doctorId}/appointments?page=${pageNum}&limit=${limit}${statusString}`
+    );
     dispatch({
       type: types.GET_DOCTOR_APPOINTMENT_SUCCESS,
       payload: res.data.data,
@@ -76,10 +87,29 @@ const updateAppointment = (
   }
 };
 
+const updateStatusAppointment = (appointmentId, status) => async (dispatch) => {
+  dispatch({ type: types.UPDATE_STATUS_APPOINTMENT_REQUEST, payload: null });
+  try {
+    const res = await api.put(`/appointments/${appointmentId}/status`, {
+      status,
+    });
+    dispatch({
+      type: types.UPDATE_STATUS_APPOINTMENT_SUCCESS,
+      payload: res.data.data,
+    });
+  } catch (error) {
+    dispatch({
+      type: types.UPDATE_STATUS_APPOINTMENT_FAILURE,
+      payload: error,
+    });
+  }
+};
+
 export const appointmentActions = {
   createAppointment,
   getMyAppointments,
   getDoctorAppointments,
   getSingleAppointment,
   updateAppointment,
+  updateStatusAppointment,
 };

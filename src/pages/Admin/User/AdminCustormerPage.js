@@ -89,7 +89,7 @@ const AdminCustormerPage = () => {
                       <td>{customer.name}</td>
                       <td>{customer.email}</td>
                       <td>{customer.address}</td>
-                      <td>(+84){customer.phone}</td>
+                      <td>{customer?.phone && `(+84)${customer.phone}`}</td>
                     </tr>
                   ))}
                 </tbody>

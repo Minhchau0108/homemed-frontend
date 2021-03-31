@@ -3,6 +3,7 @@ import { Container, Row, Col } from "react-bootstrap";
 import { Switch, Route } from "react-router-dom";
 import AdminNavbar from "../components/AdminNavbar";
 import AlertMsg from "../components/AlertMsg";
+import AdminDashboard from "../pages/Admin/AdminDashboard";
 import AdminSideBar from "../pages/Admin/AdminSideBar";
 import AdminOrderDetailPage from "../pages/Admin/Order/AdminOrderDetailPage";
 import AdminOrderPage from "../pages/Admin/Order/AdminOrderPage";
@@ -24,6 +25,7 @@ const AdminLayout = () => {
           <Col className='bg-light'>
             <AlertMsg />
             <Switch>
+              <Route exact path='/admin/dashboard' component={AdminDashboard} />
               <Route exact path='/admin/orders' component={AdminOrderPage} />
               <Route
                 exact

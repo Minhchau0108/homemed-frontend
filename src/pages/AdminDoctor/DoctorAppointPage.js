@@ -4,7 +4,12 @@ import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { appointmentActions } from "./../../redux/actions/appointment.actions";
 import moment from "moment";
-import { faEdit, faEye } from "@fortawesome/free-solid-svg-icons";
+import {
+  faCheck,
+  faEdit,
+  faEye,
+  faTimes,
+} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Select from "react-select";
 
@@ -13,32 +18,43 @@ const generateStatus = (status) => {
     return (
       <span className='badge bg-soft-primary text-capitalize'>{status}</span>
     );
+  if (status === "accepted")
+    return (
+      <span className='badge bg-soft-success text-capitalize'>{status}</span>
+    );
   if (status === "cancelled")
     return (
       <span className='badge bg-soft-danger text-capitalize'>{status}</span>
     );
   return (
-    <span className='badge bg-soft-success text-capitalize'>{status}</span>
+    <span className='badge bg-soft-warning text-capitalize'>{status}</span>
   );
 };
 const DoctorAppointPage = () => {
   const appointments = useSelector((state) => state.appointment.appointments);
   const currentUser = useSelector((state) => state.auth.user);
-  const [selectedOption, setSelectedOption] = useState(null);
   const history = useHistory();
+  const [selectedOption, setSelectedOption] = useState(null);
   const options = [
-    { value: "today", label: "Today" },
-    { value: "tomorrow", label: "Tomorrow" },
-    { value: "yesterday", label: "Yesterday" },
+    { value: "new", label: "New" },
+    { value: "accepted", label: "Accepted" },
+    { value: "done", label: "Done" },
+    { value: "cancelled", label: "Cancelled" },
   ];
   const dispatch = useDispatch();
   useEffect(() => {
     if (currentUser?._id) {
-      dispatch(appointmentActions.getDoctorAppointments(currentUser._id));
+      dispatch(
+        appointmentActions.getDoctorAppointments(
+          currentUser._id,
+          null,
+          null,
+          selectedOption?.value
+        )
+      );
     }
-  }, [dispatch, currentUser]);
-  console.log("apppointmets", appointments);
-  console.log("selectedOption", selectedOption);
+  }, [dispatch, currentUser, selectedOption]);
+
   return (
     <Row>
       <Col className='mt-0 pt-2'>
@@ -46,11 +62,11 @@ const DoctorAppointPage = () => {
           <Col md={3}>
             <div className='title-h5'>Appointment</div>
           </Col>
-          <Col md={2}>
+          <Col md={3}>
             <Select
               options={options}
               onChange={setSelectedOption}
-              placeholder={`Filter `}
+              placeholder={`Filter by status`}
             />
           </Col>
         </Row>
@@ -82,16 +98,39 @@ const DoctorAppointPage = () => {
                     <td>{generateStatus(p.status)}</td>
                     <td className='pt-2'>
                       {p?.status === "new" && (
-                        <button
-                          className='btn btn-icon btn-pills btn-soft-primary btn-sm ml-2'
-                          onClick={() => history.push(`appointments/${p._id}`)}
-                        >
-                          <FontAwesomeIcon icon={faEdit} />
-                        </button>
+                        <>
+                          <button
+                            className='btn btn-icon btn-pills btn-soft-success btn-sm ml-2'
+                            //onClick={() => history.push(`appointments/${p._id}`)}
+                            onClick={() =>
+                              dispatch(
+                                appointmentActions.updateStatusAppointment(
+                                  p._id,
+                                  "accepted"
+                                )
+                              )
+                            }
+                          >
+                            <FontAwesomeIcon icon={faCheck} />
+                          </button>
+                          <button
+                            className='btn btn-icon btn-pills btn-soft-danger btn-sm ml-2'
+                            onClick={() =>
+                              dispatch(
+                                appointmentActions.updateStatusAppointment(
+                                  p._id,
+                                  "cancelled"
+                                )
+                              )
+                            }
+                          >
+                            <FontAwesomeIcon icon={faTimes} />
+                          </button>
+                        </>
                       )}
                       {p?.status !== "new" && (
                         <button
-                          className='btn btn-icon btn-pills btn-soft-success btn-sm ml-2'
+                          className='btn btn-icon btn-pills btn-soft-primary btn-sm ml-2'
                           onClick={() => history.push(`appointments/${p._id}`)}
                         >
                           <FontAwesomeIcon icon={faEye} />

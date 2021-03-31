@@ -2,9 +2,7 @@ import React, { useState, useRef } from "react";
 import { Row, Form } from "react-bootstrap";
 import StarRatings from "react-star-ratings";
 import { productActions } from "../redux/actions/product.actions";
-import { useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-
 import moment from "moment";
 const ReviewItem = ({ review }) => {
   return (
@@ -13,7 +11,11 @@ const ReviewItem = ({ review }) => {
         <div className='media mb-3'>
           <img
             className='rounded-circle'
-            src='https://dummyimage.com/50'
+            src={
+              review?.owner?.profileURL
+                ? review.owner.profileURL
+                : `https://ui-avatars.com/api/?name=${review?.owner?.name}&background=random&length=1&bold=true`
+            }
             alt=''
             width='50'
           />
@@ -38,6 +40,7 @@ const ReviewItem = ({ review }) => {
   );
 };
 const ReviewBox = ({ product }) => {
+  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
   const [showForm, setShowForm] = useState(false);
   const [content, setContent] = useState("");
   const reviewInput = useRef(null);
@@ -46,6 +49,7 @@ const ReviewBox = ({ product }) => {
   const handleSubmitReview = (e) => {
     e.preventDefault();
     dispatch(productActions.createReview(rating, content, product._id));
+    setShowForm(false);
     e.target.reset();
   };
   return (
@@ -55,12 +59,15 @@ const ReviewBox = ({ product }) => {
           <ReviewItem key={review._id} review={review} />
         ))}
       </Row>
-      <button
-        className='btn btn-primary'
-        onClick={() => setShowForm(!showForm)}
-      >
-        Add a review
-      </button>
+      {isAuthenticated && (
+        <button
+          className='btn btn-primary'
+          onClick={() => setShowForm(!showForm)}
+        >
+          Add a review
+        </button>
+      )}
+
       {showForm && (
         <Form onSubmit={handleSubmitReview}>
           <StarRatings

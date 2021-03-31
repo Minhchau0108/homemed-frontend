@@ -6,7 +6,7 @@ const PrivateRoute = ({ ...rest }) => {
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
   if (isAuthenticated) return <Route {...rest} />;
   delete rest.component;
-  return <Route {...rest} render={() => <Redirect to='/auth' />} />;
+  return <Route {...rest} render={() => <Redirect to='/login' />} />;
 };
 
 export default PrivateRoute;

@@ -33,6 +33,7 @@ const ModalBookAppointment = ({ showModal, handleClose, doctor }) => {
     formData.doctor = doctor?._id;
     formData.time = time;
     dispatch(appointmentActions.createAppointment(formData));
+    handleClose();
   };
 
   return (

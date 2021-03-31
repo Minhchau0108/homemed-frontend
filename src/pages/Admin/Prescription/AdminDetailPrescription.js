@@ -40,21 +40,23 @@ const AdminDetailPrescription = () => {
   return (
     <>
       {loading ? (
-        <ClipLoader color='#f86c6b' size={150} loading={loading} />
+        <div className='d-flex justify-content-center'>
+          <ClipLoader color='#f86c6b' size={150} loading={loading} />
+        </div>
       ) : (
         <>
           <Container fluid>
             <Row className='d-flex justify-content-center bg-white rounded shadow mt-2'>
               <Col md={8}>
                 <div>
-                  <div className='text-left p-2 px-5 mt-3'>
+                  <div className='text-left p-1 px-2 mt-3'>
                     <FontAwesomeIcon
                       icon={faCapsules}
                       size='4x'
                       color='#0072B5'
                     />
                   </div>
-                  <div className='p-5'>
+                  <div className='p-2'>
                     <div className='title-h5'>PRESCRIPTION DETAIL</div>
                     <div className='d-flex justify-content-between'>
                       <div className='title-h6 mt-3'>
@@ -160,7 +162,7 @@ const AdminDetailPrescription = () => {
               <Col md={4}>
                 <div className='title-h6 mt-1'> Image Prescription</div>
                 {prescription?.images && (
-                  <img src={prescription?.images[0]} width='300px'></img>
+                  <img src={prescription?.images[0]} width='220px'></img>
                 )}
               </Col>
             </Row>

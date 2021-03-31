@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import InputRange from "react-input-range";
 import { productActions } from "../redux/actions/product.actions";
@@ -19,7 +19,7 @@ const FilterBar = ({
   const options = [
     {
       value: { key: "avgRating", ascending: -1 },
-      label: "Top rated: high to low",
+      label: "Rating: high to low",
     },
     { value: { key: "avgRating", ascending: 1 }, label: "Rating: low to high" },
     { value: { key: "price", ascending: -1 }, label: "Price: high to low" },
@@ -28,9 +28,9 @@ const FilterBar = ({
   const history = useHistory();
   const dispatch = useDispatch();
   const handleSelectedCategory = (e) => {
-    console.log("id", e.target.value);
-    dispatch(productActions.setSelectedCategory(e.target.value));
-    history.push(`/category/${e.target.value}`);
+    console.log("id", e.currentTarget.value);
+    dispatch(productActions.setSelectedCategory(e.currentTarget.value));
+    history.push(`/category/${e.currentTarget.value}`);
   };
   return (
     <>

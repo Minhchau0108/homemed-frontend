@@ -10,6 +10,7 @@ import {
   faPills,
   faDollarSign,
   faSignOutAlt,
+  faHome,
 } from "@fortawesome/free-solid-svg-icons";
 import { Nav, Accordion } from "react-bootstrap";
 import { NavLink, useHistory } from "react-router-dom";
@@ -28,6 +29,17 @@ const AdminSideBar = () => {
     <div className='text-left bg-white shadow' style={{ minHeight: "100vh" }}>
       <Nav className='flex-column'>
         <ul className='list-unstyled user-sidebar'>
+          <li>
+            <Nav.Link
+              as={NavLink}
+              to='/admin/dashboard'
+              className='text-muted'
+              activeClassName='selected'
+            >
+              <FontAwesomeIcon icon={faHome} style={{ marginRight: "12px" }} />
+              <span>Dashboard</span>
+            </Nav.Link>
+          </li>
           <li>
             <Nav.Link
               as={NavLink}

@@ -25,10 +25,11 @@ const FooterBar = () => {
                   className='ml-3 text-white'
                 />{" "}
               </h2>
-              <p className='text-muted'>
-                We makes online ordering pharmacy, make appointment and update
-                everything related healthcare easier than ever before.
-              </p>
+              <div className='text-gray' style={{ lineHeight: "2em" }}>
+                We make online ordering pharmacy, help patient connect with
+                doctors and update everything related healthcare easier than
+                ever before.
+              </div>
             </div>
             <div className='col-lg-2 mb-4 mb-lg-0'>
               <div className='title-h5 mb-4 text-white'>Quick Links</div>

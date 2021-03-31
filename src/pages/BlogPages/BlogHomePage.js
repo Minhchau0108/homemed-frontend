@@ -10,12 +10,14 @@ const BlogHomePage = () => {
   const [filterPosts, setFilterPost] = useState([]);
   const [selectedTag, setSelectedTag] = useState(null);
   const [pageNum, setPageNum] = useState(1);
+  const [searchTerm, setSearchTerm] = useState(null);
+  const [title, setTitle] = useState("");
   const posts = useSelector((state) => state.post.posts);
   const loading = useSelector((state) => state.post.loading);
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(postActions.postsRequest(pageNum));
-  }, [dispatch, pageNum]);
+    dispatch(postActions.postsRequest(pageNum, null, title));
+  }, [dispatch, pageNum, title]);
   const handleChangeTag = (e) => {
     setSelectedTag(e.target.value);
   };
@@ -30,7 +32,13 @@ const BlogHomePage = () => {
       setFilterPost(newPosts);
     }
   }, [posts, selectedTag]);
+  const onSubmit = (e) => {
+    console.log("submit");
+    e.preventDefault();
+    setTitle(searchTerm);
+  };
 
+  console.log("title", title);
   return (
     <Container
       fluid
@@ -43,11 +51,12 @@ const BlogHomePage = () => {
           <Col lg={9}>
             <Row className='align-items-center justify-content-center mt-5'>
               <Col md={11}>
-                <Form>
+                <Form onSubmit={onSubmit}>
                   <div className='p-1 bg-white rounded rounded-pill shadow-sm mb-3 search-bar'>
                     <input
                       placeholder='What are you searching for?'
                       className='border-0 bg-white search-bar-input'
+                      onChange={(e) => setSearchTerm(e.target.value)}
                     />
                     <FontAwesomeIcon
                       icon='search'

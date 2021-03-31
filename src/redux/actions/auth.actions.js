@@ -90,6 +90,19 @@ const getAllCustomers = (pageNum = 1, limit = 10) => async (dispatch) => {
     dispatch({ type: types.GET_ALL_CUSTOMER_FAILURE, payload: error });
   }
 };
+
+const getAdminDashboard = () => async (dispatch) => {
+  dispatch({ type: types.GET_ADMIN_DASHBOARD_REQUEST, payload: null });
+  try {
+    const res = await api.get(`/dashboard`);
+    dispatch({
+      type: types.GET_ADMIN_DASHBOARD_SUCCESS,
+      payload: res.data.data,
+    });
+  } catch (error) {
+    dispatch({ type: types.GET_ADMIN_DASHBOARD_FAILURE, payload: error });
+  }
+};
 export const authActions = {
   loginFacebookRequest,
   loginGoogleRequest,
@@ -99,4 +112,5 @@ export const authActions = {
   getCurrentUser,
   updateProfile,
   getAllCustomers,
+  getAdminDashboard,
 };

@@ -1,16 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { orderActions } from "../../../redux/actions/order.actions";
-import {
-  Row,
-  Col,
-  Table,
-  Container,
-  Card,
-  Form,
-  Button,
-} from "react-bootstrap";
+import { Row, Col, Table, Container, Card, Button } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCapsules } from "@fortawesome/free-solid-svg-icons";
 import Select from "react-select";
@@ -18,7 +10,6 @@ import moment from "moment";
 import cod from "../../../images/cod.png";
 
 const Status = ({ status, handleStatus }) => {
-  console.log("status in select", status);
   const newOptions = [
     { value: "new", label: "New" },
     { value: "confirmed", label: "Customer Confirmed" },
@@ -77,11 +68,10 @@ const AdminOrderDetailPage = () => {
   useEffect(() => {
     dispatch(orderActions.getSingleOrder(id));
   }, [dispatch, id]);
-  console.log("order", order);
   const handleSelect = (e) => {
     setUpdateStatus(e.value);
   };
-  console.log("testing", updateStatus);
+
   return (
     <Container>
       <Row className='d-flex justify-content-center mt-2'>

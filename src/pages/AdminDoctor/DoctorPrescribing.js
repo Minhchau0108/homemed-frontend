@@ -16,6 +16,7 @@ import axios from "axios";
 import ModalInteraction from "../../components/ModalInteraction";
 import Select from "react-select";
 import DiagnosisForm from "./DiagnosisForm";
+import PaginationBar from "../../components/PaginationBar";
 
 const frequencyOptions = [
   { value: "1-1-1", label: "1-1-1" },
@@ -27,7 +28,7 @@ const directionOptions = [
   { value: "after foods", label: "after foods" },
 ];
 
-const DoctorPrescribing = ({ appointment }) => {
+const DoctorPrescribing = ({ appointment, handleHide }) => {
   const [eventKey, setEventKey] = useState("first");
   const [patientInfo, setPatientInfo] = useState({
     patientHeight: "",
@@ -41,23 +42,47 @@ const DoctorPrescribing = ({ appointment }) => {
   };
   const [pageNum, setPageNum] = useState(1);
   const products = useSelector((state) => state.product.products);
+  const totalPages = useSelector((state) => state.product.totalPages);
+  const [searchTerm, setSearchTerm] = useState(null);
+  const [query, setQuery] = useState("");
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(productActions.productsRequest(pageNum));
-  }, [dispatch, pageNum]);
+    dispatch(productActions.productsRequest(pageNum, null, null, query));
+  }, [dispatch, pageNum, query]);
   const [cart, setCart] = useState({
     products: [],
   });
   const [showModalInteraction, setShowModalInteraction] = useState(false);
-  const [interaction, setInteraction] = useState([]);
+  const [interaction, setInteraction] = useState(null);
+  const handlePageChange = (page) => {
+    setPageNum(page.selected + 1);
+  };
 
   const checkInteraction = async () => {
     try {
-      const res = await axios.get(
-        "https://rxnav.nlm.nih.gov/REST/interaction/list.json?rxcuis=1046408+104206"
-      );
+      let arrayRxId = [];
+      for (let item of cart.products) {
+        if (item?.rxId) {
+          arrayRxId = [...arrayRxId, item.rxId];
+        }
+      }
+      console.log("array", arrayRxId);
+      let stringURL = arrayRxId.join("+");
+      console.log("string URL", stringURL);
+      let res;
+      if (stringURL) {
+        //const res = await axios.get(
+        //("https://rxnav.nlm.nih.gov/REST/interaction/list.json?rxcuis=1046408+104206");
+        //);
+        res = await axios.get(
+          `https://rxnav.nlm.nih.gov/REST/interaction/list.json?rxcuis=${stringURL}`
+        );
+      }
+
       console.log("res", res);
-      setInteraction(res.data.fullInteractionTypeGroup[0]);
+      if (res?.data?.fullInteractionTypeGroup[0]) {
+        setInteraction(res.data.fullInteractionTypeGroup[0]);
+      }
     } catch (err) {
       console.log("err", err);
     }
@@ -124,10 +149,6 @@ const DoctorPrescribing = ({ appointment }) => {
   };
 
   const handleUpdateAppointment = () => {
-    console.log("update");
-    console.log("cart", cart.products);
-    console.log("patientInfo", patientInfo);
-    console.log("diagnosis", diagnosis);
     dispatch(
       appointmentActions.updateAppointment(
         appointment._id,
@@ -136,8 +157,16 @@ const DoctorPrescribing = ({ appointment }) => {
         cart.products
       )
     );
+    handleHide();
   };
-  console.log("eventKey", eventKey);
+  const handleCloseModalInteraction = () => {
+    setInteraction(null);
+    setShowModalInteraction(false);
+  };
+  const handleSubmitSearch = (e) => {
+    e.preventDefault();
+    setQuery(searchTerm);
+  };
   return (
     <div>
       <Row className='mt-5 bg-white m-1 pt-0 shadow rounded'>
@@ -187,11 +216,13 @@ const DoctorPrescribing = ({ appointment }) => {
                       <Form
                         className='p-1 shadow-sm bg-light mb-1'
                         style={{ borderRadius: "0.3rem" }}
+                        onSubmit={handleSubmitSearch}
                       >
                         <div className='bg-light seach-bar position-relative'>
                           <input
                             className='border-0 mr-2 bg-light search-bar-input'
                             placeholder='Search medicine'
+                            onChange={(e) => setSearchTerm(e.target.value)}
                           />
                           <button
                             className='btn btn-primary'
@@ -256,6 +287,13 @@ const DoctorPrescribing = ({ appointment }) => {
                           ))}
                       </tbody>
                     </Table>
+                    <div className='d-flex justify-content-between'>
+                      <PaginationBar
+                        totalPages={totalPages}
+                        handlePageChange={handlePageChange}
+                        selectedPage={pageNum - 1}
+                      />
+                    </div>
                   </Col>
                   <Col>
                     <Table>
@@ -355,7 +393,8 @@ const DoctorPrescribing = ({ appointment }) => {
                     )}
                     <ModalInteraction
                       showModal={showModalInteraction}
-                      handleClose={() => setShowModalInteraction(false)}
+                      //handleClose={() => setShowModalInteraction(false)}
+                      handleClose={handleCloseModalInteraction}
                       interaction={interaction}
                     />
                   </Col>

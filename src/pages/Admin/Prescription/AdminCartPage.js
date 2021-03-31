@@ -22,7 +22,7 @@ const AdminCartPage = ({
   subQuantity,
 }) => {
   const [showModalInteraction, setShowModalInteraction] = useState(false);
-  const [interaction, setInteraction] = useState([]);
+  const [interaction, setInteraction] = useState(null);
   const dispatch = useDispatch();
   const createOrder = (e) => {
     e.preventDefault();
@@ -42,15 +42,37 @@ const AdminCartPage = ({
 
   const checkInteraction = async () => {
     try {
-      const res = await axios.get(
-        "https://rxnav.nlm.nih.gov/REST/interaction/list.json?rxcuis=1046408+104206"
-      );
+      let arrayRxId = [];
+      for (let item of cart.products) {
+        if (item?.rxId) {
+          arrayRxId = [...arrayRxId, item.rxId];
+        }
+      }
+      console.log("array", arrayRxId);
+      let stringURL = arrayRxId.join("+");
+      console.log("string URL", stringURL);
+      let res;
+      if (stringURL) {
+        //const res = await axios.get(
+        //("https://rxnav.nlm.nih.gov/REST/interaction/list.json?rxcuis=1046408+104206");
+        //);
+        res = await axios.get(
+          `https://rxnav.nlm.nih.gov/REST/interaction/list.json?rxcuis=${stringURL}`
+        );
+      }
+
       console.log("res", res);
-      setInteraction(res.data.fullInteractionTypeGroup[0]);
+      if (res?.data?.fullInteractionTypeGroup[0]) {
+        setInteraction(res.data.fullInteractionTypeGroup[0]);
+      }
     } catch (err) {
       console.log("err", err);
     }
     setShowModalInteraction(true);
+  };
+  const handleCloseModalInteraction = () => {
+    setInteraction(null);
+    setShowModalInteraction(false);
   };
 
   return (
@@ -141,7 +163,7 @@ const AdminCartPage = ({
                 className='btn  btn-soft-danger'
                 onClick={checkInteraction}
               >
-                Check side effect
+                Check drug interaction
               </button>
             </div>
             <div className='col-md-6 text-md-right'>
@@ -155,7 +177,8 @@ const AdminCartPage = ({
       )}
       <ModalInteraction
         showModal={showModalInteraction}
-        handleClose={() => setShowModalInteraction(false)}
+        //handleClose={() => setShowModalInteraction(false)}
+        handleClose={handleCloseModalInteraction}
         interaction={interaction}
       />
     </>

@@ -8,6 +8,7 @@ const initialState = {
   user: {},
   customers: [],
   totalPages: 1,
+  dashboard: {},
 };
 
 const authReducer = (state = initialState, action) => {
@@ -20,6 +21,7 @@ const authReducer = (state = initialState, action) => {
     case types.REGISTER_REQUEST:
     case types.GET_CURRENT_USER_REQUEST:
     case types.GET_ALL_CUSTOMER_REQUEST:
+    case types.GET_ADMIN_DASHBOARD_REQUEST:
       return { ...state, loading: true };
 
     case types.REGISTER_SUCCESS:
@@ -40,6 +42,9 @@ const authReducer = (state = initialState, action) => {
         accessToken: payload.accessToken,
       };
 
+    case types.GET_ADMIN_DASHBOARD_SUCCESS:
+      return { ...state, loading: false, dashboard: payload.dashboard };
+
     case types.GET_CURRENT_USER_SUCCESS:
       return {
         ...state,
@@ -58,6 +63,7 @@ const authReducer = (state = initialState, action) => {
 
     case types.REGISTER_FAILURE:
     case types.GET_ALL_CUSTOMER_FAILURE:
+    case types.GET_ADMIN_DASHBOARD_FAILURE:
       return { ...state, loading: false };
 
     case types.LOGIN_FAILURE:

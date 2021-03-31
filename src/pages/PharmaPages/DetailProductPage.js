@@ -117,7 +117,7 @@ const DetailAccordion = (props) => {
         <Card.Header className='bg-white shadow-sm border-0'>
           <Accordion.Toggle as={Button} variant='link' eventKey='0'>
             <h6 className='mb-0 font-weight-bold d-block position-relative collapsed text-dark text-uppercase collapsible-link py-'>
-              Description
+              Ingredient
             </h6>
           </Accordion.Toggle>
         </Card.Header>
@@ -131,7 +131,7 @@ const DetailAccordion = (props) => {
         <Card.Header className='bg-white shadow-sm border-0'>
           <Accordion.Toggle as={Button} variant='link' eventKey='1'>
             <h6 className='mb-0 font-weight-bold d-block position-relative collapsed text-dark text-uppercase collapsible-link py-'>
-              Ingredient
+              Indication
             </h6>
           </Accordion.Toggle>
         </Card.Header>
@@ -145,7 +145,7 @@ const DetailAccordion = (props) => {
         <Card.Header className='bg-white shadow-sm border-0'>
           <Accordion.Toggle as={Button} variant='link' eventKey='2'>
             <h6 className='mb-0 font-weight-bold d-block position-relative collapsed text-dark text-uppercase collapsible-link py-'>
-              Guide
+              Precaution
             </h6>
           </Accordion.Toggle>
         </Card.Header>
@@ -159,7 +159,7 @@ const DetailAccordion = (props) => {
         <Card.Header className='bg-white shadow-sm border-0'>
           <Accordion.Toggle as={Button} variant='link' eventKey='3'>
             <h6 className='mb-0 font-weight-bold d-block position-relative collapsed text-dark text-uppercase collapsible-link py-'>
-              Preservation
+              Storage
             </h6>
           </Accordion.Toggle>
         </Card.Header>
@@ -238,7 +238,9 @@ const DetailProductPage = () => {
           </header>
           <Row>
             {posts &&
-              posts.map((post) => <BlogCardMini post={post} key={post._id} />)}
+              posts
+                .slice(0, 3)
+                .map((post) => <BlogCardMini post={post} key={post._id} />)}
           </Row>
         </Container>
       )}

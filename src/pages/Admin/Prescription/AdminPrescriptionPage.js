@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { Row, Table, Col, Card, Button } from "react-bootstrap";
-import SearchBar from "../../../components/SearchBar";
+import { Row, Table, Col, Card } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
 import { prescriptionActions } from "../../../redux/actions/prescription.actions";
-import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTag, faEye, faPen } from "@fortawesome/free-solid-svg-icons";
 import GroupRadioButton from "../../../components/GroupRadioButton";

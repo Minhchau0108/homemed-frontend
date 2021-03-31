@@ -649,3 +649,42 @@ hr.hr-text::before {
 .btn-category:hover {
   background-color: rgba(57, 108, 240, 0.1) !important;
 }
+.roundy {
+  border-radius: 50px;
+}
+.dot {
+  max-width: 10px;
+  min-width: 10px;
+  max-height: 10px;
+  min-height: 10px;
+  border-radius: 50%;
+}
+.bg-violet {
+  background-color: #df99ca !important;
+}
+.bg-blue {
+  background-color: #4c84ff !important;
+}
+.bg-green {
+  background-color: #7cf29c !important;
+}
+.bg-red {
+  background-color: #f0404c !important;
+}
+.icon {
+  min-width: 2.2rem;
+  max-width: 2.2rem;
+  min-height: 2.2rem;
+  max-height: 2.2rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.avatar.avatar-md-sm {
+  height: 45px;
+  width: 45px;
+}
+.rounded-circle {
+  border-radius: 50% !important;
+}

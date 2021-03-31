@@ -11,12 +11,16 @@ const generateStatus = (status) => {
     return (
       <span className='badge bg-soft-primary text-capitalize'>{status}</span>
     );
+  if (status === "accepted")
+    return (
+      <span className='badge bg-soft-success text-capitalize'>{status}</span>
+    );
   if (status === "cancelled")
     return (
       <span className='badge bg-soft-danger text-capitalize'>{status}</span>
     );
   return (
-    <span className='badge bg-soft-success text-capitalize'>{status}</span>
+    <span className='badge bg-soft-warning text-capitalize'>{status}</span>
   );
 };
 
@@ -39,7 +43,7 @@ const DoctorAppointDetail = () => {
         <div className='d-flex justify-content-between'>
           <div className='title-h5 px-3'>Appointment Detail</div>
           <div>
-            {!loading && appointment && appointment.status === "new" && (
+            {!loading && appointment && appointment.status === "accepted" && (
               <button
                 className='btn btn-primary btn-pills mr-3'
                 onClick={() => setShowPrescribing(true)}
@@ -84,7 +88,10 @@ const DoctorAppointDetail = () => {
         )}
       </div>
       {appointment && showPrescribing && (
-        <DoctorPrescribing appointment={appointment} />
+        <DoctorPrescribing
+          appointment={appointment}
+          handleHide={() => setShowPrescribing(false)}
+        />
       )}
       {!loading && appointment && appointment.status === "done" && (
         <AppointmentResult appointment={appointment} />
