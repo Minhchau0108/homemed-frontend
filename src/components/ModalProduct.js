@@ -6,9 +6,11 @@ import {
   faCaretLeft,
   faCaretRight,
   faShoppingBag,
+  faFilePrescription,
 } from "@fortawesome/free-solid-svg-icons";
 import cartActions from "../redux/actions/cart.actions";
 import { useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
 
 const ModalProduct = ({ show, handleClose, product }) => {
   const [quantity, setQuantity] = useState(1);
@@ -50,45 +52,62 @@ const ModalProduct = ({ show, handleClose, product }) => {
                 {new Intl.NumberFormat().format(product.price)} VND
               </p>
               <p className='text-small mb-4'>{product.indication}</p>
-              <Row className='align-items-stretch mb-4'>
-                <Col sm={5} className='px-0'>
-                  <div className='border d-flex align-items-center justify-content-between py-1 px-3'>
-                    <span className='small text-uppercase text-gray mr-4 no-select'>
-                      Quantity
-                    </span>
-                    <div className='quantity mr-3'>
-                      <button
-                        className='dec-btn p-0'
-                        onClick={() =>
-                          setQuantity(quantity > 1 ? quantity - 1 : 1)
-                        }
-                      >
-                        <FontAwesomeIcon icon={faCaretLeft} />
-                      </button>
-                      <span className='btn mr-2'>{quantity}</span>
-                      <button
-                        className='inc-btn p-0 pr-2'
-                        onClick={() => setQuantity(quantity + 1)}
-                      >
-                        <FontAwesomeIcon icon={faCaretRight} />
-                      </button>
+              {product?.isPrescription === false && (
+                <Row className='align-items-stretch mb-4'>
+                  <Col sm={5} className='px-0'>
+                    <div className='border d-flex align-items-center justify-content-between py-1 px-3'>
+                      <span className='small text-uppercase text-gray mr-4 no-select'>
+                        Quantity
+                      </span>
+                      <div className='quantity mr-3'>
+                        <button
+                          className='dec-btn p-0'
+                          onClick={() =>
+                            setQuantity(quantity > 1 ? quantity - 1 : 1)
+                          }
+                        >
+                          <FontAwesomeIcon icon={faCaretLeft} />
+                        </button>
+                        <span className='btn mr-2'>{quantity}</span>
+                        <button
+                          className='inc-btn p-0 pr-2'
+                          onClick={() => setQuantity(quantity + 1)}
+                        >
+                          <FontAwesomeIcon icon={faCaretRight} />
+                        </button>
+                      </div>
                     </div>
-                  </div>
-                </Col>
-                <Col sm={4} className='pl-sm-0'>
+                  </Col>
+                  <Col sm={4} className='pl-sm-0'>
+                    <button
+                      className='btn btn-primary btn-sm btn-block h-100 d-flex align-items-center justify-content-center px-0'
+                      onClick={handleAddToCart}
+                    >
+                      <FontAwesomeIcon
+                        icon={faShoppingBag}
+                        className='py-1 mr-2'
+                        size='2x'
+                      />
+                      Add to cart
+                    </button>
+                  </Col>
+                </Row>
+              )}
+              {product?.isPrescription === true && (
+                <Link to={`/pharmacy/create-prescription`}>
                   <button
-                    className='btn btn-primary btn-sm btn-block h-100 d-flex align-items-center justify-content-center px-0'
-                    onClick={handleAddToCart}
+                    className='btn btn-primary px-2 ml-2'
+                    //onClick={() => history.push(`/pharmacy/create-prescription`)}
                   >
+                    Upload Prescription
                     <FontAwesomeIcon
-                      icon={faShoppingBag}
-                      className='py-1 mr-2'
-                      size='2x'
+                      icon={faFilePrescription}
+                      className='ml-2'
+                      size='lg'
                     />
-                    Add to cart
                   </button>
-                </Col>
-              </Row>
+                </Link>
+              )}
             </Col>
           </Row>
         </div>

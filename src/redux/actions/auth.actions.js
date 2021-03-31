@@ -1,4 +1,5 @@
 import * as types from "../constants/auth.constants";
+import * as cartTypes from "../constants/cart.constants";
 import { toast } from "react-toastify";
 import api from "../../apiService";
 
@@ -55,6 +56,7 @@ const logout = () => (dispatch) => {
   //delete api.defaults.headers.common["authorization"];
   localStorage.setItem("accessToken", "");
   dispatch({ type: types.LOGOUT, payload: null });
+  dispatch({ type: cartTypes.CLEAR_CART });
 };
 const getCurrentUser = () => async (dispatch) => {
   dispatch({ type: types.GET_CURRENT_USER_REQUEST, payload: null });

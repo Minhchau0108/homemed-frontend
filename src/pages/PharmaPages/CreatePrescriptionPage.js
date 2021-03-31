@@ -52,6 +52,7 @@ const STEP = [
 ];
 
 const CreatePrescriptionPage = () => {
+  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
   const [showForm, setShowForm] = useState(false);
   const [imageURL, setImageURL] = useState("");
   const [prescription, setPrescription] = useState({
@@ -78,11 +79,17 @@ const CreatePrescriptionPage = () => {
     }
   );
   const dispatch = useDispatch();
+  const history = useHistory();
   const handleSubmitPrescription = (e) => {
     e.preventDefault();
     console.log("prescription", prescription);
     prescription.images.push(imageURL);
     dispatch(prescriptionActions.createPrescription(prescription));
+  };
+  const handleStart = () => {
+    console.log("handlestart");
+    if (isAuthenticated) setShowForm(!showForm);
+    if (!isAuthenticated) history.push(`/login`);
   };
 
   return (
@@ -107,10 +114,10 @@ const CreatePrescriptionPage = () => {
                 ))}
               </ul>
               <div className='text-center'>
-                {" "}
                 <Button
                   variant='primary'
-                  onClick={() => setShowForm(!showForm)}
+                  //onClick={() => setShowForm(!showForm)}
+                  onClick={handleStart}
                 >
                   Start
                 </Button>

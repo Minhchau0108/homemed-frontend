@@ -52,7 +52,13 @@ const BlogContent = ({ post }) => {
 
 const DoctorCard = ({ doctor }) => {
   const [showAppointmentModal, setShowAppointmentModal] = useState(false);
+  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
   const history = useHistory();
+  const handleShowModalAppointment = () => {
+    console.log("show modal");
+    if (isAuthenticated) setShowAppointmentModal(true);
+    if (!isAuthenticated) history.push(`/login`);
+  };
   return (
     <Card className='rounded-0 border-0 bg-light mb-4 py-lg-4'>
       <Card.Body>
@@ -99,7 +105,8 @@ const DoctorCard = ({ doctor }) => {
         <div className='mt-4 text-center'>
           <button
             className='btn msg-button px-0'
-            onClick={() => setShowAppointmentModal(true)}
+            //onClick={() => setShowAppointmentModal(true)}
+            onClick={handleShowModalAppointment}
             style={{ width: "80%" }}
           >
             <FontAwesomeIcon icon={farClock} color='white' className='mr-1' />

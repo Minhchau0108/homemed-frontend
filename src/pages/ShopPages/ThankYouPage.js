@@ -7,6 +7,7 @@ import {
   faTruck,
 } from "@fortawesome/free-solid-svg-icons";
 import { faHospital as farHospital } from "@fortawesome/free-regular-svg-icons";
+import { Link } from "react-router-dom";
 
 const ThankYouPage = () => {
   return (
@@ -17,14 +18,16 @@ const ThankYouPage = () => {
             <FontAwesomeIcon icon={farHospital} size='6x' color='#396cf0 ' />
             <h1 className='mt-5'>Thank you for your order</h1>
             <Col md={4} className='mx-auto'>
-              <button className='btn btn-primary btn-sm btn-block h-100 d-flex align-items-center justify-content-center px-0 mt-5'>
-                <FontAwesomeIcon
-                  icon={faShoppingBag}
-                  className='py-1 mr-2'
-                  size='2x'
-                />
-                Continue shopping
-              </button>
+              <Link to={`/pharmacy`}>
+                <button className='btn btn-primary btn-sm btn-block h-100 d-flex align-items-center justify-content-center px-0 mt-5'>
+                  <FontAwesomeIcon
+                    icon={faShoppingBag}
+                    className='py-1 mr-2'
+                    size='2x'
+                  />
+                  Continue shopping
+                </button>
+              </Link>
             </Col>
           </div>
         </Col>

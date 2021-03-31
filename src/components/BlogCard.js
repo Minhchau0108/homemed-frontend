@@ -12,7 +12,7 @@ import { useHistory } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { FacebookSelector } from "react-reactions";
 import { postActions } from "../redux/actions/post.actions";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import moment from "moment";
 import {
   faCommentAlt as farCommentAlt,
@@ -68,15 +68,15 @@ const PostReactions = ({ comments, reactions }) => {
         </div>
       </div>
       <p className='mb-0 mr-3' style={{ fontSize: "13px" }}>
-        {comments.length > 1
-          ? `${comments.length} comments`
-          : `${comments.length} comment`}
+        {comments.length > 1 && `${comments.length} comments`}
+        {comments.length === 1 && `${comments.length} comment`}
       </p>
     </div>
   );
 };
 
 const BlogCard = ({ post }) => {
+  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
   const history = useHistory();
   const dispatch = useDispatch();
   const [showSelector, setShowSelector] = useState(false);
@@ -164,37 +164,42 @@ const BlogCard = ({ post }) => {
             )}
 
             <div className='p-2'>
-              <div className='d-flex justify-content-between align-items-center'>
-                <div className='d-flex flex-row'>
-                  <div
-                    style={{ cursor: "pointer" }}
-                    className='like p-2 mr-3'
-                    onClick={() => setShowSelector(!showSelector)}
-                  >
-                    <FontAwesomeIcon
-                      size='lg'
-                      icon={farThumbsUp}
-                      color='gray'
-                      className='action-icon'
-                    />
-                    <span className='ml-1'>Like</span>
+              {isAuthenticated && (
+                <>
+                  <div className='d-flex justify-content-between align-items-center'>
+                    <div className='d-flex flex-row'>
+                      <div
+                        style={{ cursor: "pointer" }}
+                        className='like p-2 mr-3'
+                        onClick={() => setShowSelector(!showSelector)}
+                      >
+                        <FontAwesomeIcon
+                          size='lg'
+                          icon={farThumbsUp}
+                          color='gray'
+                          className='action-icon'
+                        />
+                        <span className='ml-1'>Like</span>
+                      </div>
+                      <div
+                        style={{ cursor: "pointer" }}
+                        className='like p-2 '
+                        onClick={() => commentInput.current.focus()}
+                      >
+                        <FontAwesomeIcon
+                          size='lg'
+                          icon={farCommentAlt}
+                          color='gray'
+                          className='action-icon'
+                        />
+                        <span className='ml-1'>Comment</span>
+                      </div>
+                    </div>
                   </div>
-                  <div
-                    style={{ cursor: "pointer" }}
-                    className='like p-2 '
-                    onClick={() => commentInput.current.focus()}
-                  >
-                    <FontAwesomeIcon
-                      size='lg'
-                      icon={farCommentAlt}
-                      color='gray'
-                      className='action-icon'
-                    />
-                    <span className='ml-1'>Comment</span>
-                  </div>
-                </div>
-              </div>
-              <hr className='my-0' />
+                  <hr className='my-0' />
+                </>
+              )}
+
               <div
                 className='my-1 small d-flex justify-content-end text-primary'
                 style={{ cursor: "pointer" }}
@@ -246,21 +251,23 @@ const BlogCard = ({ post }) => {
                       </div>
                     </div>
                   ))}
-                <Form onSubmit={onSubmit}>
-                  <Form.Row>
-                    <Col className='d-flex'>
-                      <Form.Control
-                        size='md'
-                        type='text'
-                        ref={commentInput}
-                        onChange={(e) => setComment(e.target.value)}
-                        placeholder='Write a comment...'
-                        className='border-0 rounded bg-light'
-                        required
-                      />
-                    </Col>
-                  </Form.Row>
-                </Form>
+                {isAuthenticated && (
+                  <Form onSubmit={onSubmit}>
+                    <Form.Row>
+                      <Col className='d-flex'>
+                        <Form.Control
+                          size='md'
+                          type='text'
+                          ref={commentInput}
+                          onChange={(e) => setComment(e.target.value)}
+                          placeholder='Write a comment...'
+                          className='border-0 rounded bg-light'
+                          required
+                        />
+                      </Col>
+                    </Form.Row>
+                  </Form>
+                )}
               </div>
             </div>
           </Card>

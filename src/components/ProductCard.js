@@ -23,13 +23,17 @@ const CardOverlay = ({ product, handleShowModal }) => {
             </button>
           </li>
           <li className='list-item '>
-            <button
-              style={{ paddingLeft: "8px" }}
-              className='btn btn-pills btn-soft-primary'
-              onClick={() => dispatch(cartActions.addProductToCart(product, 1))}
-            >
-              <FontAwesomeIcon icon={faShoppingCart} />
-            </button>
+            {product?.isPrescription === false && (
+              <button
+                style={{ paddingLeft: "8px" }}
+                className='btn btn-pills btn-soft-primary'
+                onClick={() =>
+                  dispatch(cartActions.addProductToCart(product, 1))
+                }
+              >
+                <FontAwesomeIcon icon={faShoppingCart} />
+              </button>
+            )}
           </li>
         </ul>
       </div>
@@ -44,6 +48,9 @@ const ProductCard = ({ product }) => {
       <Card className='border-0 mb-3'>
         <div className='position-relative product shadow'>
           <div className='position-relative'>
+            {/* <span className='badge badge-pill badge-success small'>
+              Prescription
+            </span> */}
             <img src={product.images[0]} alt='' className='img-fluid' />
             <CardOverlay
               product={product}

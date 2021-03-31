@@ -215,9 +215,17 @@ li.timeline-item::before {
 .product .badge {
   position: absolute;
   top: 1rem;
-  right: 1rem;
+  left: 1rem;
   z-index: 999;
 }
+.product.badge-pill {
+  border-radius: 12px !important;
+}
+.badge-success {
+  background-color: #53c797 !important;
+  color: #fff !important;
+}
+
 .shadow {
   box-shadow: 0 0 3px rgba(52, 58, 64, 0.15) !important;
 }

@@ -8,7 +8,7 @@ import {
   faLongArrowAltLeft,
   faLongArrowAltRight,
 } from "@fortawesome/free-solid-svg-icons";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import cartActions from "../../redux/actions/cart.actions";
 
@@ -107,6 +107,13 @@ const CartTable = ({ products }) => {
 };
 
 const CartNav = () => {
+  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+  const history = useHistory();
+  const checkout = () => {
+    console.log("checkout");
+    if (!isAuthenticated) history.push(`/login`);
+    if (isAuthenticated) history.push(`/cart/checkout`);
+  };
   return (
     <div className='bg-light px-4 py-3'>
       <div className='row align-items-center text-center'>
@@ -119,12 +126,10 @@ const CartNav = () => {
           </Link>
         </div>
         <div className='col-md-6 text-md-right'>
-          <Link to='/cart/checkout'>
-            <button className='btn btn-soft-primary btn-sm'>
-              Procceed to checkout
-              <FontAwesomeIcon icon={faLongArrowAltRight} className='ml-2' />
-            </button>
-          </Link>
+          <button className='btn btn-soft-primary btn-sm' onClick={checkout}>
+            Procceed to checkout
+            <FontAwesomeIcon icon={faLongArrowAltRight} className='ml-2' />
+          </button>
         </div>
       </div>
     </div>

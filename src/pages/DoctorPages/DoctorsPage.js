@@ -26,6 +26,7 @@ const DoctorsPage = () => {
   const doctors = useSelector((state) => state.doctor.doctors);
   const loading = useSelector((state) => state.doctor.loading);
   const totalPages = useSelector((state) => state.doctor.totalPages);
+  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
   const dispatch = useDispatch();
   const history = useHistory();
   useEffect(() => {
@@ -37,6 +38,10 @@ const DoctorsPage = () => {
   };
   const handlePageChange = (page) => {
     setPageNum(page.selected + 1);
+  };
+  const handleMakeAnAppointment = () => {
+    if (isAuthenticated) history.push(`/doctors/create-appointment`);
+    if (!isAuthenticated) history.push(`/login`);
   };
   const shouldShowPagination = doctors.length > 0 && totalPages > 1;
   return (
@@ -59,7 +64,8 @@ const DoctorsPage = () => {
           You can easily make an appointments with doctors
           <button
             className='btn btn-primary px-2 ml-2'
-            onClick={() => history.push(`/doctors/create-appointment`)}
+            //onClick={() => history.push(`/doctors/create-appointment`)}
+            onClick={handleMakeAnAppointment}
           >
             Make an appointment
             <FontAwesomeIcon icon={faClock} className='ml-2' size='lg' />

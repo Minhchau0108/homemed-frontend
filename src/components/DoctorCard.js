@@ -7,10 +7,18 @@ import {
   faMap as farMap,
   faClock as farClock,
 } from "@fortawesome/free-regular-svg-icons";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+
 import ModalBookAppointment from "./ModalBookAppointment";
 const DoctorCard = ({ doctor }) => {
   const [showAppointmentModal, setShowAppointmentModal] = useState(false);
+  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+  const history = useHistory();
+  const handleShowModal = () => {
+    if (isAuthenticated) setShowAppointmentModal(true);
+    if (!isAuthenticated) history.push(`/login`);
+  };
   return (
     <>
       <Card
@@ -26,7 +34,8 @@ const DoctorCard = ({ doctor }) => {
                 </Link>
                 <div
                   className='book'
-                  onClick={() => setShowAppointmentModal(true)}
+                  //onClick={() => setShowAppointmentModal(true)}
+                  onClick={handleShowModal}
                 >
                   <FontAwesomeIcon
                     icon={farClock}
@@ -63,9 +72,9 @@ const DoctorCard = ({ doctor }) => {
                 <FontAwesomeIcon icon={farMap} className='mr-2' />
                 <div className='text-gray small'>{doctor.address}</div>
               </div>
-              <div className='d-flex mt-3 '>
+              <div className='d-flex mt-3'>
                 <FontAwesomeIcon icon={farClock} className='mr-2' />
-                <p className='text-gray small'>{doctor.workingTime}</p>
+                <div className='text-gray small'>{doctor.workingTime}</div>
               </div>
             </Card.Body>
           </Col>

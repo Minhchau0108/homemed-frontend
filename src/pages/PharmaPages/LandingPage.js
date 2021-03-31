@@ -69,7 +69,7 @@ const LandingPage = () => {
                   <Link to={`/doctors`}>
                     <button className='btn btn-primary px-3'>
                       <FontAwesomeIcon icon={faStethoscope} className='mr-2' />
-                      Make An Appointment
+                      Find a doctor
                     </button>
                   </Link>
                 </li>
