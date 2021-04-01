@@ -100,6 +100,7 @@ const DoctorPrescribing = ({ appointment, handleHide }) => {
           item.qty++;
           check = true;
         }
+        return item;
       });
       if (check) {
         newProducts = [...cart.products];
@@ -251,6 +252,7 @@ const DoctorPrescribing = ({ appointment, handleHide }) => {
                                     src={p.images && p.images[0]}
                                     class='rounded-circle'
                                     width='40'
+                                    alt=''
                                   />
                                   <div class='d-flex flex-column ml-2'>
                                     <span class='d-block font-weight-bold'>

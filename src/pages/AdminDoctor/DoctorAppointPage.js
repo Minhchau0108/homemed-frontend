@@ -4,12 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { appointmentActions } from "./../../redux/actions/appointment.actions";
 import moment from "moment";
-import {
-  faCheck,
-  faEdit,
-  faEye,
-  faTimes,
-} from "@fortawesome/free-solid-svg-icons";
+import { faCheck, faEye, faTimes } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Select from "react-select";
 

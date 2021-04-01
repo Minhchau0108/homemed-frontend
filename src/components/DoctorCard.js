@@ -8,7 +8,7 @@ import {
   faClock as farClock,
 } from "@fortawesome/free-regular-svg-icons";
 import { Link, useHistory } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
 import ModalBookAppointment from "./ModalBookAppointment";
 const DoctorCard = ({ doctor }) => {

@@ -6,9 +6,8 @@ import {
   faFilePrescription,
   faCalendar,
   faShoppingBag,
-  faPen,
 } from "@fortawesome/free-solid-svg-icons";
-import { NavLink, Link, useHistory } from "react-router-dom";
+import { NavLink, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { authActions } from "../../redux/actions/auth.actions";
 
@@ -32,6 +31,7 @@ const UserSideBar = () => {
                 : `https://ui-avatars.com/api/?name=${currentUser.name}&background=random&length=1&bold=true`
             }
             width='80'
+            alt=''
           />
 
           <h6 className='mt-3 mb-0'>Hi, {currentUser?.name} </h6>

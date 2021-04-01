@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import { Row, Form } from "react-bootstrap";
 import { postActions } from "../redux/actions/post.actions";
-import { useHistory } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 const CommentItem = ({ review }) => {
   return (
     <div className='col-lg-9'>

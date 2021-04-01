@@ -1,9 +1,7 @@
-import React, { useState, useEffect } from "react";
-import { Modal, Button, Form, Col } from "react-bootstrap";
-import { useDispatch, useSelector } from "react-redux";
+import React from "react";
+import { Modal } from "react-bootstrap";
 
 const ModalInteraction = ({ showModal, handleClose, interaction }) => {
-  console.log("interaction in modal", interaction);
   return (
     <>
       <Modal show={showModal} onHide={handleClose} size='lg' centered>

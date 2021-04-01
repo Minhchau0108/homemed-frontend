@@ -1,11 +1,7 @@
 import React from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faShoppingCart,
-  faShoppingBag,
-  faTruck,
-} from "@fortawesome/free-solid-svg-icons";
+import { faShoppingBag } from "@fortawesome/free-solid-svg-icons";
 import { faHospital as farHospital } from "@fortawesome/free-regular-svg-icons";
 import { Link } from "react-router-dom";
 

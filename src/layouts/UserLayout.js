@@ -5,7 +5,6 @@ import AlertMsg from "../components/AlertMsg";
 import FooterBar from "../components/FooterBar";
 import PublicNavbar from "../components/PublicNavbar";
 import UserAppointmentPage from "../pages/UserPages/UserAppointmentPage";
-import UserDashboardPage from "../pages/UserPages/UserPresPage";
 import UserOrderDetailPage from "../pages/UserPages/UserOrderDetailPage";
 import UserOrderPage from "../pages/UserPages/UserOrderPage";
 import UserPrescriptionDetail from "../pages/UserPages/UserPrescriptionDetail";

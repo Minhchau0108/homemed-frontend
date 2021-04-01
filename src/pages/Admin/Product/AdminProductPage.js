@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import {
   Row,
-  Table,
   Col,
   Card,
   ButtonGroup,
@@ -15,8 +14,7 @@ import FormSearch from "../../../components/FormSearch";
 import PaginationBar from "../../../components/PaginationBar";
 import { productActions } from "../../../redux/actions/product.actions";
 import StarRatings from "react-star-ratings";
-import { useHistory, Link } from "react-router-dom";
-import { ClipLoader } from "react-spinners";
+import { Link } from "react-router-dom";
 
 const ProductCard = ({ product }) => {
   return (
@@ -65,18 +63,20 @@ const AdminProductPage = () => {
     (state) => state.product.loadingCategory
   );
   const dispatch = useDispatch();
-  const history = useHistory();
 
   useEffect(() => {
     dispatch(productActions.getMainCategories());
   }, [dispatch]);
 
   useEffect(() => {
-    dispatch(productActions.productsRequest(pageNum, 8, null, query));
-  }, [dispatch, pageNum, query]);
+    dispatch(
+      productActions.productsRequest(pageNum, 8, selectedCategory, query)
+    );
+  }, [dispatch, pageNum, selectedCategory, query]);
   const handleClickCategory = (e) => {
     console.log("e", e.target.value);
-    dispatch(productActions.productsRequest(pageNum, 8, e.target.value, query));
+    setPageNum(1);
+    setSelectedCategory(e.target.value);
   };
   const handlePageChange = (page) => {
     setPageNum(page.selected + 1);
@@ -86,7 +86,14 @@ const AdminProductPage = () => {
       <div className='d-flex flex-row justify-content-between'>
         <Col md={3}></Col>
         <Col md={5}>
-          <FormSearch placeholder={`Search by product name ...`} />
+          <FormSearch
+            placeholder={`Search by product name ...`}
+            handleChange={(e) => setSearchTerm(e.target.value)}
+            handleSubmit={(e) => {
+              e.preventDefault();
+              setQuery(searchTerm);
+            }}
+          />
         </Col>
         <Col md={4} className='d-flex justify-content-end'>
           <Link to='create-product'>

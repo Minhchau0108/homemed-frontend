@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Container, Row, Col, Form, Button, Card, Nav } from "react-bootstrap";
+import { Container, Row, Col, Form, Button } from "react-bootstrap";
 import { prescriptionActions } from "../../redux/actions/prescription.actions";
 import { useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
@@ -184,7 +184,7 @@ const CreatePrescriptionPage = () => {
                     </Form.Group>
                   </Form.Row>
 
-                  <img src={imageURL} width='200px'></img>
+                  <img src={imageURL} width='200px' alt=''></img>
 
                   <div>
                     <Button variant='primary' onClick={() => widget.open()}>

@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
-import { Row, Table, Col, Card } from "react-bootstrap";
-import SearchBar from "../../../components/SearchBar";
+import { Row, Col, Card } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
 import { doctorActions } from "../../../redux/actions/doctor.actions";
 import { Link } from "react-router-dom";

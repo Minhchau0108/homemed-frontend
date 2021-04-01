@@ -3,7 +3,6 @@ import { Col, Container, Row, Card } from "react-bootstrap";
 import { useHistory, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { postActions } from "./../../redux/actions/post.actions";
-import CommentBox from "../../components/CommentBox";
 import ModalBookAppointment from "../../components/ModalBookAppointment";
 import StarRatings from "react-star-ratings";
 import moment from "moment";

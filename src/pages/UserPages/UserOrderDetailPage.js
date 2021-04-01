@@ -64,7 +64,7 @@ const UserOrderDetailPage = () => {
                       <td>
                         <div className='py-2'>
                           <div className='text-muted'>Payment</div>
-                          <img src={cod} width='40' />
+                          <img src={cod} width='40' alt='' />
                         </div>
                       </td>
                       <td>
@@ -85,7 +85,7 @@ const UserOrderDetailPage = () => {
                       order?.products.map((product) => (
                         <tr key={product._id}>
                           <td width='20%'>
-                            <img src={product?.images[0]} width='90' />{" "}
+                            <img src={product?.images[0]} width='90' alt='' />{" "}
                           </td>
                           <td width='60%'>
                             <div className='font-weight-bold'>

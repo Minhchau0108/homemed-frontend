@@ -1,12 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { prescriptionActions } from "../../redux/actions/prescription.actions";
-import { ClipLoader } from "react-spinners";
 import { Row, Col, Container, Card, Table } from "react-bootstrap";
-import DetailPrescription from "../../components/DetailPrescription";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTrash, faPlus, faCapsules } from "@fortawesome/free-solid-svg-icons";
+import { faCapsules } from "@fortawesome/free-solid-svg-icons";
 import moment from "moment";
 import { useHistory } from "react-router-dom";
 
@@ -14,7 +12,6 @@ const UserPrescriptionDetail = () => {
   const prescription = useSelector(
     (state) => state.prescription.selectedPrescription
   );
-  const loading = useSelector((state) => state.prescription.loading);
   const { id } = useParams();
   const dispatch = useDispatch();
   const history = useHistory();
@@ -102,7 +99,7 @@ const UserPrescriptionDetail = () => {
               {prescription?.images && (
                 <div>
                   <div className='title-h6 mt-2'> Images of Prescription</div>
-                  <img src={prescription?.images[0]} width='300px'></img>
+                  <img src={prescription?.images[0]} width='300px' alt=''></img>
                 </div>
               )}
             </div>

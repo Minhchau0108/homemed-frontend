@@ -1,5 +1,5 @@
 import React from "react";
-import { Form, Row } from "react-bootstrap";
+import { Form } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const SearchBar2 = ({ onSubmit, onChange }) => {

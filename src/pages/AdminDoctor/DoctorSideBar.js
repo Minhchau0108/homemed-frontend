@@ -7,7 +7,7 @@ import {
 import { Nav } from "react-bootstrap";
 import { Card, Col } from "react-bootstrap";
 import { faSignOutAlt } from "@fortawesome/free-solid-svg-icons";
-import { NavLink, Link, useHistory } from "react-router-dom";
+import { NavLink, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { authActions } from "../../redux/actions/auth.actions";
 import profileBg from "../../images/profile-bg.jpeg";
@@ -25,7 +25,7 @@ const DoctorSideBar = () => {
     <Col md={3} className='pl-2 pr-0'>
       <div className=' shadow overflow-hidden sticky-bar'>
         <Card className='border-0'>
-          <img src={profileBg} className='img-fluid' />
+          <img src={profileBg} className='img-fluid' alt='' />
         </Card>
         {!loading && (
           <div className='text-center avatar-profile margin-negative mt-n5 position-relative pb-4 border-bottom'>
@@ -36,6 +36,7 @@ const DoctorSideBar = () => {
                   ? currentUser.profileURL
                   : `https://ui-avatars.com/api/?name=${currentUser.name}&background=random&length=1&bold=true`
               }
+              alt=''
               width='100'
             />
             <div className='mt-3 title-h5 mb-0'>Dr. {currentUser?.name} </div>

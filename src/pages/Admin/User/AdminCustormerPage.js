@@ -1,16 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { Row, Table, Col, Card } from "react-bootstrap";
-import SearchBar from "../../../components/SearchBar";
+import { Row, Table, Col } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
 import { authActions } from "../../../redux/actions/auth.actions";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTag, faPen, faEye } from "@fortawesome/free-solid-svg-icons";
-import GroupRadioButton from "../../../components/GroupRadioButton";
 import FormSearch from "../../../components/FormSearch";
-import { useHistory } from "react-router-dom";
 import PaginationBar from "../../../components/PaginationBar";
-import moment from "moment";
-import Select from "react-select";
 import { ClipLoader } from "react-spinners";
 
 const AdminCustormerPage = () => {
@@ -18,14 +11,6 @@ const AdminCustormerPage = () => {
   const customers = useSelector((state) => state.auth.customers);
   const totalPages = useSelector((state) => state.auth.totalPages);
   const loading = useSelector((state) => state.auth.loading);
-  const [status, setStatus] = useState("new");
-  const history = useHistory();
-
-  const statusOptions = [
-    { name: "All", value: "new" },
-    { name: "Has order", value: "has order" },
-    { name: "No order", value: "no order" },
-  ];
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(authActions.getAllCustomers(pageNum));
@@ -50,20 +35,7 @@ const AdminCustormerPage = () => {
       </div>
 
       <Row>
-        <Col md={2}>
-          <Card className='card p-2 rounded'>
-            <h6 className='text-left text-uppercase pl-2 mt-3'>
-              <FontAwesomeIcon icon={faTag} className='mr-2 text-muted' />
-              filter
-            </h6>
-            <GroupRadioButton
-              radioValue={status}
-              radios={statusOptions}
-              handleChangeRadio={(e) => setStatus(e.currentTarget.value)}
-            />
-          </Card>
-        </Col>
-        <Col md={10}>
+        <Col md={12}>
           {loading && (
             <div className='text-center'>
               <ClipLoader color='#f86c6b' size={150} loading={loading} />

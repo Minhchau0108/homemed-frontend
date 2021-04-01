@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Card } from "react-bootstrap";
-import { Link, useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faExpand, faShoppingCart } from "@fortawesome/free-solid-svg-icons";
 import { useDispatch } from "react-redux";
@@ -61,7 +61,7 @@ const ProductCard = ({ product }) => {
 
         <Card.Body className='card-body p-2'>
           <Link to={`/shop/${product._id}`} className='text-decoration-none'>
-            <h6 className='mb-0 text-dark'>{product.name.substring(0, 20)}</h6>
+            <h6 className='mb-0 text-dark'>{product.name.substring(0, 30)}</h6>
           </Link>
 
           <div className='d-flex justify-content-between mt-1'>

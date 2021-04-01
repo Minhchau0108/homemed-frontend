@@ -1,6 +1,6 @@
 import * as types from "../constants/product.constants";
 import api from "../../apiService";
-import { toast } from "react-toastify";
+//import { toast } from "react-toastify";
 
 const productsRequest = (
   pageNum = 1,

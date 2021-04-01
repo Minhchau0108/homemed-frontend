@@ -3,8 +3,7 @@ import { useParams, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { prescriptionActions } from "../../../redux/actions/prescription.actions";
 import { ClipLoader } from "react-spinners";
-import { Row, Col, Container, Card, Table } from "react-bootstrap";
-import DetailPrescription from "../../../components/DetailPrescription";
+import { Row, Col, Container, Table } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBan, faPlus, faCapsules } from "@fortawesome/free-solid-svg-icons";
 import AdminCreateOrder from "./AdminCreateOrder";
@@ -162,7 +161,7 @@ const AdminDetailPrescription = () => {
               <Col md={4}>
                 <div className='title-h6 mt-1'> Image Prescription</div>
                 {prescription?.images && (
-                  <img src={prescription?.images[0]} width='220px'></img>
+                  <img src={prescription?.images[0]} width='220px' alt=''></img>
                 )}
               </Col>
             </Row>

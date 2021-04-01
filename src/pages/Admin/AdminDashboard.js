@@ -130,6 +130,7 @@ const AdminDashboard = () => {
                         <img
                           className='avatar avatar-md-sm rounded-circle border shadow'
                           src={p?.owner?.profileURL}
+                          alt=''
                         ></img>
                         <div className='ml-3'>
                           <h6 className='text-dark font-weight-bold'>
@@ -172,6 +173,7 @@ const AdminDashboard = () => {
                         <img
                           className='avatar avatar-md-sm rounded-circle border shadow'
                           src={o?.customer?.profileURL}
+                          alt=''
                         ></img>
                         <div className='ml-3'>
                           <h6 className='text-dark font-weight-bold'>

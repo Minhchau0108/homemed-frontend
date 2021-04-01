@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Col, Form, Button, Row } from "react-bootstrap";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { doctorActions } from "../../../redux/actions/doctor.actions";
 
 const AdminCreateDoctorPage = () => {
@@ -18,7 +18,6 @@ const AdminCreateDoctorPage = () => {
   });
 
   const dispatch = useDispatch();
-  const loading = useSelector((state) => state.auth.loading);
 
   const handleChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Col, Container, Row, Card } from "react-bootstrap";
+import { Col, Container, Row } from "react-bootstrap";
 import ProductCard from "../../components/ProductCard";
 import { useDispatch, useSelector } from "react-redux";
 import { productActions } from "./../../redux/actions/product.actions";
@@ -10,7 +10,6 @@ import banner4 from "../../images/banner-4.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFilePrescription } from "@fortawesome/free-solid-svg-icons";
 import { useHistory } from "react-router-dom";
-import { ClipLoader } from "react-spinners";
 import Skeleton from "react-loading-skeleton";
 
 const CardSkeleton = () => {

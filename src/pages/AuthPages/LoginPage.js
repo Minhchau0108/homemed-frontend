@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Container, Row, Col, Form, Button, Card } from "react-bootstrap";
-import { Redirect, Link, useHistory } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { authActions } from "../../redux/actions/auth.actions";
 import FacebookLogin from "react-facebook-login";
@@ -42,7 +42,7 @@ const LoginPage = () => {
       history.push("/admin/dashboard");
     if (isAuthenticated && currentUser && currentUser.role === "doctor")
       history.push("/admin-doctor/appointments");
-  }, [isAuthenticated, currentUser]);
+  }, [isAuthenticated, currentUser, history]);
 
   //if (isAuthenticated) return <Redirect to='/' />;
   const loginWithFacebook = (response) => {

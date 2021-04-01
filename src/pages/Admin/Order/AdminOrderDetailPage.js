@@ -129,7 +129,7 @@ const AdminOrderDetailPage = () => {
                       order?.products.map((product) => (
                         <tr key={product._id}>
                           <td width='20%'>
-                            <img src={product?.images[0]} width='90' />{" "}
+                            <img src={product?.images[0]} width='90' alt='' />{" "}
                           </td>
                           <td width='60%'>
                             <div className='font-weight-bold'>

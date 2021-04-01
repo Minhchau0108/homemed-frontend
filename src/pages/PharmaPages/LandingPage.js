@@ -23,7 +23,7 @@ import { Container, Row, Col } from "react-bootstrap";
 import { postActions } from "./../../redux/actions/post.actions";
 import BlogCardMini from "../../components/BlogCardMini";
 import vitamin from "../../images/vitamin.png";
-import pharm01 from "../../images/pharm01.jpeg";
+//import pharm01 from "../../images/pharm01.jpeg";
 import { Link } from "react-router-dom";
 
 const LandingPage = () => {
@@ -76,7 +76,7 @@ const LandingPage = () => {
               </ul>
             </div>
             <div className='col-lg-3 mr-auto'>
-              <img src={vitamin} className='mt-5' width='512px' />
+              <img src={vitamin} className='mt-5' width='512px' alt='' />
             </div>
           </div>
         </div>

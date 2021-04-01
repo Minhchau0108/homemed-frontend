@@ -7,7 +7,6 @@ import { useParams } from "react-router-dom";
 import FilterBar from "../../components/FilterBar";
 import SearchBar2 from "../../components/SearchBar2";
 import PaginationBar from "../../components/PaginationBar";
-import { ClipLoader } from "react-spinners";
 import Skeleton from "react-loading-skeleton";
 const CardSkeleton = () => {
   return (
@@ -65,7 +64,7 @@ const CategoryPage = () => {
   useEffect(() => {
     dispatch(productActions.setSelectedCategory(mainCategory));
     dispatch(productActions.getSubCategories(mainCategory));
-  }, [dispatch]);
+  }, [dispatch, mainCategory]);
 
   useEffect(() => {
     if (selectedCategory) {

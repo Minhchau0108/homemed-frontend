@@ -5,8 +5,6 @@ import PublicNavbar from "../components/PublicNavbar";
 import RegisterPage from "../pages/AuthPages/RegisterPage";
 import LoginPage from "../pages/AuthPages/LoginPage";
 import BlogHomePage from "../pages/BlogPages/BlogHomePage";
-
-import HomePage from "../pages/PharmaPages/HomePage";
 import NotFoundPage from "../pages/NotFoundPage";
 import ShopPage from "../pages/PharmaPages/ShopPage";
 import DetailProductPage from "../pages/PharmaPages/DetailProductPage";

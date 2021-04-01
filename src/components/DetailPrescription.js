@@ -1,8 +1,4 @@
-import React, { useEffect } from "react";
-import { useParams, Link } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-
-import { ClipLoader } from "react-spinners";
+import React from "react";
 import { Row, Col, Nav, Tab } from "react-bootstrap";
 
 const DetailPrescription = ({ prescription }) => {
@@ -63,7 +59,7 @@ const DetailPrescription = ({ prescription }) => {
                 </Tab.Pane>
                 <Tab.Pane eventKey='image'>
                   {prescription && prescription.images && (
-                    <img src={prescription?.images[0]}></img>
+                    <img src={prescription?.images[0]} alt=''></img>
                   )}
                 </Tab.Pane>
               </Tab.Content>

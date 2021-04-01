@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import { Form, Button, Container, Row, Col, Card } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
 import { authActions } from "../../redux/actions/auth.actions";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const RegisterPage = () => {
   const [formData, setFormData] = useState({

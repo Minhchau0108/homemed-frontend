@@ -98,7 +98,7 @@ const DoctorCreatePost = () => {
               </Button>
             </div>
 
-            <img src={imageURL} width='200px'></img>
+            <img src={imageURL} width='200px' alt=''></img>
 
             <div>
               <Button className='mr-3 mt-2' type='submit' variant='primary'>

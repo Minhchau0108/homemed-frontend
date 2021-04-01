@@ -2,15 +2,9 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Row, Table, Col, Form } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faPlus,
-  faShoppingBag,
-  faPlusCircle,
-} from "@fortawesome/free-solid-svg-icons";
+import { faPlusCircle } from "@fortawesome/free-solid-svg-icons";
 import { productActions } from "../../../redux/actions/product.actions";
-import SearchBar from "../../../components/SearchBar";
 import AdminCartPage from "./AdminCartPage";
-import SearchBar2 from "../../../components/SearchBar2";
 import PaginationBar from "../../../components/PaginationBar";
 
 const AdminCreateOrder = ({ prescription }) => {
@@ -39,6 +33,7 @@ const AdminCreateOrder = ({ prescription }) => {
           item.qty++;
           check = true;
         }
+        return item;
       });
       if (check) {
         newProducts = [...cart.products];
@@ -131,6 +126,7 @@ const AdminCreateOrder = ({ prescription }) => {
                           src={p.images && p.images[0]}
                           class='rounded-circle'
                           width='40'
+                          alt=''
                         />
                         <div class='d-flex flex-column ml-2'>
                           {" "}

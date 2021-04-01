@@ -52,6 +52,7 @@ const ModalBookAppointment = ({ showModal, handleClose, doctor }) => {
               src={doctor?.profileURL}
               width='80'
               height='80'
+              alt=''
             />
             <div className='media-body text-left ml-3 mt-3'>
               <h6 className='mb-0 title-h6 text-decoration-none '>

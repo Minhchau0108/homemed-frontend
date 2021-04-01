@@ -60,6 +60,7 @@ const UserProfilePage = () => {
               className='rounded-circle'
               src={imageURL && imageURL}
               width='100'
+              alt=''
             />
           </div>
         </div>
