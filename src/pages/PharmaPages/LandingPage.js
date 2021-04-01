@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import banner4 from "../../images/banner-4.png";
+//import banner4 from "../../images/banner-4.png";
 import serviceBg from "../../images/service-bg.svg";
 import objects from "../../images/objects.svg";
 import halfBg from "../../images/half-bg.png";
@@ -22,7 +22,7 @@ import { faNewspaper as farNewspaper } from "@fortawesome/free-regular-svg-icons
 import { Container, Row, Col } from "react-bootstrap";
 import { postActions } from "./../../redux/actions/post.actions";
 import BlogCardMini from "../../components/BlogCardMini";
-import vitamin from "../../images/vitamin.png";
+//import vitamin from "../../images/vitamin.png";
 import pharm01 from "../../images/pharm01.jpeg";
 import { Link } from "react-router-dom";
 

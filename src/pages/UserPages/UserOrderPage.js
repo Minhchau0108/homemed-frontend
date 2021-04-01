@@ -35,6 +35,7 @@ const UserOrderPage = () => {
   });
   const totalPages = useSelector((state) => state.order.totalPages);
   const orders = useSelector((state) => state.order.orders);
+  const loading = useSelector((state) => state.order.loading);
   const currentUser = useSelector((state) => state.auth.user);
   const dispatch = useDispatch();
   const history = useHistory();
@@ -94,7 +95,8 @@ const UserOrderPage = () => {
                 </tr>
               </thead>
               <tbody>
-                {orders.length > 0 &&
+                {!loading &&
+                  orders.length > 0 &&
                   orders.map((order, idx) => (
                     <tr key={order._id} className='border-bottom'>
                       <th>{idx + 1}</th>

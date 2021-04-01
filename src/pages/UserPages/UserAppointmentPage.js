@@ -78,6 +78,7 @@ const UserAppointmentPage = () => {
   const [pageNum, setPageNum] = useState(1);
   const totalPages = useSelector((state) => state.appointment.totalPages);
   const appointments = useSelector((state) => state.appointment.appointments);
+  const loading = useSelector((state) => state.appointment.loading);
   const currentUser = useSelector((state) => state.auth.user);
   const dispatch = useDispatch();
   useEffect(() => {
@@ -130,11 +131,12 @@ const UserAppointmentPage = () => {
                 </tr>
               </thead>
               <tbody>
-                {appointments.map((p, idx) => (
-                  <>
-                    <AppointmentRow p={p} idx={idx} key={p._id} />
-                  </>
-                ))}
+                {!loading &&
+                  appointments.map((p, idx) => (
+                    <>
+                      <AppointmentRow p={p} idx={idx} key={p._id} />
+                    </>
+                  ))}
               </tbody>
             </Table>
           </div>

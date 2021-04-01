@@ -33,6 +33,7 @@ const UserPrescriptionPage = () => {
   const prescriptions = useSelector(
     (state) => state.prescription.prescriptions
   );
+  const loading = useSelector((state) => state.prescription.loading);
   const currentUser = useSelector((state) => state.auth.user);
   const dispatch = useDispatch();
   const history = useHistory();
@@ -91,7 +92,7 @@ const UserPrescriptionPage = () => {
                 </tr>
               </thead>
               <tbody>
-                {prescriptions.length > 0 ? (
+                {!loading && prescriptions.length > 0 ? (
                   prescriptions.map((p, idx) => (
                     <tr key={p._id} className='border-bottom'>
                       <th>{idx + 1}</th>

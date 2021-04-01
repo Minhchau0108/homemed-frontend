@@ -3,6 +3,7 @@ const initialState = {
   prescriptions: [],
   selectedPrescription: {},
   totalPages: 1,
+  loading: false,
 };
 const prescriptionReducer = (state = initialState, action) => {
   const { type, payload } = action;
@@ -13,6 +14,7 @@ const prescriptionReducer = (state = initialState, action) => {
     case types.GET_ALL_PRESCRIPTIONS_REQUEST:
     case types.GET_SINGLE_PRESCRIPTION_REQUEST:
     case types.UPDATE_STATUS_PRESCRIPTION_REQUEST:
+    case types.GET_MY_PRESCRIPTION_DASHBOARD_REQUEST:
       return { ...state, loading: true };
 
     case types.CREATE_PRESCRIPTION_SUCCESS:
@@ -31,6 +33,7 @@ const prescriptionReducer = (state = initialState, action) => {
       return {
         ...state,
         prescriptions: payload.prescriptions,
+        loading: false,
       };
 
     case types.GET_SINGLE_PRESCRIPTION_SUCCESS:
@@ -46,6 +49,7 @@ const prescriptionReducer = (state = initialState, action) => {
     case types.GET_ALL_PRESCRIPTIONS_FAILURE:
     case types.GET_SINGLE_PRESCRIPTION_FAILURE:
     case types.UPDATE_STATUS_PRESCRIPTION_FAILURE:
+    case types.GET_MY_PRESCRIPTION_DASHBOARD_FAILURE:
       return { ...state, loading: false };
     default:
       return state;
