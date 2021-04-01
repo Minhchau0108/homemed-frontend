@@ -94,7 +94,7 @@ const DoctorDetailPage = () => {
 
             <div className='card border-0 shadow-sm mb-4 mb-lg-5 p-2 p-lg-0 mt-3'>
               <div className='card-body '>
-                <div className='title-h5'>Rating</div>
+                {/* <div className='title-h5'>Rating</div>
                 <div class='d-flex flex-row align-items-center'>
                   <StarRatings
                     rating={4}
@@ -103,10 +103,13 @@ const DoctorDetailPage = () => {
                     starDimension='15px'
                     starSpacing='1px'
                   />
-                </div>
-                <div class='mt-2'>
-                  <div className='title-h5'>Reviews</div>
-                </div>
+                </div> */}
+                {!loadingDoctor && doctor && doctor?.reviews && (
+                  <div class='mt-2'>
+                    <div className='title-h5'>Reviews</div>
+                  </div>
+                )}
+
                 {!loadingDoctor &&
                   doctor &&
                   doctor?.reviews &&

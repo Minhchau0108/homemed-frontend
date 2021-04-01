@@ -125,15 +125,19 @@ const AdminDashboard = () => {
                 prescriptions &&
                 prescriptions.map((p) => (
                   <li key={p._id}>
-                    <div className='d-flex align-items-center justify-content-between'>
+                    <div className='d-flex align-items-center justify-content-between mt-2'>
                       <div className='d-inline-flex'>
                         <img
                           className='avatar avatar-md-sm rounded-circle border shadow'
-                          src={p?.owner?.profileURL}
+                          src={
+                            p?.owner?.profileURL
+                              ? p?.owner?.profileURL
+                              : `https://ui-avatars.com/api/?name=${p?.owner?.name}&background=random&length=1&bold=true`
+                          }
                           alt=''
                         ></img>
                         <div className='ml-3'>
-                          <h6 className='text-dark font-weight-bold'>
+                          <h6 className='text-dark font-weight-bold mb-0'>
                             {p?.owner?.name}
                           </h6>
                           <div className='text-muted'>
@@ -168,15 +172,19 @@ const AdminDashboard = () => {
                 orders &&
                 orders.map((o) => (
                   <li key={o._id}>
-                    <div className='d-flex align-items-center justify-content-between'>
+                    <div className='d-flex align-items-center justify-content-between mt-2'>
                       <div className='d-inline-flex'>
                         <img
                           className='avatar avatar-md-sm rounded-circle border shadow'
-                          src={o?.customer?.profileURL}
+                          src={
+                            o?.customer?.profileURL
+                              ? o?.customer?.profileURL
+                              : `https://ui-avatars.com/api/?name=${o?.customer?.name}&background=random&length=1&bold=true`
+                          }
                           alt=''
                         ></img>
                         <div className='ml-3'>
-                          <h6 className='text-dark font-weight-bold'>
+                          <h6 className='text-dark font-weight-bold mb-0'>
                             {o?.customer?.name}
                           </h6>
                           <div className='text-muted'>

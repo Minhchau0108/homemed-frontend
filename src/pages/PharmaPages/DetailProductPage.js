@@ -175,6 +175,7 @@ const DetailAccordion = (props) => {
 const DetailProductPage = () => {
   const product = useSelector((state) => state.product.selectedProduct);
   const posts = useSelector((state) => state.post.posts);
+  const loadingPost = useSelector((state) => state.post.loading);
   const loading = useSelector((state) => state.product.loading);
   const { id } = useParams();
   const dispatch = useDispatch();
@@ -183,8 +184,9 @@ const DetailProductPage = () => {
   }, [dispatch, id]);
 
   useEffect(() => {
+    console.log("categoryId", product?.category?._id);
     if (product?.category?._id) {
-      dispatch(postActions.postsRequest(null, null, product?.category?._id));
+      dispatch(postActions.postsRequestByCategory(product?.category?._id));
     }
   }, [dispatch, product]);
   console.log("posts", posts);
@@ -228,7 +230,7 @@ const DetailProductPage = () => {
           </>
         )}
       </Container>
-      {!loading && posts && posts.length > 0 && (
+      {!loadingPost && posts && posts.length > 0 && (
         <Container>
           <header className='text-center my-5'>
             <h3 className='mb-1'>Our Resource Blog</h3>
@@ -237,7 +239,8 @@ const DetailProductPage = () => {
             </div>
           </header>
           <Row>
-            {posts &&
+            {!loadingPost &&
+              posts &&
               posts
                 .slice(0, 3)
                 .map((post) => <BlogCardMini post={post} key={post._id} />)}

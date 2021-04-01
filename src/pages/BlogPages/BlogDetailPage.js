@@ -80,14 +80,14 @@ const DoctorCard = ({ doctor }) => {
             <div className='d-flex flex-column mb-1'>
               <div className='title-h6'>{doctor.name}</div>
               <span className='text-muted small'>{doctor.field}</span>
-              <StarRatings
+              {/* <StarRatings
                 rating={4}
                 starRatedColor='#FFC107'
                 numberOfStars={5}
                 name='rating'
                 starDimension='15px'
                 starSpacing='1px'
-              />
+              /> */}
             </div>
             <div>
               <button

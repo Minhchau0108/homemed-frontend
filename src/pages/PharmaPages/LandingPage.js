@@ -23,7 +23,7 @@ import { Container, Row, Col } from "react-bootstrap";
 import { postActions } from "./../../redux/actions/post.actions";
 import BlogCardMini from "../../components/BlogCardMini";
 import vitamin from "../../images/vitamin.png";
-//import pharm01 from "../../images/pharm01.jpeg";
+import pharm01 from "../../images/pharm01.jpeg";
 import { Link } from "react-router-dom";
 
 const LandingPage = () => {
@@ -35,17 +35,17 @@ const LandingPage = () => {
   return (
     <>
       <section
-        className='hero bg-top mt-5'
+        className='hero bg-top my-5'
         style={{
-          background: `url(${banner4}) no-repeat`,
-          backgroundSize: `100% 80%`,
+          background: `url(${pharm01}) no-repeat`,
+          backgroundSize: `cover`,
           minHeight: "100vh",
         }}
       >
         <div className='container'>
           <div className='row py-5'>
             <div className='col-lg-7 py-5'>
-              <h1 className='font-weight-bold mt-4'>
+              <h1 className='font-weight-bold mt-5'>
                 We care<br></br> about your health
               </h1>
               <div className='my-4' style={{ fontSize: "16px" }}>
@@ -75,14 +75,11 @@ const LandingPage = () => {
                 </li>
               </ul>
             </div>
-            <div className='col-lg-3 mr-auto'>
-              <img src={vitamin} className='mt-5' width='512px' alt='' />
-            </div>
           </div>
         </div>
       </section>
       <div
-        className='bg-center py-0'
+        className='bg-center py-0 mt-5'
         style={{
           background: `url(${serviceBg}) no-repeat`,
           backgroundSize: `cover`,

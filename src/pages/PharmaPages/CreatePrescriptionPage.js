@@ -85,6 +85,7 @@ const CreatePrescriptionPage = () => {
     console.log("prescription", prescription);
     prescription.images.push(imageURL);
     dispatch(prescriptionActions.createPrescription(prescription));
+    history.push(`/pharmacy/create-prescription/thankyou`);
   };
   const handleStart = () => {
     console.log("handlestart");

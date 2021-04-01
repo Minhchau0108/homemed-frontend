@@ -1,5 +1,6 @@
 import * as types from "../constants/order.constants";
 import * as cartTypes from "../constants/cart.constants";
+import { toast } from "react-toastify";
 import api from "../../apiService";
 
 const createOrder = (order) => async (dispatch) => {
@@ -17,6 +18,7 @@ const createOrderByAdmin = (order) => async (dispatch) => {
   try {
     const res = await api.post("/orders/admin", { order });
     dispatch({ type: types.CREATE_BY_ADMIN_SUCCESS, payload: res.data.data });
+    toast.success(`Create order successfully`);
   } catch (error) {
     dispatch({ type: types.CREATE_BY_ADMIN_FAILURE, payload: error });
   }

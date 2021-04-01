@@ -1,5 +1,5 @@
 import * as types from "../constants/doctor.constants";
-
+import { toast } from "react-toastify";
 import api from "../../apiService";
 
 const getAllDoctors = (
@@ -46,6 +46,7 @@ const registerDoctor = (formData) => async (dispatch) => {
   try {
     const res = await api.post("/users/doctors", { formData });
     dispatch({ type: types.CREATE_DOCTOR_SUCCESS, payload: res.data.data });
+    toast.success(`Create doctor successful`);
   } catch (error) {
     dispatch({ type: types.CREATE_DOCTOR_FAILURE, payload: error });
   }

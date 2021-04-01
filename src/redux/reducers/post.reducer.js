@@ -13,10 +13,12 @@ const postReducer = (state = initialState, action) => {
     case types.GET_POSTS_REQUEST:
     case types.GET_SINGLE_POST_REQUEST:
     case types.GET_POSTS_BY_DOCTOR_REQUEST:
+    case types.GET_POSTS_BY_CATEGORY_REQUEST:
       return { ...state, loading: true };
 
     case types.GET_POSTS_SUCCESS:
     case types.GET_POSTS_BY_DOCTOR_SUCCESS:
+    case types.GET_POSTS_BY_CATEGORY_SUCCESS:
       return {
         ...state,
         loading: false,
@@ -60,6 +62,7 @@ const postReducer = (state = initialState, action) => {
     case types.GET_POSTS_FAILURE:
     case types.GET_SINGLE_POST_FAILURE:
     case types.GET_POSTS_BY_DOCTOR_FAILURE:
+    case types.GET_POSTS_BY_CATEGORY_FAILURE:
       return { ...state, loading: false };
 
     default:

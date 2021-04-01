@@ -19,6 +19,7 @@ import CheckoutPage from "../pages/ShopPages/CheckoutPage";
 import CategoryPage from "../pages/PharmaPages/CategoryPage";
 import ThankYouPage from "../pages/ShopPages/ThankYouPage";
 import LandingPage from "../pages/PharmaPages/LandingPage";
+import ThankPharmPage from "../pages/PharmaPages/ThankPharmPage";
 
 const PublicLayout = () => {
   return (
@@ -36,6 +37,11 @@ const PublicLayout = () => {
           exact
           path='/pharmacy/create-prescription'
           component={CreatePrescriptionPage}
+        />
+        <Route
+          exact
+          path='/pharmacy/create-prescription/thankyou'
+          component={ThankPharmPage}
         />
         <Route exact path='/category/:mainCategory' component={CategoryPage} />
         <Route exact path='/shop/:id' component={DetailProductPage} />

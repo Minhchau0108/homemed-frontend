@@ -11,11 +11,14 @@ const AdminCreateOrder = ({ prescription }) => {
   const [pageNum, setPageNum] = useState(1);
   const products = useSelector((state) => state.product.products);
   const totalPages = useSelector((state) => state.product.totalPages);
+  const [searchTerm, setSearchTerm] = useState(null);
+  const [query, setQuery] = useState("");
   const dispatch = useDispatch();
   const limit = 9;
   useEffect(() => {
-    dispatch(productActions.productsRequest(pageNum, limit));
-  }, [dispatch, pageNum, limit]);
+    dispatch(productActions.productsRequest(pageNum, null, null, query));
+  }, [dispatch, pageNum, query]);
+
   const [cart, setCart] = useState({
     products: [],
     totalPrice: 0,
@@ -82,6 +85,10 @@ const AdminCreateOrder = ({ prescription }) => {
   const handlePageChange = (page) => {
     setPageNum(page.selected + 1);
   };
+  const handleSubmitSearch = (e) => {
+    e.preventDefault();
+    setQuery(searchTerm);
+  };
 
   return (
     <>
@@ -91,14 +98,17 @@ const AdminCreateOrder = ({ prescription }) => {
             <Form
               className='p-1 shadow-sm bg-light mb-1'
               style={{ borderRadius: "0.3rem" }}
+              onSubmit={handleSubmitSearch}
             >
               <div className='bg-light seach-bar position-relative'>
                 <input
                   className='border-0 mr-2 bg-light search-bar-input'
                   placeholder='Search medicine'
+                  onChange={(e) => setSearchTerm(e.target.value)}
                 />
                 <button
                   className='btn btn-primary'
+                  type='submit'
                   style={{
                     width: "50px",
                     position: "absolute",
