@@ -5,6 +5,7 @@ const initialState = {
   totalPages: 1,
   selectedPost: null,
   categories: [],
+  loading: false,
 };
 
 const postReducer = (state = initialState, action) => {

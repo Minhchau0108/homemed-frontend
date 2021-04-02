@@ -147,10 +147,10 @@ const AdminDetailPrescription = () => {
                               <div className='text-muted'>Patient Weight</div>
                               <div>{prescription?.patientWeight}</div>{" "}
                             </td>
-                            <td>
+                            {/* <td>
                               <div className='text-muted'>Patient BMI</div>
                               <div>{prescription?.patientWeight}</div>{" "}
-                            </td>
+                            </td> */}
                           </tr>
                         </tbody>
                       </Table>

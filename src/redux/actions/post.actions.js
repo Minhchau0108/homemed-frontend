@@ -30,15 +30,15 @@ const postsRequest = (
 };
 
 const postsRequestByCategory = (category = null) => async (dispatch) => {
-  dispatch({ type: types.GET_POSTS_REQUEST, payload: null });
+  dispatch({ type: types.GET_POSTS_BY_CATEGORY_REQUEST, payload: null });
   try {
     const res = await api.get(`/posts/category?category=${category}`);
     dispatch({
-      type: types.GET_POSTS_SUCCESS,
+      type: types.GET_POSTS_BY_CATEGORY_SUCCESS,
       payload: res.data.data,
     });
   } catch (error) {
-    dispatch({ type: types.GET_POSTS_FAILURE, payload: error });
+    dispatch({ type: types.GET_POSTS_BY_CATEGORY_FAILURE, payload: error });
   }
 };
 const getSinglePost = (postId) => async (dispatch) => {
