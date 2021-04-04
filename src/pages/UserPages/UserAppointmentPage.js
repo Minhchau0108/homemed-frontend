@@ -10,6 +10,7 @@ import PaginationBar from "../../components/PaginationBar";
 import ModalReview from "../../components/ModalReview";
 import moment from "moment";
 import { faComment } from "@fortawesome/free-regular-svg-icons";
+import { useHistory } from "react-router-dom";
 
 const generateStatus = (status) => {
   if (status === "new")
@@ -34,12 +35,18 @@ const AppointmentRow = ({ p, idx }) => {
     false
   );
   const [showModalReview, setShowModalReview] = useState(false);
+  const history = useHistory();
   return (
     <tr key={p._id} className='border-bottom'>
       <th>{idx + 1}</th>
       <td>{moment(p?.time).format("ll")}</td>
       <td>{Date.parse(p.createdAt)}</td>
-      <td>{p.doctor.name}</td>
+      <td
+        onClick={() => history.push(`/doctors/${p?.doctor?._id}`)}
+        style={{ cursor: "pointer" }}
+      >
+        {p.doctor.name}
+      </td>
       <td>{p.doctor.field}</td>
       <td>{p.doctor.address.substring(0, 50)}</td>
       <td>{generateStatus(p.status)}</td>

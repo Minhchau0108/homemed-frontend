@@ -1,6 +1,6 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Col, Container, Jumbotron, Row } from "react-bootstrap";
-import { useParams } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { doctorActions } from "./../../redux/actions/doctor.actions";
 import { postActions } from "./../../redux/actions/post.actions";
@@ -10,6 +10,15 @@ import StarRatings from "react-star-ratings";
 import { faMap as farMap } from "@fortawesome/free-regular-svg-icons";
 import moment from "moment";
 import blog from "../../images/blog.jpeg";
+import ModalBookAppointment from "../../components/ModalBookAppointment";
+
+import { faClock as farClock } from "@fortawesome/free-regular-svg-icons";
+
+const avgRating = (reviews) => {
+  if (reviews.length === 0) return 0;
+  const totalRating = reviews.reduce((total, item) => total + item.rating, 0);
+  return totalRating / reviews.length;
+};
 
 const DoctorDetailPage = () => {
   const doctor = useSelector((state) => state.doctor.selectedDoctor);
@@ -17,11 +26,20 @@ const DoctorDetailPage = () => {
   const loadingPost = useSelector((state) => state.post.loading);
   const loadingDoctor = useSelector((state) => state.doctor.loading);
   const { id } = useParams();
+  const [showAppointmentModal, setShowAppointmentModal] = useState(false);
+  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(doctorActions.getSingleDoctor(id));
     dispatch(postActions.getPostsByDoctor(id));
   }, [dispatch, id]);
+  const history = useHistory();
+  const handleShowModalAppointment = () => {
+    console.log("show modal");
+    if (isAuthenticated) setShowAppointmentModal(true);
+    if (!isAuthenticated) history.push(`/login`);
+  };
 
   return (
     <>
@@ -62,7 +80,7 @@ const DoctorDetailPage = () => {
       <Container className='mb-5'>
         <Row>
           <Col lg={4}>
-            {!loadingDoctor && (
+            {!loadingDoctor && doctor && (
               <div className='card border-0 shadow-sm mb-4 mb-lg-5 p-2 p-lg-0 mt-3'>
                 <div className='card-body '>
                   <div className='title-h5 mb-4'>Doctor Profile</div>
@@ -87,6 +105,25 @@ const DoctorDetailPage = () => {
                         ))}
                       </div>
                     </div>
+                    <div className='mt-4 text-center'>
+                      <button
+                        className='btn msg-button px-0'
+                        onClick={handleShowModalAppointment}
+                        style={{ width: "80%" }}
+                      >
+                        <FontAwesomeIcon
+                          icon={farClock}
+                          color='white'
+                          className='mr-1'
+                        />
+                        Make an appointment
+                      </button>
+                    </div>
+                    <ModalBookAppointment
+                      doctor={doctor}
+                      showModal={showAppointmentModal}
+                      handleClose={() => setShowAppointmentModal(false)}
+                    />
                   </div>
                 </div>
               </div>
@@ -94,16 +131,23 @@ const DoctorDetailPage = () => {
 
             <div className='card border-0 shadow-sm mb-4 mb-lg-5 p-2 p-lg-0 mt-3'>
               <div className='card-body '>
-                {/* <div className='title-h5'>Rating</div>
-                <div class='d-flex flex-row align-items-center'>
-                  <StarRatings
-                    rating={4}
-                    starRatedColor='#FFC107'
-                    numberOfStars={5}
-                    starDimension='15px'
-                    starSpacing='1px'
-                  />
-                </div> */}
+                {!loadingDoctor &&
+                  doctor &&
+                  doctor?.reviews &&
+                  doctor?.reviews.length > 0 && (
+                    <>
+                      <div className='title-h5'>Rating</div>
+                      <div class='d-flex flex-row align-items-center'>
+                        <StarRatings
+                          rating={avgRating(doctor?.reviews)}
+                          starRatedColor='#FFC107'
+                          numberOfStars={5}
+                          starDimension='15px'
+                          starSpacing='1px'
+                        />
+                      </div>
+                    </>
+                  )}
                 {!loadingDoctor && doctor && doctor?.reviews && (
                   <div class='mt-2'>
                     <div className='title-h5'>Reviews</div>
@@ -135,7 +179,7 @@ const DoctorDetailPage = () => {
                       </span>{" "}
                       <br />
                       <StarRatings
-                        rating={4}
+                        rating={review?.rating}
                         starRatedColor='#FFC107'
                         numberOfStars={5}
                         starDimension='15px'

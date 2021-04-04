@@ -193,7 +193,7 @@ const DetailProductPage = () => {
 
   return (
     <Container fluid className='bg-light mt-5' style={{ minHeight: "90vh" }}>
-      <Container className='pt-4'>
+      <Container className='pt-4 pb-5'>
         {loading ? (
           <div className='text-center mt-5'>
             <ClipLoader color='#f86c6b' size={150} loading={loading} />
@@ -230,8 +230,8 @@ const DetailProductPage = () => {
           </>
         )}
       </Container>
-      {!loadingPost && posts && posts.length > 0 && (
-        <Container>
+      {!loading && !loadingPost && posts && posts.length > 0 && (
+        <Container className='pb-5'>
           <header className='text-center my-5'>
             <h3 className='mb-1'>Our Resource Blog</h3>
             <div className='text-muted text-small'>
@@ -239,7 +239,8 @@ const DetailProductPage = () => {
             </div>
           </header>
           <Row>
-            {!loadingPost &&
+            {!loading &&
+              !loadingPost &&
               posts &&
               posts
                 .slice(0, 3)

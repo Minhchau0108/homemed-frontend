@@ -18,6 +18,7 @@ import {
   faCommentAlt as farCommentAlt,
   faThumbsUp as farThumbsUp,
 } from "@fortawesome/free-regular-svg-icons";
+import { faCheckCircle } from "@fortawesome/free-solid-svg-icons";
 
 const PostReactions = ({ comments, reactions }) => {
   const iconArray = reactions
@@ -100,17 +101,33 @@ const BlogCard = ({ post }) => {
           <Card className='pt-2 rounded shadow' style={{ border: "none" }}>
             <div className='d-flex justify-content-between py-1 px-3'>
               <div className='d-flex flex-row align-items-center'>
-                <img
-                  src={post?.owner?.profileURL}
-                  alt=''
-                  width='50'
-                  height='50'
-                  className='rounded-circle'
-                  onClick={() => history.push(`/doctors/${post?.owner?._id}`)}
-                  style={{ cursor: "pointer" }}
-                />
+                <div className='position-relative'>
+                  <img
+                    src={post?.owner?.profileURL}
+                    alt=''
+                    width='50'
+                    height='50'
+                    className='rounded-circle'
+                    onClick={() => history.push(`/doctors/${post?.owner?._id}`)}
+                    style={{ cursor: "pointer" }}
+                  />
+                  <FontAwesomeIcon
+                    icon={faCheckCircle}
+                    color='#4267B2'
+                    size='sm'
+                    style={{
+                      position: "absolute",
+                      top: "85%",
+                      right: "0px",
+                      transform: "translateY(-50%)",
+                    }}
+                  />
+                </div>
+
                 <div className='d-flex flex-column ml-2'>
-                  <span className='font-weight-bold'>{post?.owner?.name}</span>
+                  <span className='font-weight-bold'>
+                    {post?.owner?.name && `Dr. ${post?.owner?.name}`}
+                  </span>
                   <small className='text-dark'>{post?.owner?.field}</small>
                 </div>
               </div>
@@ -214,19 +231,40 @@ const BlogCard = ({ post }) => {
                 {showAllComments &&
                   post?.reviews.map((review) => (
                     <div className='d-flex flex-row mb-2' key={review._id}>
-                      <img
-                        src={
-                          review.owner?.profileURL
-                            ? review.owner.profileURL
-                            : `https://ui-avatars.com/api/?name=${review.owner.name}&background=random&length=1&bold=true`
-                        }
-                        width='40'
-                        height='40'
-                        alt=''
-                        className='rounded-circle'
-                      />
+                      <div className='position-relative'>
+                        <img
+                          src={
+                            review.owner?.profileURL
+                              ? review?.owner?.profileURL
+                              : `https://ui-avatars.com/api/?name=${review?.owner?.name}&background=random&length=1&bold=true`
+                          }
+                          width='40'
+                          height='40'
+                          alt=''
+                          className='rounded-circle'
+                        />
+                        {review?.owner &&
+                          review?.owner?.role &&
+                          review?.owner.role === "doctor" && (
+                            <FontAwesomeIcon
+                              icon={faCheckCircle}
+                              color='#4267B2'
+                              size='sm'
+                              style={{
+                                position: "absolute",
+                                top: "80%",
+                                right: "0px",
+                                transform: "translateY(-50%)",
+                              }}
+                            />
+                          )}
+                      </div>
                       <div className='d-flex flex-column ml-2'>
-                        <span>{review?.owner?.name}</span>{" "}
+                        <span>
+                          {review?.owner?.role === "doctor"
+                            ? `Dr. ${review?.owner?.name}`
+                            : `${review?.owner?.name}`}
+                        </span>{" "}
                         <small>{review.content}</small>
                       </div>
                     </div>
@@ -234,19 +272,41 @@ const BlogCard = ({ post }) => {
                 {!showAllComments &&
                   post?.reviews.slice(-1).map((review) => (
                     <div className='d-flex flex-row mb-2' key={review._id}>
-                      <img
-                        src={
-                          review.owner?.profileURL
-                            ? review?.owner?.profileURL
-                            : `https://ui-avatars.com/api/?name=${review?.owner?.name}&background=random&length=1&bold=true`
-                        }
-                        width='40'
-                        height='40'
-                        alt=''
-                        className='rounded-circle'
-                      />
+                      <div className='position-relative'>
+                        <img
+                          src={
+                            review.owner?.profileURL
+                              ? review?.owner?.profileURL
+                              : `https://ui-avatars.com/api/?name=${review?.owner?.name}&background=random&length=1&bold=true`
+                          }
+                          width='40'
+                          height='40'
+                          alt=''
+                          className='rounded-circle'
+                        />
+                        {review?.owner &&
+                          review?.owner?.role &&
+                          review?.owner.role === "doctor" && (
+                            <FontAwesomeIcon
+                              icon={faCheckCircle}
+                              color='#4267B2'
+                              size='sm'
+                              style={{
+                                position: "absolute",
+                                top: "80%",
+                                right: "0px",
+                                transform: "translateY(-50%)",
+                              }}
+                            />
+                          )}
+                      </div>
+
                       <div className='d-flex flex-column ml-2'>
-                        <span>{review?.owner?.name}</span>{" "}
+                        <span>
+                          {review?.owner?.role === "doctor"
+                            ? `Dr. ${review?.owner?.name}`
+                            : `${review?.owner?.name}`}
+                        </span>{" "}
                         <small>{review.content}</small>
                       </div>
                     </div>

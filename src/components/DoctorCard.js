@@ -9,8 +9,13 @@ import {
 } from "@fortawesome/free-regular-svg-icons";
 import { Link, useHistory } from "react-router-dom";
 import { useSelector } from "react-redux";
-
 import ModalBookAppointment from "./ModalBookAppointment";
+
+const avgRating = (reviews) => {
+  if (reviews.length === 0) return 0;
+  const totalRating = reviews.reduce((total, item) => total + item.rating, 0);
+  return totalRating / reviews.length;
+};
 const DoctorCard = ({ doctor }) => {
   const [showAppointmentModal, setShowAppointmentModal] = useState(false);
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
@@ -59,14 +64,16 @@ const DoctorCard = ({ doctor }) => {
                 <div className='text-dark mb-0 title-h6 mt-1 font-weight-light'>
                   {doctor.field}
                 </div>
-                {/* <StarRatings
-                  rating={4}
-                  starRatedColor='#FFC107'
-                  numberOfStars={5}
-                  name='rating'
-                  starDimension='15px'
-                  starSpacing='1px'
-                /> */}
+                {doctor?.reviews && doctor?.reviews.length > 0 && (
+                  <StarRatings
+                    rating={avgRating(doctor?.reviews)}
+                    starRatedColor='#FFC107'
+                    numberOfStars={5}
+                    name='rating'
+                    starDimension='15px'
+                    starSpacing='1px'
+                  />
+                )}
               </div>
               <div className='d-flex mt-3 mb-1 py-0'>
                 <FontAwesomeIcon icon={farMap} className='mr-2' />

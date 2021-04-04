@@ -27,6 +27,7 @@ const generateStatus = (status) => {
 };
 const DoctorAppointPage = () => {
   const appointments = useSelector((state) => state.appointment.appointments);
+  const loadingAppointments = useSelector((state) => state.appointment.loading);
   const currentUser = useSelector((state) => state.auth.user);
   const history = useHistory();
   const [selectedOption, setSelectedOption] = useState(null);
@@ -81,60 +82,64 @@ const DoctorAppointPage = () => {
               </tr>
             </thead>
             <tbody>
-              {appointments.map((p, idx) => (
-                <>
-                  <tr key={p._id} className='border-bottom'>
-                    <th>{idx + 1}</th>
-                    <td>{moment(p?.time).format("ll")}</td>
-                    <td>{Date.parse(p.createdAt)}</td>
-                    <td>{p.patientName}</td>
-                    <td>{p.patientAge}</td>
-                    <td>(+84){p.phone}</td>
-                    <td>{generateStatus(p.status)}</td>
-                    <td className='pt-2'>
-                      {p?.status === "new" && (
-                        <>
-                          <button
-                            className='btn btn-icon btn-pills btn-soft-success btn-sm ml-2'
-                            //onClick={() => history.push(`appointments/${p._id}`)}
-                            onClick={() =>
-                              dispatch(
-                                appointmentActions.updateStatusAppointment(
-                                  p._id,
-                                  "accepted"
+              {!loadingAppointments &&
+                appointments &&
+                appointments.map((p, idx) => (
+                  <>
+                    <tr key={p._id} className='border-bottom'>
+                      <th>{idx + 1}</th>
+                      <td>{moment(p?.time).format("ll")}</td>
+                      <td>{Date.parse(p.createdAt)}</td>
+                      <td>{p.patientName}</td>
+                      <td>{p.patientAge}</td>
+                      <td>(+84){p.phone}</td>
+                      <td>{generateStatus(p.status)}</td>
+                      <td className='pt-2'>
+                        {p?.status === "new" && (
+                          <>
+                            <button
+                              className='btn btn-icon btn-pills btn-soft-success btn-sm ml-2'
+                              //onClick={() => history.push(`appointments/${p._id}`)}
+                              onClick={() =>
+                                dispatch(
+                                  appointmentActions.updateStatusAppointment(
+                                    p._id,
+                                    "accepted"
+                                  )
                                 )
-                              )
+                              }
+                            >
+                              <FontAwesomeIcon icon={faCheck} />
+                            </button>
+                            <button
+                              className='btn btn-icon btn-pills btn-soft-danger btn-sm ml-2'
+                              onClick={() =>
+                                dispatch(
+                                  appointmentActions.updateStatusAppointment(
+                                    p._id,
+                                    "cancelled"
+                                  )
+                                )
+                              }
+                            >
+                              <FontAwesomeIcon icon={faTimes} />
+                            </button>
+                          </>
+                        )}
+                        {p?.status !== "new" && (
+                          <button
+                            className='btn btn-icon btn-pills btn-soft-primary btn-sm ml-2'
+                            onClick={() =>
+                              history.push(`appointments/${p._id}`)
                             }
                           >
-                            <FontAwesomeIcon icon={faCheck} />
+                            <FontAwesomeIcon icon={faEye} />
                           </button>
-                          <button
-                            className='btn btn-icon btn-pills btn-soft-danger btn-sm ml-2'
-                            onClick={() =>
-                              dispatch(
-                                appointmentActions.updateStatusAppointment(
-                                  p._id,
-                                  "cancelled"
-                                )
-                              )
-                            }
-                          >
-                            <FontAwesomeIcon icon={faTimes} />
-                          </button>
-                        </>
-                      )}
-                      {p?.status !== "new" && (
-                        <button
-                          className='btn btn-icon btn-pills btn-soft-primary btn-sm ml-2'
-                          onClick={() => history.push(`appointments/${p._id}`)}
-                        >
-                          <FontAwesomeIcon icon={faEye} />
-                        </button>
-                      )}
-                    </td>
-                  </tr>
-                </>
-              ))}
+                        )}
+                      </td>
+                    </tr>
+                  </>
+                ))}
             </tbody>
           </Table>
         </div>

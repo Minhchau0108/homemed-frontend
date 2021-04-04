@@ -9,9 +9,14 @@ import {
   faMap as farMap,
   faClock as farClock,
 } from "@fortawesome/free-regular-svg-icons";
+import moment from "moment";
 
 const ModalBookAppointment = ({ showModal, handleClose, doctor }) => {
-  const [time, setTime] = useState(null);
+  const [time, setTime] = useState("");
+  const yesterday = moment().subtract(1, "day");
+  const valid = function (current) {
+    return current.isAfter(yesterday);
+  };
 
   const [formData, setFormData] = useState({
     patientName: "",
@@ -23,15 +28,20 @@ const ModalBookAppointment = ({ showModal, handleClose, doctor }) => {
     note: "",
     locationType: "",
   });
-
+  const [errors, setErrors] = useState("");
   const dispatch = useDispatch();
   const handleChange = (e) =>
     setFormData({ ...formData, [e.target.id]: e.target.value });
 
   const handleSubmitAppointment = (e) => {
     e.preventDefault();
+    if (!moment(time).isValid()) {
+      setErrors("Appointment time is required");
+      return;
+    }
     formData.doctor = doctor?._id;
     formData.time = time;
+    setErrors("");
     dispatch(appointmentActions.createAppointment(formData));
     handleClose();
   };
@@ -83,6 +93,7 @@ const ModalBookAppointment = ({ showModal, handleClose, doctor }) => {
                     placeholder='Patient Name: '
                     name='patientName'
                     onChange={handleChange}
+                    required
                   />
                 </Form.Group>
 
@@ -94,6 +105,7 @@ const ModalBookAppointment = ({ showModal, handleClose, doctor }) => {
                     type='number'
                     placeholder='Age'
                     name='patientAge'
+                    required
                     onChange={handleChange}
                   />
                 </Form.Group>
@@ -108,7 +120,11 @@ const ModalBookAppointment = ({ showModal, handleClose, doctor }) => {
                     initialValue={Date.now()}
                     onChange={setTime}
                     timeFormat={false}
+                    isValidDate={valid}
                   />
+                  {errors && (
+                    <small className='form-text text-danger'>{errors}</small>
+                  )}
                 </Form.Group>
                 <Form.Group as={Col} controlId='phone'>
                   <Form.Label>
@@ -118,6 +134,7 @@ const ModalBookAppointment = ({ showModal, handleClose, doctor }) => {
                     placeholder='01235432'
                     type='number'
                     onChange={handleChange}
+                    required
                   />
                 </Form.Group>
               </Form.Row>

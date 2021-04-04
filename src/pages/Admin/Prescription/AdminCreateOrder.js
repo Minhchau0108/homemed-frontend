@@ -7,7 +7,7 @@ import { productActions } from "../../../redux/actions/product.actions";
 import AdminCartPage from "./AdminCartPage";
 import PaginationBar from "../../../components/PaginationBar";
 
-const AdminCreateOrder = ({ prescription }) => {
+const AdminCreateOrder = ({ prescription, handleHideCreatingOrder }) => {
   const [pageNum, setPageNum] = useState(1);
   const products = useSelector((state) => state.product.products);
   const totalPages = useSelector((state) => state.product.totalPages);
@@ -175,6 +175,7 @@ const AdminCreateOrder = ({ prescription }) => {
             addQuantity={addQuantity}
             subQuantity={subQuantity}
             prescription={prescription}
+            handleHideCreatingOrder={handleHideCreatingOrder}
           />
         </Col>
       </Row>

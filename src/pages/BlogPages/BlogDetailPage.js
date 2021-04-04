@@ -4,7 +4,6 @@ import { useHistory, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { postActions } from "./../../redux/actions/post.actions";
 import ModalBookAppointment from "../../components/ModalBookAppointment";
-import StarRatings from "react-star-ratings";
 import moment from "moment";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClock as farClock } from "@fortawesome/free-regular-svg-icons";
@@ -80,14 +79,6 @@ const DoctorCard = ({ doctor }) => {
             <div className='d-flex flex-column mb-1'>
               <div className='title-h6'>{doctor.name}</div>
               <span className='text-muted small'>{doctor.field}</span>
-              {/* <StarRatings
-                rating={4}
-                starRatedColor='#FFC107'
-                numberOfStars={5}
-                name='rating'
-                starDimension='15px'
-                starSpacing='1px'
-              /> */}
             </div>
             <div>
               <button
@@ -100,11 +91,9 @@ const DoctorCard = ({ doctor }) => {
           </div>
         </div>
         <hr />
-        {/* <h6 className='text-center'>48 POSTS</h6> */}
         <div className='mt-4 text-center'>
           <button
             className='btn msg-button px-0'
-            //onClick={() => setShowAppointmentModal(true)}
             onClick={handleShowModalAppointment}
             style={{ width: "80%" }}
           >

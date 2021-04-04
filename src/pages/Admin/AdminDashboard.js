@@ -188,7 +188,7 @@ const AdminDashboard = () => {
                             {o?.customer?.name}
                           </h6>
                           <div className='text-muted'>
-                            Created At {moment(o?.createdAt).format("LLL")}
+                            Created at {moment(o?.createdAt).format("LLL")}
                           </div>
                         </div>
                       </div>

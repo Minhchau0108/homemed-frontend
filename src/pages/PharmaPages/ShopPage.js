@@ -154,7 +154,7 @@ const ShopPage = () => {
                   products.length > 0 &&
                   products.map((p) => (
                     <Col lg={4} sm={6} key={p._id}>
-                      <ProductCard key={p._id} product={p} />
+                      <ProductCard key={p._id} product={p} showBadge={true} />
                     </Col>
                   ))}
                 {!loading && products.length === 0 && query !== "" && (

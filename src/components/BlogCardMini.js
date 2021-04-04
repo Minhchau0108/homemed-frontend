@@ -17,13 +17,13 @@ const BlogCardMini = ({ post }) => {
       <Card
         style={{ border: "none" }}
         className='rounded overflow-hidden shadow'
-        onClick={() => history.push(`/blogs/${post?._id}`)}
       >
         <img
           className='img-fluid'
           src={post?.image}
           alt='...'
           style={{ cursor: "pointer" }}
+          onClick={() => history.push(`/blogs/${post?._id}`)}
         />
         <Card.Body>
           <ul className='list-unstyled mb-2 d-flex justify-content-between'>

@@ -41,16 +41,21 @@ const CardOverlay = ({ product, handleShowModal }) => {
   );
 };
 
-const ProductCard = ({ product }) => {
+const ProductCard = ({ product, showBadge }) => {
   const [showModalProduct, setShowModalProduct] = useState(false);
   return (
     <>
       <Card className='border-0 mb-3'>
         <div className='position-relative product shadow'>
           <div className='position-relative'>
-            {/* <span className='badge badge-pill badge-success small'>
-              Prescription
-            </span> */}
+            {product?.isPrescription &&
+              product.isPrescription === true &&
+              showBadge && (
+                <span className='badge badge-pill badge-success small text-badge'>
+                  Prescription
+                </span>
+              )}
+
             <img src={product.images[0]} alt='' className='img-fluid' />
             <CardOverlay
               product={product}

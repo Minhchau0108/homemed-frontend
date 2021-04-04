@@ -10,7 +10,6 @@ import {
 import { useDispatch } from "react-redux";
 import { orderActions } from "../../../redux/actions/order.actions";
 import axios from "axios";
-
 import ModalInteraction from "../../../components/ModalInteraction";
 
 const AdminCartPage = ({
@@ -19,6 +18,7 @@ const AdminCartPage = ({
   handleEmptyCart,
   addQuantity,
   subQuantity,
+  handleHideCreatingOrder,
 }) => {
   const [showModalInteraction, setShowModalInteraction] = useState(false);
   const [interaction, setInteraction] = useState(null);
@@ -35,7 +35,8 @@ const AdminCartPage = ({
     };
     console.log("order", order);
     if (cart.products.length > 0) {
-      dispatch(orderActions.createOrderByAdmin(order));
+      dispatch(orderActions.createOrderByAdmin(order, prescription._id));
+      handleHideCreatingOrder();
     }
   };
 
@@ -176,7 +177,6 @@ const AdminCartPage = ({
       )}
       <ModalInteraction
         showModal={showModalInteraction}
-        //handleClose={() => setShowModalInteraction(false)}
         handleClose={handleCloseModalInteraction}
         interaction={interaction}
       />

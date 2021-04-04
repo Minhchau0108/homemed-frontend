@@ -688,3 +688,7 @@ hr.hr-text::before {
 .rounded-circle {
   border-radius: 50% !important;
 }
+.text-badge {
+  font-size: 12px;
+  padding-top: 2px;
+}

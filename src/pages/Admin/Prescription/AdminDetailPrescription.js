@@ -9,6 +9,21 @@ import { faBan, faPlus, faCapsules } from "@fortawesome/free-solid-svg-icons";
 import AdminCreateOrder from "./AdminCreateOrder";
 import moment from "moment";
 
+const bmi = (height, weight) => {
+  height = height / 100;
+  let BMI = weight / (height * height);
+  if (BMI < 18.5) {
+    return "underweight";
+  }
+  if (BMI >= 30) {
+    return "obese";
+  }
+  if (BMI >= 25 && BMI < 30) {
+    return "overweight";
+  }
+  return "normal";
+};
+
 const generateStatus = (status) => {
   if (status === "new")
     return (
@@ -35,6 +50,9 @@ const AdminDetailPrescription = () => {
   useEffect(() => {
     dispatch(prescriptionActions.getSinglePrescription(id));
   }, [dispatch, id]);
+  const handleHideCreatingOrder = () => {
+    setShowCreatingOrder(false);
+  };
 
   return (
     <>
@@ -140,17 +158,28 @@ const AdminDetailPrescription = () => {
                               <div>{prescription?.patientAge}</div>
                             </td>
                             <td>
-                              <div className='text-muted'>Patient Height</div>
+                              <div className='text-muted'>
+                                Patient Height (cm)
+                              </div>
                               <div>{prescription?.patientHeight}</div>{" "}
                             </td>
                             <td>
-                              <div className='text-muted'>Patient Weight</div>
+                              <div className='text-muted'>
+                                Patient Weight (kg)
+                              </div>
                               <div>{prescription?.patientWeight}</div>{" "}
                             </td>
-                            {/* <td>
+                            <td>
                               <div className='text-muted'>Patient BMI</div>
-                              <div>{prescription?.patientWeight}</div>{" "}
-                            </td> */}
+                              <div className='text-capitalize'>
+                                {prescription?.patientWeight &&
+                                  prescription?.patientHeight &&
+                                  bmi(
+                                    prescription?.patientHeight,
+                                    prescription?.patientWeight
+                                  )}
+                              </div>{" "}
+                            </td>
                           </tr>
                         </tbody>
                       </Table>
@@ -170,7 +199,10 @@ const AdminDetailPrescription = () => {
           {showCreatingOrder &&
             prescription &&
             prescription.status === "new" && (
-              <AdminCreateOrder prescription={prescription} />
+              <AdminCreateOrder
+                prescription={prescription}
+                handleHideCreatingOrder={handleHideCreatingOrder}
+              />
             )}
         </>
       )}
