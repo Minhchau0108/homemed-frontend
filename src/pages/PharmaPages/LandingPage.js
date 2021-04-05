@@ -22,9 +22,30 @@ import { faNewspaper as farNewspaper } from "@fortawesome/free-regular-svg-icons
 import { Container, Row, Col } from "react-bootstrap";
 import { postActions } from "./../../redux/actions/post.actions";
 import BlogCardMini from "../../components/BlogCardMini";
-//import vitamin from "../../images/vitamin.png";
 import pharm01 from "../../images/pharm01.jpeg";
 import { Link } from "react-router-dom";
+import Carousel from "react-multi-carousel";
+import "react-multi-carousel/lib/styles.css";
+
+const responsive = {
+  superLargeDesktop: {
+    // the naming can be any, depends on you.
+    breakpoint: { max: 4000, min: 3000 },
+    items: 3,
+  },
+  desktop: {
+    breakpoint: { max: 3000, min: 1024 },
+    items: 3,
+  },
+  tablet: {
+    breakpoint: { max: 1024, min: 464 },
+    items: 2,
+  },
+  mobile: {
+    breakpoint: { max: 464, min: 0 },
+    items: 1,
+  },
+};
 
 const LandingPage = () => {
   const posts = useSelector((state) => state.post.posts);
@@ -32,6 +53,7 @@ const LandingPage = () => {
   useEffect(() => {
     dispatch(postActions.postsRequest());
   }, [dispatch]);
+
   return (
     <>
       <section
@@ -262,16 +284,16 @@ const LandingPage = () => {
                       </div>
                     </div>
                   </div>
-                  <div class='col-lg-4 col-sm-4'>
-                    <div class='card border-0 shadow rounded-lg text-left px-2'>
-                      <div class='card-body py-4'>
+                  <div className='col-lg-4 col-sm-4'>
+                    <div className='card border-0 shadow rounded-lg text-left px-2'>
+                      <div className='card-body py-4'>
                         <FontAwesomeIcon
                           icon={faHeadSideVirus}
                           size='4x'
                           color='#ff904e'
                           className='mt-1'
                         />
-                        <div class='title-h6 my-3'>Psychiatrist</div>
+                        <div className='title-h6 my-3'>Psychiatrist</div>
                       </div>
                     </div>
                   </div>
@@ -307,7 +329,7 @@ const LandingPage = () => {
           </Container>
         </div>
         <section
-          className='p-0'
+          className='p-0 mb-5 pb-5'
           style={{
             background: `url(${halfBg}) no-repeat`,
             backgroundSize: `10% 100%`,
@@ -323,14 +345,23 @@ const LandingPage = () => {
 
             <div class='title-h5 mb-5'>Provide information update for you</div>
           </div>
-          <Container style={{ marginBottom: "120px" }}>
-            <Row>
-              {posts &&
-                posts
-                  .slice(0, 3)
-                  .map((post) => <BlogCardMini post={post} key={post._id} />)}
-            </Row>
-          </Container>
+
+          <Carousel
+            containerClass='container'
+            responsive={responsive}
+            slidesToSlide={1}
+            infinite={true}
+            autoPlaySpeed={1000}
+          >
+            {posts &&
+              posts
+                //.slice(0, 3)
+                .map((post) => (
+                  <div className='px-3 mb-3'>
+                    <BlogCardMini post={post} key={post._id} />
+                  </div>
+                ))}
+          </Carousel>
         </section>
       </div>
     </>

@@ -3,7 +3,7 @@ import { Row, Col, Card } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
 import { doctorActions } from "../../../redux/actions/doctor.actions";
 import { Link } from "react-router-dom";
-import StarRatings from "react-star-ratings";
+//import StarRatings from "react-star-ratings";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -27,14 +27,14 @@ const DoctorCard = ({ doctor }) => {
             <div className='text-dark mb-0 title-h6 mt-1 font-weight-light'>
               {doctor.field}
             </div>
-            <StarRatings
+            {/* <StarRatings
               rating={4}
               starRatedColor='#FFC107'
               numberOfStars={5}
               name='rating'
               starDimension='15px'
               starSpacing='1px'
-            />
+            /> */}
           </div>
           <div className='d-flex mt-3 mb-1 py-0'>
             <FontAwesomeIcon icon={farMap} className='mr-2' />

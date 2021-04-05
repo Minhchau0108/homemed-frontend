@@ -13,7 +13,7 @@ import moment from "moment";
 const BlogCardMini = ({ post }) => {
   const history = useHistory();
   return (
-    <div className='col-lg-4 mb-3'>
+    <>
       <Card
         style={{ border: "none" }}
         className='rounded overflow-hidden shadow'
@@ -78,7 +78,7 @@ const BlogCardMini = ({ post }) => {
           </div>
         </Card.Body>
       </Card>
-    </div>
+    </>
   );
 };
 

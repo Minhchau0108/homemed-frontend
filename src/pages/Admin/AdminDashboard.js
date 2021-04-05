@@ -70,7 +70,7 @@ const AdminDashboard = () => {
               </div>
               <div className='icon text-white bg-green'>
                 <FontAwesomeIcon
-                  icon={faDollarSign}
+                  icon={faFilePrescription}
                   classNameName='text-white '
                 />
               </div>

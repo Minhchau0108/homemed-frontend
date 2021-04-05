@@ -609,7 +609,7 @@ hr.hr-text::before {
 .doctor-table tr:hover,
 .doctor-table tr tr.active {
   background: rgba(57, 108, 240, 0.1) !important;
-  transform: scale(1.03);
+  /* //transform: scale(1.03); */
   box-shadow: 0 3px 5px 0 rgb(57 108 240 / 30%);
   border: none;
 }
@@ -691,4 +691,26 @@ hr.hr-text::before {
 .text-badge {
   font-size: 12px;
   padding-top: 2px;
+}
+.loaderImage {
+  -webkit-animation: anim 2s infinite linear;
+  animation: anim 2s infinite linear;
+}
+
+@-webkit-keyframes anim {
+  from {
+    -webkit-transform: rotateY(0deg);
+  }
+  to {
+    -webkit-transform: rotateY(360deg);
+  }
+}
+
+@keyframes anim {
+  from {
+    transform: rotateY(0deg);
+  }
+  to {
+    transform: rotateY(360deg);
+  }
 }

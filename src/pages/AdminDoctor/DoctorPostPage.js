@@ -1,17 +1,10 @@
 import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
-import { Row, Card, Col } from "react-bootstrap";
+import { Row, Col } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { useDispatch, useSelector } from "react-redux";
 import { postActions } from "./../../redux/actions/post.actions";
-import {
-  faCommentAlt as farCommentAlt,
-  faThumbsUp as farThumbsUp,
-  faCalendarAlt as farCalendarAlt,
-} from "@fortawesome/free-regular-svg-icons";
-
-import moment from "moment";
 import BlogCard from "../../components/BlogCard";
 
 const DoctorPostPage = () => {
@@ -36,7 +29,7 @@ const DoctorPostPage = () => {
       </div>
 
       <Row>
-        <Col md={12}>
+        <Col md={10} className='mx-auto'>
           <Row>
             {!loading &&
               posts &&

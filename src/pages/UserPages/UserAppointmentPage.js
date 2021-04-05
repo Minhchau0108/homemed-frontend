@@ -88,14 +88,10 @@ const UserAppointmentPage = () => {
   const loading = useSelector((state) => state.appointment.loading);
   const currentUser = useSelector((state) => state.auth.user);
   const dispatch = useDispatch();
-  useEffect(() => {
-    if (currentUser?._id) {
-      dispatch(appointmentActions.getMyAppointments(currentUser._id));
-    }
-  }, [dispatch, currentUser]);
-  console.log("apppointmets", appointments);
-
-  const [selectedOption, setSelectedOption] = useState(null);
+  const [selectedOption, setSelectedOption] = useState({
+    value: "",
+    label: "",
+  });
   const options = [
     { value: "new", label: "New" },
     { value: "accepted", label: "Accepted" },
@@ -105,6 +101,18 @@ const UserAppointmentPage = () => {
   const handlePageChange = (page) => {
     setPageNum(page.selected + 1);
   };
+  useEffect(() => {
+    if (currentUser?._id) {
+      dispatch(
+        appointmentActions.getMyAppointments(
+          currentUser._id,
+          pageNum,
+          null,
+          selectedOption.value
+        )
+      );
+    }
+  }, [dispatch, currentUser, pageNum, selectedOption]);
   console.log("selectedOption", selectedOption);
   return (
     <>
@@ -139,6 +147,8 @@ const UserAppointmentPage = () => {
               </thead>
               <tbody>
                 {!loading &&
+                  appointments &&
+                  appointments.length !== 0 &&
                   appointments.map((p, idx) => (
                     <>
                       <AppointmentRow p={p} idx={idx} key={p._id} />
@@ -151,6 +161,7 @@ const UserAppointmentPage = () => {
             <PaginationBar
               totalPages={totalPages}
               handlePageChange={handlePageChange}
+              selectedPage={pageNum - 1}
             />
           </div>
         </Col>

@@ -121,6 +121,7 @@ const UserPrescriptionPage = () => {
             <PaginationBar
               totalPages={totalPages}
               handlePageChange={handlePageChange}
+              selectedPage={pageNum - 1}
             />
           </div>
         </Col>

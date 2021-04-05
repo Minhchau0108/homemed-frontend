@@ -51,7 +51,6 @@ const AdminCustormerPage = () => {
                     <th>Email</th>
                     <th>Address</th>
                     <th>Phone Contact</th>
-                    <th></th>
                   </tr>
                 </thead>
                 <tbody>

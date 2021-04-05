@@ -332,7 +332,7 @@ const DoctorPrescribing = ({ appointment, handleHide }) => {
                                       {product.ingredient}
                                     </small>{" "}
                                     <small class='text-muted'>
-                                      1 box x 30 tablets
+                                      {product?.volume}
                                     </small>{" "}
                                   </div>
                                 </div>
@@ -444,7 +444,7 @@ const DoctorPrescribing = ({ appointment, handleHide }) => {
                                       {product.ingredient}
                                     </small>{" "}
                                     <small class='text-muted'>
-                                      1 box x 30 tablets
+                                      {product?.volume}
                                     </small>{" "}
                                   </div>
                                 </div>

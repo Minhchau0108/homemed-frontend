@@ -6,6 +6,7 @@ import {
   faCaretRight,
   faShoppingBag,
   faFilePrescription,
+  faPills,
 } from "@fortawesome/free-solid-svg-icons";
 import ReviewBox from "../../components/ReviewBox";
 import BlogCardMini from "../../components/BlogCardMini";
@@ -195,8 +196,14 @@ const DetailProductPage = () => {
     <Container fluid className='bg-light mt-5' style={{ minHeight: "90vh" }}>
       <Container className='pt-4 pb-5'>
         {loading ? (
-          <div className='text-center mt-5'>
-            <ClipLoader color='#f86c6b' size={150} loading={loading} />
+          <div className='text-center mt-5 d-flex justify-content-center align-items-center'>
+            {/* //<ClipLoader color='#f86c6b' size={150} loading={loading} /> */}
+            <FontAwesomeIcon
+              icon={faPills}
+              className='loaderImage mt-5'
+              size='4x'
+              color='#4650dd'
+            />{" "}
           </div>
         ) : (
           <>
@@ -242,9 +249,11 @@ const DetailProductPage = () => {
             {!loading &&
               !loadingPost &&
               posts &&
-              posts
-                .slice(0, 3)
-                .map((post) => <BlogCardMini post={post} key={post._id} />)}
+              posts.slice(0, 3).map((post) => (
+                <Col lg={4} className='mb-3'>
+                  <BlogCardMini post={post} key={post._id} />
+                </Col>
+              ))}
           </Row>
         </Container>
       )}

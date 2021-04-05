@@ -14,10 +14,21 @@ const createAppointment = (formData) => async (dispatch) => {
   }
 };
 
-const getMyAppointments = (userId) => async (dispatch) => {
+const getMyAppointments = (
+  userId,
+  pageNum = 1,
+  limit = 10,
+  status = null
+) => async (dispatch) => {
   dispatch({ type: types.GET_MY_APPOINTMENT_REQUEST, payload: null });
   try {
-    const res = await api.get(`/users/${userId}/appointments`);
+    let statusString = "";
+    if (status) {
+      statusString = `&status=${status}`;
+    }
+    const res = await api.get(
+      `/users/${userId}/appointments?page=${pageNum}&limit=${limit}${statusString}`
+    );
     dispatch({
       type: types.GET_MY_APPOINTMENT_SUCCESS,
       payload: res.data.data,
