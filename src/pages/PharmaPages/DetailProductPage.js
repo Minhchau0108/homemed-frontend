@@ -179,7 +179,9 @@ const DetailProductPage = () => {
   const products = useSelector((state) => state.product.products);
   const posts = useSelector((state) => state.post.posts);
   const loadingPost = useSelector((state) => state.post.loading);
-  const loading = useSelector((state) => state.product.loading);
+  const loadingSelectedProduct = useSelector(
+    (state) => state.product.loadingSelectedProduct
+  );
   const { id } = useParams();
   const dispatch = useDispatch();
   useEffect(() => {
@@ -201,7 +203,7 @@ const DetailProductPage = () => {
   return (
     <Container fluid className='bg-light mt-5' style={{ minHeight: "90vh" }}>
       <Container className='pt-4 pb-5'>
-        {loading ? (
+        {loadingSelectedProduct ? (
           <div className='text-center mt-5 d-flex justify-content-center align-items-center'>
             {/* //<ClipLoader color='#f86c6b' size={150} loading={loading} /> */}
             <FontAwesomeIcon
@@ -262,7 +264,7 @@ const DetailProductPage = () => {
         )}
       </Container>
 
-      {!loading && !loadingPost && posts && posts.length > 0 && (
+      {!loadingSelectedProduct && !loadingPost && posts && posts.length > 0 && (
         <Container className='pb-5'>
           <header className='text-center my-5'>
             <h3 className='mb-1'>Our Resource Blog</h3>
@@ -271,7 +273,7 @@ const DetailProductPage = () => {
             </div>
           </header>
           <Row>
-            {!loading &&
+            {!loadingSelectedProduct &&
               !loadingPost &&
               posts &&
               posts.slice(0, 3).map((post) => (
