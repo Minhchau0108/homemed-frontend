@@ -1,5 +1,6 @@
 import * as types from "../constants/appointment.constants";
 import api from "../../apiService";
+import { toast } from "react-toastify";
 
 const createAppointment = (formData) => async (dispatch) => {
   dispatch({ type: types.CREATE_APPOINTMENT_REQUEST, payload: null });
@@ -9,6 +10,7 @@ const createAppointment = (formData) => async (dispatch) => {
       type: types.CREATE_APPOINTMENT_SUCCESS,
       payload: res.data.data,
     });
+    toast.success(`Book an appointment successfully`);
   } catch (error) {
     dispatch({ type: types.CREATE_APPOINTMENT_FAILURE, payload: error });
   }

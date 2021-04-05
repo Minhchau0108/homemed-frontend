@@ -14,7 +14,7 @@ const AdminCreateOrder = ({ prescription, handleHideCreatingOrder }) => {
   const [searchTerm, setSearchTerm] = useState(null);
   const [query, setQuery] = useState("");
   const dispatch = useDispatch();
-  const limit = 9;
+  //const limit = 9;
   useEffect(() => {
     dispatch(productActions.productsRequest(pageNum, null, null, query));
   }, [dispatch, pageNum, query]);

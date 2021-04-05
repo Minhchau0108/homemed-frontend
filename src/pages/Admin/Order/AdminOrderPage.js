@@ -3,13 +3,18 @@ import { Row, Table, Col, Card } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
 import { orderActions } from "../../../redux/actions/order.actions";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTag, faPen, faEye } from "@fortawesome/free-solid-svg-icons";
+import {
+  faTag,
+  faPen,
+  faEye,
+  faPills,
+} from "@fortawesome/free-solid-svg-icons";
 import GroupRadioButton from "../../../components/GroupRadioButton";
 import FormSearch from "../../../components/FormSearch";
 import { useHistory } from "react-router-dom";
 import PaginationBar from "../../../components/PaginationBar";
 import moment from "moment";
-import { ClipLoader } from "react-spinners";
+//import { ClipLoader } from "react-spinners";
 
 const generateStatus = (status) => {
   if (status === "new")
@@ -87,8 +92,13 @@ const AdminOrderPage = () => {
         </Col>
         <Col md={10}>
           {loading ? (
-            <div className='text-center'>
-              <ClipLoader color='#f86c6b' size={150} loading={loading} />
+            <div className='text-center col-md-12 mt-5 d-flex justify-content-center align-items-center'>
+              <FontAwesomeIcon
+                icon={faPills}
+                className='loaderImage mt-5'
+                size='4x'
+                color='#4650dd'
+              />{" "}
             </div>
           ) : (
             <div className='table-responsive shadow rounded pl-0'>

@@ -44,7 +44,7 @@ const AppointmentResult = ({ appointment }) => {
                 {appointment &&
                   appointment?.diagnosis &&
                   appointment.diagnosis.map((d, idx) => (
-                    <span key={idx} className='badge bg-soft-primary'>
+                    <span key={idx} className='badge bg-soft-primary ml-1'>
                       {d}
                     </span>
                   ))}

@@ -41,13 +41,13 @@ const ModalAppointmentDetail = ({ showModal, handleClose, appointment }) => {
                   </tr>
                   <tr className='border-bottom'>
                     <td>
-                      <div class='title-h6 d-block'>Register Date</div>{" "}
+                      <div class='title-h6 d-block'>Appointment Date</div>{" "}
                     </td>
                     <td>At {moment(appointment?.time).format("ll")}</td>
                   </tr>
                   <tr className='border-bottom'>
                     <td>
-                      <div class='title-h6 d-block'>Register Id</div>{" "}
+                      <div class='title-h6 d-block'>Appointment ID</div>{" "}
                     </td>
                     <td>{Date.parse(appointment?.createdAt)}</td>
                   </tr>

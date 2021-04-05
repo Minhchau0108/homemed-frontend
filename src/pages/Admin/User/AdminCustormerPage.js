@@ -4,7 +4,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { authActions } from "../../../redux/actions/auth.actions";
 import FormSearch from "../../../components/FormSearch";
 import PaginationBar from "../../../components/PaginationBar";
-import { ClipLoader } from "react-spinners";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPills } from "@fortawesome/free-solid-svg-icons";
 
 const AdminCustormerPage = () => {
   const [pageNum, setPageNum] = useState(1);
@@ -37,8 +38,13 @@ const AdminCustormerPage = () => {
       <Row>
         <Col md={12}>
           {loading && (
-            <div className='text-center'>
-              <ClipLoader color='#f86c6b' size={150} loading={loading} />
+            <div className='text-center col-md-12 mt-5 d-flex justify-content-center align-items-center'>
+              <FontAwesomeIcon
+                icon={faPills}
+                className='loaderImage mt-5'
+                size='4x'
+                color='#4650dd'
+              />{" "}
             </div>
           )}
           {!loading && (

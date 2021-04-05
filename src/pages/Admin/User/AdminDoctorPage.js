@@ -4,19 +4,19 @@ import { useSelector, useDispatch } from "react-redux";
 import { doctorActions } from "../../../redux/actions/doctor.actions";
 import { Link } from "react-router-dom";
 //import StarRatings from "react-star-ratings";
-import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { faPlus, faPills } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faMap as farMap,
   faClock as farClock,
 } from "@fortawesome/free-regular-svg-icons";
-import { ClipLoader } from "react-spinners";
+//import { ClipLoader } from "react-spinners";
 
 const DoctorCard = ({ doctor }) => {
   return (
     <>
       <Card
-        className='card shadow mb-3 overflow-hidden'
+        className='card shadow mb-5 overflow-hidden'
         style={{ border: "none" }}
       >
         <Card.Img variant='top' src={doctor.profileURL} />
@@ -76,8 +76,13 @@ const AdminDoctorPage = () => {
               className='d-flex justify-content-center'
               style={{ width: "100%" }}
             >
-              <div>
-                <ClipLoader color='#f86c6b' size={150} loading={loading} />
+              <div className='text-center col-md-12 mt-5 d-flex justify-content-center align-items-center'>
+                <FontAwesomeIcon
+                  icon={faPills}
+                  className='loaderImage mt-5'
+                  size='4x'
+                  color='#4650dd'
+                />{" "}
               </div>
             </div>
           )}

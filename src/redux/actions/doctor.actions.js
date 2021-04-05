@@ -46,7 +46,7 @@ const registerDoctor = (formData) => async (dispatch) => {
   try {
     const res = await api.post("/users/doctors", { formData });
     dispatch({ type: types.CREATE_DOCTOR_SUCCESS, payload: res.data.data });
-    toast.success(`Create doctor successful`);
+    toast.success(`Create doctor successfully`);
   } catch (error) {
     dispatch({ type: types.CREATE_DOCTOR_FAILURE, payload: error });
   }
@@ -64,6 +64,7 @@ const createReview = (rating, content, doctorId) => async (dispatch) => {
       type: types.CREATE_REVIEW_SUCCESS,
       payload: res.data.data,
     });
+    toast.success(`Add review successfully`);
   } catch (error) {
     dispatch({ type: types.CREATE_REVIEW_FAILURE, payload: error });
   }

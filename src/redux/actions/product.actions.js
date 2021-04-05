@@ -1,6 +1,6 @@
 import * as types from "../constants/product.constants";
 import api from "../../apiService";
-//import { toast } from "react-toastify";
+import { toast } from "react-toastify";
 
 const productsRequest = (
   pageNum = 1,
@@ -89,6 +89,7 @@ const createReview = (rating, content, productId) => async (dispatch) => {
       type: types.CREATE_REVIEW_SUCCESS,
       payload: res.data.data,
     });
+    toast.success(`Add review successfully`);
   } catch (error) {
     dispatch({ type: types.CREATE_REVIEW_FAILURE, payload: error });
   }

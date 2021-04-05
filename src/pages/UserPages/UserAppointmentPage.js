@@ -45,7 +45,16 @@ const AppointmentRow = ({ p, idx }) => {
         onClick={() => history.push(`/doctors/${p?.doctor?._id}`)}
         style={{ cursor: "pointer" }}
       >
-        {p.doctor.name}
+        <div className='d-flex'>
+          <img
+            src={p?.doctor?.profileURL}
+            width='30'
+            height='30'
+            className='rounded-circle pt-0'
+            alt=''
+          />
+          {p.doctor.name}
+        </div>
       </td>
       <td>{p.doctor.field}</td>
       <td>{p.doctor.address.substring(0, 50)}</td>

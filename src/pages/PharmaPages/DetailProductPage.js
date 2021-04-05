@@ -16,8 +16,9 @@ import { productActions } from "../../redux/actions/product.actions";
 import { postActions } from "./../../redux/actions/post.actions";
 import cartActions from "../../redux/actions/cart.actions";
 import { useParams } from "react-router-dom";
-import { ClipLoader } from "react-spinners";
+//import { ClipLoader } from "react-spinners";
 import { Link } from "react-router-dom";
+import ProductCard from "../../components/ProductCard";
 
 const ImagesColumn = (props) => {
   return (
@@ -175,6 +176,7 @@ const DetailAccordion = (props) => {
 };
 const DetailProductPage = () => {
   const product = useSelector((state) => state.product.selectedProduct);
+  const products = useSelector((state) => state.product.products);
   const posts = useSelector((state) => state.post.posts);
   const loadingPost = useSelector((state) => state.post.loading);
   const loading = useSelector((state) => state.product.loading);
@@ -188,9 +190,13 @@ const DetailProductPage = () => {
     console.log("categoryId", product?.category?._id);
     if (product?.category?._id) {
       dispatch(postActions.postsRequestByCategory(product?.category?._id));
+      dispatch(
+        productActions.productsRequest(null, null, product?.category?._id)
+      );
     }
   }, [dispatch, product]);
   console.log("posts", posts);
+  console.log("products", products);
 
   return (
     <Container fluid className='bg-light mt-5' style={{ minHeight: "90vh" }}>
@@ -230,13 +236,32 @@ const DetailProductPage = () => {
                 </Row>
                 <h2 className='h5 text-uppercase my-4'>Product Information</h2>
                 <DetailAccordion {...product} />
-                <h2 className='h5 text-uppercase my-4'>Reviews</h2>
-                <ReviewBox product={product} />
+
+                {product && product?.reviews && product?.reviews?.length > 0 && (
+                  <>
+                    <h2 className='h5 text-uppercase my-4'>Reviews</h2>
+                    <ReviewBox product={product} />
+                  </>
+                )}
+                <h2 className='h5 text-uppercase my-4'>Related Products</h2>
+                <Row>
+                  {products &&
+                    products.length > 0 &&
+                    products
+                      .filter((p) => p._id !== product._id)
+                      .slice(-4)
+                      .map((product) => (
+                        <Col lg={3}>
+                          <ProductCard product={product} key={product._id} />
+                        </Col>
+                      ))}
+                </Row>
               </>
             )}
           </>
         )}
       </Container>
+
       {!loading && !loadingPost && posts && posts.length > 0 && (
         <Container className='pb-5'>
           <header className='text-center my-5'>

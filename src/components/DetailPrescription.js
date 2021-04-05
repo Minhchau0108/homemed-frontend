@@ -33,7 +33,7 @@ const DetailPrescription = ({ prescription }) => {
                             Patient 's Height
                           </div>
                           <span className='text-muted'>
-                            {prescription.patientHeight}
+                            {prescription?.patientHeight}
                           </span>
                         </li>
                         <li className='border-bottom my-2'></li>
@@ -42,7 +42,7 @@ const DetailPrescription = ({ prescription }) => {
                             Patient 's Weight
                           </div>
                           <span className='text-muted'>
-                            {prescription.patientWeight}
+                            {prescription?.patientWeight}
                           </span>
                         </li>
                         <li className='border-bottom my-2'></li>

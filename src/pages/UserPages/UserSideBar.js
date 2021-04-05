@@ -13,6 +13,7 @@ import { authActions } from "../../redux/actions/auth.actions";
 
 const UserSideBar = () => {
   const currentUser = useSelector((state) => state.auth.user);
+  const loading = useSelector((state) => state.auth.loading);
   const dispatch = useDispatch();
   const history = useHistory();
   const handleLogout = () => {
@@ -34,7 +35,7 @@ const UserSideBar = () => {
             alt=''
           />
 
-          <h6 className='mt-3 mb-0'>Hi, {currentUser?.name} </h6>
+          <h6 className='mt-3 mb-0'>Hi, {!loading && currentUser?.name} </h6>
         </Card.Header>
 
         <ul className='nav nav-pills flex-column user-sidebar'>

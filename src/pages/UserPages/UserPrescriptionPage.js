@@ -38,7 +38,7 @@ const UserPrescriptionPage = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   useEffect(() => {
-    if (currentUser?._id) {
+    if (currentUser && currentUser?._id) {
       dispatch(
         prescriptionActions.getMyPrescriptions(
           currentUser._id,
@@ -79,6 +79,17 @@ const UserPrescriptionPage = () => {
           </Row>
 
           <div className='table-responsive rounded shadow mt-3'>
+            {loading && (
+              <div className='text-center mt-5 d-flex justify-content-center align-items-center'>
+                {/* //<ClipLoader color='#f86c6b' size={150} loading={loading} /> */}
+                <FontAwesomeIcon
+                  icon={faPills}
+                  className='loaderImage mt-5'
+                  size='4x'
+                  color='#4650dd'
+                />{" "}
+              </div>
+            )}
             <Table className='shadow rounded table table-center bg-white mb-0 table-borderless'>
               <thead>
                 <tr className='border-bottom'>

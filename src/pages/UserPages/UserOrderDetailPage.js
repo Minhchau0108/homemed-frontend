@@ -1,5 +1,5 @@
-import React, { useEffect } from "react";
-import { useParams } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useParams, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { orderActions } from "../../redux/actions/order.actions";
 import { Row, Col, Table, Container, Card } from "react-bootstrap";
@@ -7,6 +7,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCapsules } from "@fortawesome/free-solid-svg-icons";
 import moment from "moment";
 import cod from "../../images/cod.png";
+import ModalReviewProduct from "../../components/ModalReviewProduct";
 
 const generateStatus = (status) => {
   if (status === "new")
@@ -23,6 +24,54 @@ const generateStatus = (status) => {
     );
   return (
     <span className='badge bg-soft-success text-capitalize'>{status}</span>
+  );
+};
+
+const UserOrderRow = ({ product, order }) => {
+  const [showModalReview, setShowModalReview] = useState(false);
+  const history = useHistory();
+  return (
+    <tr key={product._id}>
+      <td width='20%'>
+        <img
+          src={product?.images[0]}
+          width='90'
+          alt=''
+          onClick={() => history.push(`/shop/${product?._id}`)}
+        />{" "}
+      </td>
+      <td width='60%'>
+        <div className='font-weight-bold'>{product?.name}</div>
+        <div>
+          <div>
+            <span>Quantity:</span> {product?.qty}
+            <span className='ml-3'>Unit Price: </span>
+            {new Intl.NumberFormat().format(product?.price)}
+          </div>
+
+          <div>
+            {order && order?.status && order?.status === "delivered" && (
+              <>
+                <button
+                  className='btn btn-sm btn-soft-primary mt-1'
+                  onClick={() => setShowModalReview(true)}
+                >
+                  Write a review
+                </button>
+                <ModalReviewProduct
+                  product={product}
+                  showModalReview={showModalReview}
+                  handleClose={() => setShowModalReview(false)}
+                />
+              </>
+            )}
+          </div>
+        </div>
+      </td>
+      <td width='20%' className='text-right font-weight-bold'>
+        {new Intl.NumberFormat().format(product?.price * product?.qty)}
+      </td>
+    </tr>
   );
 };
 
@@ -83,33 +132,13 @@ const UserOrderDetailPage = () => {
                     {order &&
                       order.products &&
                       order?.products.map((product) => (
-                        <tr key={product._id}>
-                          <td width='20%'>
-                            <img src={product?.images[0]} width='90' alt='' />{" "}
-                          </td>
-                          <td width='60%'>
-                            <div className='font-weight-bold'>
-                              {product?.name}
-                            </div>
-                            <div>
-                              <div>
-                                <span>Quantity:</span> {product?.qty}
-                              </div>
-                              <div>
-                                <span>Unit Price: </span>
-                                {new Intl.NumberFormat().format(product?.price)}
-                              </div>
-                            </div>
-                          </td>
-                          <td
-                            width='20%'
-                            className='text-right font-weight-bold'
-                          >
-                            {new Intl.NumberFormat().format(
-                              product?.price * product?.qty
-                            )}
-                          </td>
-                        </tr>
+                        <>
+                          <UserOrderRow
+                            key={product._id}
+                            product={product}
+                            order={order}
+                          />
+                        </>
                       ))}
                   </tbody>
                 </Table>

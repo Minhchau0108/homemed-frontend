@@ -5,6 +5,7 @@ import {
   faCheck,
   faCameraRetro,
   faShoppingCart,
+  faPills,
 } from "@fortawesome/free-solid-svg-icons";
 import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -85,6 +86,16 @@ const UserPresPage = () => {
       <Col lg={12} className='mb-4 mb-lg-0'>
         <Card className='mt-3 rounded border-0 shadow pt-3'>
           <Card.Body>
+            {loading && (
+              <div className='text-center mt-5 d-flex justify-content-center align-items-center'>
+                <FontAwesomeIcon
+                  icon={faPills}
+                  className='loaderImage mt-5'
+                  size='3x'
+                  color='#4650dd'
+                />{" "}
+              </div>
+            )}
             {!loading &&
               prescriptions.length > 0 &&
               prescriptions.map((p, idx) => (

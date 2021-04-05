@@ -59,14 +59,14 @@ const ReviewBox = ({ product }) => {
           <ReviewItem key={review._id} review={review} />
         ))}
       </Row>
-      {isAuthenticated && (
+      {/* {isAuthenticated && (
         <button
           className='btn btn-primary'
           onClick={() => setShowForm(!showForm)}
         >
           Add a review
         </button>
-      )}
+      )} */}
 
       {showForm && (
         <Form onSubmit={handleSubmitReview}>

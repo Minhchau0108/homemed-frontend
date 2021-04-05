@@ -9,7 +9,7 @@ import {
 } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTag, faPlus } from "@fortawesome/free-solid-svg-icons";
+import { faTag, faPlus, faPills } from "@fortawesome/free-solid-svg-icons";
 import FormSearch from "../../../components/FormSearch";
 import PaginationBar from "../../../components/PaginationBar";
 import { productActions } from "../../../redux/actions/product.actions";
@@ -143,6 +143,16 @@ const AdminProductPage = () => {
         </Col>
         <Col md={9}>
           <Row>
+            {(loading || loadingMainCategory) && (
+              <div className='text-center col-md-6 mt-5 d-flex justify-content-center align-items-center'>
+                <FontAwesomeIcon
+                  icon={faPills}
+                  className='loaderImage mt-5'
+                  size='4x'
+                  color='#4650dd'
+                />{" "}
+              </div>
+            )}
             {!loading &&
               !loadingMainCategory &&
               products &&
