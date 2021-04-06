@@ -7,6 +7,7 @@ import ModalBookAppointment from "../../components/ModalBookAppointment";
 import moment from "moment";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClock as farClock } from "@fortawesome/free-regular-svg-icons";
+import { faPills } from "@fortawesome/free-solid-svg-icons";
 
 const BlogTitle = ({ post }) => {
   return (
@@ -124,7 +125,15 @@ const BlogDetailPage = () => {
   return (
     <Container style={{ minHeight: "90vh" }}>
       {loading ? (
-        <h1>Loading</h1>
+        <div className='text-center mt-5 d-flex justify-content-center align-items-center'>
+          {/* //<ClipLoader color='#f86c6b' size={150} loading={loading} /> */}
+          <FontAwesomeIcon
+            icon={faPills}
+            className='loaderImage mt-5'
+            size='4x'
+            color='#4650dd'
+          />{" "}
+        </div>
       ) : (
         <>
           {post && (

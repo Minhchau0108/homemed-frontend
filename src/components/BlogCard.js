@@ -7,6 +7,9 @@ import {
   OverlayTrigger,
   Tooltip,
   Form,
+  Modal,
+  Tabs,
+  Tab,
 } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -20,7 +23,55 @@ import {
 } from "@fortawesome/free-regular-svg-icons";
 import { faCheckCircle } from "@fortawesome/free-solid-svg-icons";
 
+const ModalReaction = ({ show, handleClose, reactions }) => {
+  const objReaction = reactions.reduce((acc, reaction) => {
+    acc[reaction.emoji]
+      ? acc[reaction.emoji].push(reaction.owner)
+      : (acc[reaction.emoji] = [reaction.owner]);
+    return acc;
+  }, {});
+  console.log(objReaction);
+  const renderArray = Object.entries(objReaction);
+  console.log(Object.entries(objReaction));
+  renderArray.forEach((item) => {
+    if (item[0] === "like") {
+      item[0] = `👍`;
+    }
+    if (item[0] === "love") {
+      item[0] = `❤️`;
+    }
+    if (item[0] === "wow") {
+      item[0] = `😲`;
+    }
+  });
+  return (
+    <Modal show={show} onHide={handleClose} centered>
+      <Modal.Body>
+        <Tabs id='uncontrolled-tab-example'>
+          {renderArray.map((e) => {
+            return (
+              <Tab eventKey={e[0]} title={`${e[0]}  ${e[1].length}`} key={e[0]}>
+                {e[1]
+                  .map((people) => people.name)
+                  .filter((item, i, arr) => arr.indexOf(item) === i)
+                  .map((r, idx) => {
+                    return (
+                      <h6 key={idx} className='mt-3'>
+                        {r}
+                      </h6>
+                    );
+                  })}
+              </Tab>
+            );
+          })}
+        </Tabs>
+      </Modal.Body>
+    </Modal>
+  );
+};
+
 const PostReactions = ({ comments, reactions }) => {
+  const [showModalReaction, setShowModalReaction] = useState(false);
   const iconArray = reactions
     .map((r) => r.emoji)
     .filter((item, i, arr) => arr.indexOf(item) === i);
@@ -61,7 +112,10 @@ const PostReactions = ({ comments, reactions }) => {
                 </Tooltip>
               }
             >
-              <button className='border-0 ml-1 bg-white'>
+              <button
+                className='border-0 ml-1 bg-white'
+                onClick={() => setShowModalReaction(true)}
+              >
                 {reactions.length}
               </button>
             </OverlayTrigger>
@@ -72,6 +126,13 @@ const PostReactions = ({ comments, reactions }) => {
         {comments.length > 1 && `${comments.length} comments`}
         {comments.length === 1 && `${comments.length} comment`}
       </p>
+      {reactions.length > 0 && (
+        <ModalReaction
+          reactions={reactions}
+          show={showModalReaction}
+          handleClose={() => setShowModalReaction(false)}
+        />
+      )}
     </div>
   );
 };
